@@ -1,184 +1,334 @@
 'use strict';
+
 const content = window.CV_CONTENT;
 const publications = window.CV_PUBLICATIONS;
-const state = {lang: 'zh', area: 'network', filter: 'all', publicationFilter: 'all', teaching: 'chl', year: '2026', modal: null};
+const state = {lang:'zh', area:'network', work:'rtgcn', filter:'all', project:0, teaching:'chl', resource:'papers', year:'2012', publicationFilter:'all', publicationYear:'all', search:'', expanded:new Set(), modal:null};
 const $ = id => document.getElementById(id);
-const all = selector => [...document.querySelectorAll(selector)];
+const all = (selector, root = document) => [...root.querySelectorAll(selector)];
 const data = () => content[state.lang];
 const t = key => data().ui[key];
-const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const markName = value => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang\b|江志英/g, name => '<strong>' + name + '</strong>');
 const workById = id => data().works.find(work => work.id === id);
-const citationLanguage = text => /[\u4e00-\u9fff]/.test(text) ? 'zh-CN' : 'en';
+const citationLanguage = value => /[\u4e00-\u9fff]/.test(value) ? 'zh-CN' : 'en';
+const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function selectArea(id) {
+  if (!data().researchAreas[id]) return;
   state.area = id;
   const area = data().researchAreas[id];
   all('[data-area]').forEach(el => {
     const active = el.dataset.area === id;
-    el.classList.toggle(el.matches('button') ? 'active' : 'selected', active);
+    el.classList.toggle(el.classList.contains('map-node') ? 'selected' : 'active', active);
     el.setAttribute('aria-pressed', String(active));
     if (el.classList.contains('map-node')) el.setAttribute('aria-label', data().researchAreas[el.dataset.area].title);
   });
+  all('[data-map-path]').forEach(path => path.classList.toggle('active', path.dataset.mapPath === id));
   const related = area.works.map(workById).filter(Boolean);
-  $('research-detail').innerHTML = `<span class="detail-no">RESEARCH ${area.number}</span><h3>${esc(area.title)}</h3><p>${esc(area.body)}</p><h4>${t('researchMethods')}</h4><div class="research-tags">${area.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div><h4>${t('relatedResearch')}</h4><div class="research-links">${related.length ? related.map(work => `<button data-work="${work.id}">${esc(work.name)}</button>`).join('') : `<button data-go-teaching>${t('teachingLink')}</button>`}</div>`;
+  const caption = area.featured ? workById(area.featured).caption : data().teachingViews.fund.caption;
+  $('research-detail').innerHTML = `<div class="research-detail-heading"><span>RESEARCH ${esc(area.number)} / ${esc(area.imageLabel)}</span><span>${esc(area.title)}</span></div><h3>${esc(area.question)}</h3><button type="button" class="research-figure image-button" data-image="${esc(area.image)}" data-area-image="${esc(id)}" aria-label="${esc(t('enlarge') + caption)}"><img src="${esc(area.image)}" alt="${esc(caption)}" loading="lazy"><span class="figure-enlarge" aria-hidden="true">↗</span></button><p>${esc(area.body)}</p><div class="research-tags">${area.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div><div class="research-links">${related.length ? related.map(work => `<button type="button" data-work="${esc(work.id)}">${esc(work.name)} ↗</button>`).join('') : `<button type="button" data-go-teaching>${esc(t('teachingLink'))} ↓</button>`}</div>`;
 }
 
-function workCard(work) {
-  return `<button class="work ${work.id === 'patent' ? 'patent-work' : ''}" data-work="${work.id}" aria-label="${esc(t('viewWork') + work.name)}"><div class="work-image">${work.image ? `<img src="${work.image}" alt="${esc(work.caption)}" loading="lazy">` : `<span class="patent-symbol">${t('patentLabel')}</span><span class="patent-code">CN120337984B</span>`}</div><div class="work-body"><div class="work-meta"><span>${esc(work.year)}</span><span class="status ${work.statusClass}">${esc(work.status)}</span></div><h3>${esc(work.name)} <span>· ${esc(work.subtitle)}</span></h3><p>${esc(work.intro)}</p></div><div class="work-footer"><span>${esc(work.venue)}</span><span>${esc(work.role)}</span></div></button>`;
+function patentSchematic() {
+  const layers = [
+    {y:50, color:'#adc9cf', label:t('patentLayer1')},
+    {y:110, color:'#629ca6', label:t('patentLayer2')},
+    {y:170, color:'#176e78', label:t('patentLayer3')},
+  ];
+  return `<svg viewBox="0 0 460 250" class="patent-schematic" role="img" aria-label="${esc(t('patentFigure'))}"><g fill="none" stroke="#b9ced5" stroke-dasharray="3 5"><path d="M82 50L82 170M160 65L160 185M240 40L240 160M313 68L313 188"/></g>${layers.map(({y,color,label})=>`<g><path d="M40 ${y-19}L282 ${y-40}L346 ${y+17}L103 ${y+39}Z" fill="${color}" fill-opacity=".16" stroke="${color}"/><path d="M82 ${y}L160 ${y+15}L240 ${y-10}L313 ${y+18}M82 ${y}L240 ${y-10}M160 ${y+15}L313 ${y+18}" stroke="${color}" fill="none"/>${[[82,y],[160,y+15],[240,y-10],[313,y+18]].map(([x,cy])=>`<circle cx="${x}" cy="${cy}" r="6" fill="${color}" stroke="white" stroke-width="2"/>`).join('')}<text class="small-label" x="355" y="${y+13}">${esc(label)}</text></g>`).join('')}<text x="45" y="235">CN120337984B</text></svg>`;
 }
 
-function publicationItem(paper, compact = false) {
-  const heading = compact && state.lang === 'en' && paper.titleEn ? `<p class="publication-title-en">${esc(paper.titleEn)}</p>` : '';
-  const category = paper.category === 'education' ? t('publicationsEducation') : t('publicationsResearch');
-  return `<li data-publication-id="${esc(paper.id)}">${heading}<p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation)}</p><div class="publication-meta"><span class="publication-year">${paper.year}</span><span class="status ${paper.status === 'accepted' ? 'accepted' : ''}">${esc(t(paper.status))}</span>${compact ? '' : `<span class="publication-category">${esc(category)}</span>`}${paper.doi ? `<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>` : ''}</div></li>`;
+function renderWorkSelectors() {
+  $('works-grid').innerHTML = data().featuredWorkIds.map((id, i) => {
+    const work = workById(id);
+    const active = id === state.work;
+    return `<button type="button" id="work-tab-${id}" class="work-selector" role="tab" data-showcase="${id}" aria-controls="work-stage" aria-selected="${active}" tabindex="${active ? 0 : -1}"><span>${String(i+1).padStart(2,'0')}</span><strong>${esc(work.name)}</strong><small>${esc(work.subtitle)}</small></button>`;
+  }).join('');
+  selectWork(state.work);
 }
 
-function renderPublications(filter) {
-  state.publicationFilter = filter;
-  const visible = publications.filter(paper => filter === 'all' || paper.category === filter);
-  $('publications-list').innerHTML = visible.map(paper => publicationItem(paper)).join('');
-  $('publications-count').textContent = visible.length + t('publicationCount');
-  all('[data-publication-filter]').forEach(button => {
-    const active = button.dataset.publicationFilter === filter;
-    button.classList.toggle('active', active);
-    button.setAttribute('aria-pressed', String(active));
-  });
+function selectWork(id) {
+  if (!data().featuredWorkIds.includes(id)) return;
+  state.work = id;
+  const work = workById(id);
+  all('[data-showcase]').forEach(button => {const active = button.dataset.showcase === id;button.setAttribute('aria-selected',String(active));button.tabIndex = active ? 0 : -1;});
+  const figure = work.image
+    ? `<button type="button" class="work-figure image-button" data-image="${esc(work.image)}" data-image-work="${id}" aria-label="${esc(t('enlarge') + work.caption)}"><img src="${esc(work.image)}" alt="${esc(work.caption)}" loading="lazy"><span class="figure-enlarge" aria-hidden="true">↗</span><span class="work-figure-caption">${esc(work.caption)}</span></button>`
+    : `<div class="work-figure">${patentSchematic()}<p class="work-figure-caption">${esc(t('patentFigure'))}</p></div>`;
+  $('work-stage').setAttribute('aria-labelledby','work-tab-' + id);
+  $('work-stage').innerHTML = `${figure}<div class="work-copy"><div class="work-meta"><span>${esc(work.year)}</span><span class="status ${esc(work.statusClass)}">${esc(work.status)}</span></div><h3>${esc(work.name)}</h3><p class="work-subtitle">${esc(work.subtitle)}</p><p class="work-intro">${esc(work.intro)}</p><p class="work-venue">${esc(work.venue)}</p><p class="work-role">${esc(work.role)}</p><button type="button" class="button" data-work="${id}"><span>${esc(t('workDetails'))}</span><span aria-hidden="true">↗</span></button></div>`;
+  $('gallery-count').textContent = `${String(data().featuredWorkIds.indexOf(id)+1).padStart(2,'0')} / 05`;
 }
 
-function renderEducationPublications() {
-  $('education-papers').innerHTML = `<ol class="education-publication-list">${publications.filter(paper => paper.category === 'education').map(paper => publicationItem(paper, true)).join('')}</ol>`;
+function stepWork(step) {
+  const ids = data().featuredWorkIds;
+  selectWork(ids[(ids.indexOf(state.work) + step + ids.length) % ids.length]);
+  const rail = $('works-grid'), button = $('work-tab-' + state.work);
+  if (rail.scrollWidth > rail.clientWidth && typeof rail.scrollTo === 'function') {
+    rail.scrollTo({left:Math.max(0,button.offsetLeft-rail.offsetLeft-10),behavior:reducedMotion()?'auto':'smooth'});
+  }
+}
+
+function periodLayout(period) {
+  const dates = [...period.matchAll(/(\d{4})\.(\d{2})/g)].map(match => ({year:Number(match[1]),month:Number(match[2])}));
+  if (dates.length !== 2) return {start:0,duration:0};
+  const startMonth = (dates[0].year-2022)*12 + dates[0].month-1;
+  const endMonth = (dates[1].year-2022)*12 + dates[1].month;
+  return {start:startMonth/96*100,duration:(endMonth-startMonth)/96*100};
+}
+
+function selectProject(index) {
+  const project = data().projects[index];
+  if (!project) return;
+  state.project = index;
+  all('[data-project]').forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.project)===index)));
+  $('project-detail').innerHTML = `<span class="detail-no">PROJECT ${String(index+1).padStart(2,'0')} / 07</span><h3>${esc(project.name)}</h3><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(project.source)}</dd></div><div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(project.period)}</dd></div><div><dt>${esc(t('projectFunding'))}</dt><dd class="project-funding">${project.amount.toFixed(2)}<small>${esc(t('fundUnit'))}</small></dd></div></dl><div class="project-role"><span>${esc(t('principalInvestigator'))}</span>${project.done?`<span>${esc(t('completed'))}</span>`:''}</div>`;
 }
 
 function renderProjects(filter) {
   state.filter = filter;
-  const projects = data().projects;
-  const visible = projects.filter(project => filter === 'all' || project.type === filter);
-  $('project-list').innerHTML = visible.map(project => `<article class="project"><span class="project-index">${String(projects.indexOf(project) + 1).padStart(2, '0')}</span><div><h3>${esc(project.name)}</h3><p class="project-info">${esc(project.source)} · ${t('principalInvestigator')}${project.done ? ' · ' + t('completed') : ''}</p></div><p class="project-period">${esc(project.period)}</p><p class="project-amount">${project.amount}<small>${t('fundUnit')}</small></p></article>`).join('');
+  const visible = data().projects.map((project,index)=>({...project,index})).filter(project => filter==='all' || project.type===filter);
+  $('project-list').innerHTML = visible.map(project => {
+    const {start,duration} = periodLayout(project.period);
+    return `<button type="button" class="project-row ${esc(project.type)}" data-project="${project.index}" aria-pressed="${project.index===state.project}" aria-controls="project-detail" aria-label="${esc(project.name + ' · ' + project.period + ' · ' + project.amount + ' ' + t('fundUnit'))}" title="${esc(project.name + ' · ' + project.period)}"><span class="project-short">${esc(project.shortName)}</span><span class="project-track" aria-hidden="true"><span class="project-bar" style="--start:${start.toFixed(4)}%;--duration:${duration.toFixed(4)}%"><span class="project-bar-end"></span></span></span><span class="project-row-amount">${project.amount.toFixed(2)}</span></button>`;
+  }).join('');
   $('project-count').textContent = visible.length + t('projectCount');
-  $('project-total').textContent = visible.reduce((sum, project) => sum + project.amount, 0).toFixed(2);
-  all('.filter').forEach(button => {const active = button.dataset.filter === filter;button.classList.toggle('active', active);button.setAttribute('aria-pressed', String(active));});
+  $('project-total').textContent = visible.reduce((sum,project)=>sum+project.amount,0).toFixed(2);
+  all('[data-filter]').forEach(button=>{const active=button.dataset.filter===filter;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
+  selectProject(visible.some(project=>project.index===state.project) ? state.project : visible[0].index);
 }
 
 function selectTeaching(key) {
+  if (!data().teachingViews[key]) return;
   state.teaching = key;
   const view = data().teachingViews[key];
-  all('[data-teaching]').forEach(button => {const active = button.dataset.teaching === key;button.setAttribute('aria-selected', String(active));button.tabIndex = active ? 0 : -1;});
-  $('teaching-panel').setAttribute('aria-labelledby', 'tab-' + key);
-  $('teaching-panel').innerHTML = `<button class="image-button teaching-image" data-image="${view.image}" data-caption="${esc(view.caption)}" data-teaching-image="${key}" aria-label="${esc(t('enlarge') + view.title)}"><img src="${view.image}" alt="${esc(view.caption)}" loading="lazy"></button><div class="teaching-copy"><p class="eyebrow">${esc(view.label)}</p><h3>${esc(view.title)}</h3><p>${esc(view.body)}</p><p class="teaching-caption">${esc(view.caption)}</p></div>`;
+  all('[data-teaching]').forEach(button=>{const active=button.dataset.teaching===key;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
+  $('teaching-panel').setAttribute('aria-labelledby','tab-'+key);
+  $('teaching-panel').innerHTML = `<button type="button" class="image-button teaching-image" data-image="${esc(view.image)}" data-teaching-image="${key}" aria-label="${esc(t('enlarge')+view.title)}"><img src="${esc(view.image)}" alt="${esc(view.caption)}" loading="lazy"><span class="figure-enlarge" aria-hidden="true">↗</span></button><div class="teaching-copy"><p class="eyebrow">${esc(view.label)}</p><h3>${esc(view.title)}</h3><p>${esc(view.body)}</p><p class="teaching-caption">${esc(view.caption)}</p></div>`;
+}
+
+function selectResource(key) {
+  state.resource = key;
+  all('[data-resource]').forEach(button=>{
+    const active=button.dataset.resource===key;
+    button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;
+    $('resource-'+button.dataset.resource).hidden=!active;
+  });
+}
+
+function publicationMeta(paper, compact=false) {
+  const category = t(paper.category==='education'?'publicationsEducation':'publicationsResearch');
+  return `<div class="publication-meta"><span>${paper.year}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}</div>`;
+}
+
+function publicationItem(paper) {
+  const heading = state.lang==='en' && paper.titleEn ? `<p class="publication-title-en">${esc(paper.titleEn)}</p>` : '';
+  return `<li data-publication-id="${esc(paper.id)}">${heading}<p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation)}</p>${publicationMeta(paper)}</li>`;
+}
+
+function renderPublications() {
+  const query = state.search.trim().toLocaleLowerCase();
+  const terms = query.split(/\s+/).filter(Boolean);
+  const visible = publications.filter(paper=>{
+    const text=(paper.citation+' '+(paper.titleEn||'')+' '+paper.doi).toLocaleLowerCase();
+    return (state.publicationFilter==='all'||paper.category===state.publicationFilter) && (state.publicationYear==='all'||String(paper.year)===state.publicationYear) && terms.every(term=>text.includes(term));
+  });
+  $('publications-list').innerHTML=visible.map(publicationItem).join('');
+  $('publications-count').textContent=visible.length+t('publicationCount');
+  $('publication-empty').hidden=visible.length>0;
+  all('[data-publication-filter]').forEach(button=>{const active=button.dataset.publicationFilter===state.publicationFilter;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
+}
+
+function renderEducationPublications() {
+  $('education-papers').innerHTML='<ol class="education-list">'+publications.filter(paper=>paper.category==='education').map(paper=>{
+    const match=paper.citation.match(/^.*?\. ([\s\S]*?)\[J\]\. ([\s\S]*)$/);
+    const title=state.lang==='en'&&paper.titleEn?paper.titleEn:match?match[1]:paper.citation;
+    const venue=match?match[2].split(/,|，|（|\(/)[0].replace(/\.$/,''):'';
+    const expanded=state.expanded.has(paper.id);
+    return `<li class="education-row" data-education-id="${paper.id}"><button type="button" data-citation="${paper.id}" aria-expanded="${expanded}" aria-controls="citation-${paper.id}" aria-label="${esc(title+' · '+t('viewCitation'))}"><span class="education-year">${paper.year}</span><span class="education-title">${esc(title)}<small>${esc(venue)}</small></span><span class="education-state">${paper.status==='accepted'?`<span class="status accepted">${esc(t('accepted'))}</span>`:esc(t('published'))}</span><span class="education-plus" aria-hidden="true">${expanded?'−':'+'}</span></button><div class="education-citation" id="citation-${paper.id}" ${expanded?'':'hidden'}><p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation)}</p>${publicationMeta(paper,true)}</div></li>`;
+  }).join('')+'</ol>';
+}
+
+function toggleCitation(id) {
+  if (state.expanded.has(id)) state.expanded.delete(id);else state.expanded.add(id);
+  const expanded=state.expanded.has(id),button=document.querySelector(`[data-citation="${id}"]`);
+  button.setAttribute('aria-expanded',String(expanded));
+  button.querySelector('.education-plus').textContent=expanded?'−':'+';
+  $('citation-'+id).hidden=!expanded;
+}
+
+function renderCareerYears() {
+  $('career-years').innerHTML=Object.keys(data().milestones).map(year=>`<button type="button" id="career-tab-${year}" role="tab" data-year="${year}" aria-selected="${year===state.year}" aria-controls="timeline-detail" tabindex="${year===state.year?0:-1}">${year}</button>`).join('');
+  selectYear(state.year);
 }
 
 function selectYear(year) {
-  state.year = year;
-  const milestone = data().milestones[year];
-  all('[data-year]').forEach(button => {const active = button.dataset.year === year;button.classList.toggle('active', active);button.setAttribute('aria-pressed', String(active));});
-  $('timeline-detail').innerHTML = `<span class="time-large">${year}</span><div><h3>${esc(milestone.title)}</h3><p>${esc(milestone.body)}</p><p class="year-span">${esc(milestone.period)}</p></div>`;
+  const milestone=data().milestones[year];
+  if (!milestone) return;
+  state.year=year;
+  all('[data-year]').forEach(button=>{const active=button.dataset.year===year;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
+  $('timeline-detail').setAttribute('aria-labelledby','career-tab-'+year);
+  $('timeline-detail').innerHTML=`<div class="career-year">${year}<small>${esc(t(milestone.label))}</small></div><div><h3>${esc(milestone.title)}</h3><p>${esc(milestone.body)}</p><p class="year-span">${esc(milestone.period)}</p></div>`;
+  const index=Object.keys(data().milestones).indexOf(year);
+  $('career-count').textContent=`${String(index+1).padStart(2,'0')} / 06`;
+  document.querySelector('[data-career-step="-1"]').disabled=index===0;
+  document.querySelector('[data-career-step="1"]').disabled=index===Object.keys(data().milestones).length-1;
 }
 
-const dialog = $('detail-dialog');
-let priorFocus = null;
-function showDialog(html) {
-  if (!dialog.open) priorFocus = document.activeElement;
-  $('dialog-content').innerHTML = html;
-  if (!dialog.open) dialog.showModal();
-  dialog.scrollTop = 0;
-  dialog.querySelector('.dialog-close').focus();
+function stepCareer(step) {
+  const years=Object.keys(data().milestones),index=years.indexOf(state.year);
+  selectYear(years[Math.max(0,Math.min(years.length-1,index+step))]);
 }
+
+const detailDialog=$('detail-dialog'),libraryDialog=$('publication-dialog');
+let detailFocus=null,libraryFocus=null;
+
+function showDetail(html) {
+  if (!detailDialog.open) detailFocus=document.activeElement;
+  $('dialog-content').innerHTML=html;
+  if (!detailDialog.open) detailDialog.showModal();
+  detailDialog.scrollTop=0;
+  detailDialog.querySelector('.dialog-close').focus();
+}
+
 function openWork(id) {
-  const work = workById(id);
+  const work=workById(id);
   if (!work) return;
-  state.modal = {type: 'work', id};
-  showDialog(`<div class="dialog-meta"><span class="status ${work.statusClass}">${esc(work.status)}</span><span>${esc(work.role)}</span><span>${esc(work.venue)} · ${esc(work.year)}</span></div><h2 id="dialog-title">${esc(work.name)} · ${esc(work.subtitle)}</h2><p class="paper-title">${esc(work.title)}</p>${work.image ? `<figure><img src="${work.image}" alt="${esc(work.caption)}"><figcaption>${esc(work.caption)}</figcaption></figure>` : ''}<div class="detail-sections"><div><h3>${t('problem')}</h3><p>${esc(work.problem)}</p></div><div><h3>${t('method')}</h3><p>${esc(work.method)}</p></div><div><h3>${t('evidence')}</h3><p>${esc(work.evidence)}</p></div></div><div class="citation-area"><p class="citation" lang="${citationLanguage(work.citation)}">${markName(work.citation)}</p><div class="citation-actions"><button data-copy="${work.id}">${t('copy')}</button>${work.doi ? `<a href="https://doi.org/${work.doi}" target="_blank" rel="noopener">${t('viewDoi')}</a>` : ''}</div></div>`);
+  state.modal={type:'work',id};
+  showDetail(`<div class="dialog-meta"><span class="status ${esc(work.statusClass)}">${esc(work.status)}</span><span>${esc(work.role)}</span><span>${esc(work.venue)} · ${esc(work.year)}</span></div><h2 id="dialog-title">${esc(work.name)} · ${esc(work.subtitle)}</h2><p class="paper-title">${esc(work.title)}</p>${work.image?`<figure><img src="${esc(work.image)}" alt="${esc(work.caption)}"><figcaption>${esc(work.caption)}</figcaption></figure>`:''}<div class="detail-sections"><div><h3>${esc(t('problem'))}</h3><p>${esc(work.problem)}</p></div><div><h3>${esc(t('method'))}</h3><p>${esc(work.method)}</p></div><div><h3>${esc(t('evidence'))}</h3><p>${esc(work.evidence)}</p></div></div><div class="citation-area"><p class="citation" lang="${citationLanguage(work.citation)}">${markName(work.citation)}</p><div class="citation-actions"><button type="button" data-copy="${esc(work.id)}">${esc(t('copy'))}</button>${work.doi?`<a href="https://doi.org/${esc(work.doi)}" target="_blank" rel="noopener">${esc(t('viewDoi'))}</a>`:''}</div></div>`);
 }
+
+function imageCaption(image) {
+  if (image.workId) return workById(image.workId).caption;
+  if (image.teachingKey) return data().teachingViews[image.teachingKey].caption;
+  if (image.captionKey) return t(image.captionKey);
+  if (image.areaKey) {const area=data().researchAreas[image.areaKey];return area.featured?workById(area.featured).caption:data().teachingViews.fund.caption;}
+  return image.caption||t('originalFigure');
+}
+
 function openImage(image) {
-  state.modal = image;
-  const caption = image.captionKey ? t(image.captionKey) : image.teachingKey ? data().teachingViews[image.teachingKey].caption : image.caption;
-  showDialog(`<div class="image-dialog"><h2 id="dialog-title">${esc(caption)}</h2><img src="${image.src}" alt="${esc(caption)}"></div>`);
+  state.modal=image;
+  const caption=imageCaption(image);
+  showDetail(`<div class="image-dialog"><h2 id="dialog-title">${esc(caption)}</h2><img src="${esc(image.src)}" alt="${esc(caption)}"></div>`);
 }
+
+function openPublications() {
+  renderPublications();
+  if (!libraryDialog.open) {libraryFocus=document.activeElement;libraryDialog.showModal();}
+  $('publication-search').focus();
+}
+
 function toast(message) {
-  const el = $('toast');el.textContent = message;el.classList.add('show');
-  clearTimeout(toast.timer);toast.timer = setTimeout(() => el.classList.remove('show'), 2600);
+  $('toast').textContent=message;$('toast').classList.add('show');
+  clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').classList.remove('show'),2600);
 }
+
+async function copyText(text,success,fallback) {
+  try {await navigator.clipboard.writeText(text);toast(t(success));}catch{toast(t(fallback));}
+}
+
 async function copyCitation(id) {
-  const work = workById(id);
-  const citation = work.citation + (work.doi && !work.citation.includes(work.doi) ? ' DOI: ' + work.doi : '');
-  try {await navigator.clipboard.writeText(citation);toast(t('copied'));} catch {toast(t('copyFallback'));}
+  const work=workById(id);
+  const citation=work.citation+(work.doi&&!work.citation.includes(work.doi)?' DOI: '+work.doi:'');
+  await copyText(citation,'copied','copyFallback');
 }
-function closeDialog() {dialog.close();}
-dialog.addEventListener('close', () => {state.modal = null;if (priorFocus?.isConnected) priorFocus.focus();});
-dialog.addEventListener('click', event => {
-  if (event.target === dialog) {const r = dialog.getBoundingClientRect();if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) closeDialog();}
+
+detailDialog.addEventListener('close',()=>{state.modal=null;if(detailFocus?.isConnected)detailFocus.focus({preventScroll:true});});
+libraryDialog.addEventListener('close',()=>{if(libraryFocus?.isConnected)libraryFocus.focus({preventScroll:true});});
+for (const dialog of [detailDialog,libraryDialog]) dialog.addEventListener('click',event=>{
+  if(event.target!==dialog)return;
+  const rect=dialog.getBoundingClientRect();
+  if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();
 });
 
-function setLanguage(lang, remember = true) {
-  if (!content[lang]) return;
-  state.lang = lang;
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-  document.title = t('title');
-  document.querySelector('meta[name="description"]').content = t('description');
-  all('[data-i18n]').forEach(el => {el.innerHTML = t(el.dataset.i18n);});
-  all('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
-  all('[data-i18n-alt]').forEach(el => el.setAttribute('alt', t(el.dataset.i18nAlt)));
-  all('[data-i18n-href]').forEach(el => el.setAttribute('href', t(el.dataset.i18nHref)));
-  all('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === lang)));
-  all('[data-caption-key]').forEach(el => {el.dataset.caption = t(el.dataset.captionKey);});
-  $('works-grid').innerHTML = data().featuredWorkIds.map(workById).filter(Boolean).map(workCard).join('');
-  renderPublications(state.publicationFilter);
-  renderEducationPublications();
-  selectArea(state.area);renderProjects(state.filter);selectTeaching(state.teaching);selectYear(state.year);
-  if (dialog.open && state.modal) {const modal = state.modal;modal.type === 'work' ? openWork(modal.id) : openImage(modal);}
-  if (remember) {
-    try {localStorage.setItem('jiang-cv-language', lang);} catch {}
-    const url = new URL(window.location.href);url.searchParams.set('lang', lang);history.replaceState(null, '', url);
+function setLanguage(lang,remember=true) {
+  if(!content[lang])return;
+  state.lang=lang;
+  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+  document.title=t('title');document.querySelector('meta[name="description"]').content=t('description');
+  all('[data-i18n]').forEach(el=>{el.innerHTML=t(el.dataset.i18n);});
+  all('[data-i18n-aria]').forEach(el=>el.setAttribute('aria-label',t(el.dataset.i18nAria)));
+  all('[data-i18n-alt]').forEach(el=>el.setAttribute('alt',t(el.dataset.i18nAlt)));
+  all('[data-i18n-href]').forEach(el=>el.setAttribute('href',t(el.dataset.i18nHref)));
+  all('[data-i18n-placeholder]').forEach(el=>el.setAttribute('placeholder',t(el.dataset.i18nPlaceholder)));
+  all('[data-lang]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.lang===lang)));
+  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
+  if(detailDialog.open&&state.modal){const modal=state.modal;modal.type==='work'?openWork(modal.id):openImage(modal);}
+  if(remember){
+    try{localStorage.setItem('jiang-cv-language',lang);}catch{}
+    try{const url=new URL(window.location.href);url.searchParams.set('lang',lang);history.replaceState(null,'',url);}catch{}
   }
   updateScroll();
 }
 
-document.addEventListener('click', event => {
-  const lang = event.target.closest('[data-lang]');if (lang) {setLanguage(lang.dataset.lang);return;}
-  const area = event.target.closest('[data-area]');if (area) {selectArea(area.dataset.area);return;}
-  const work = event.target.closest('[data-work]');if (work) {openWork(work.dataset.work);return;}
-  const project = event.target.closest('[data-filter]');if (project) {renderProjects(project.dataset.filter);return;}
-  const publication = event.target.closest('[data-publication-filter]');if (publication) {renderPublications(publication.dataset.publicationFilter);return;}
-  const teaching = event.target.closest('[data-teaching]');if (teaching) {selectTeaching(teaching.dataset.teaching);return;}
-  const year = event.target.closest('[data-year]');if (year) {selectYear(year.dataset.year);return;}
-  const copy = event.target.closest('[data-copy]');if (copy) {copyCitation(copy.dataset.copy);return;}
-  const image = event.target.closest('[data-image]');if (image) {openImage({type: 'image', src: image.dataset.image, caption: image.dataset.caption, captionKey: image.dataset.captionKey, teachingKey: image.dataset.teachingImage});return;}
-  if (event.target.closest('.dialog-close')) closeDialog();
-  if (event.target.closest('[data-go-teaching]')) $('teaching').scrollIntoView({behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+document.addEventListener('click',event=>{
+  const target=event.target;
+  const lang=target.closest('[data-lang]');if(lang){setLanguage(lang.dataset.lang);return;}
+  const area=target.closest('[data-area]');if(area){selectArea(area.dataset.area);return;}
+  const showcase=target.closest('[data-showcase]');if(showcase){selectWork(showcase.dataset.showcase);return;}
+  const workStep=target.closest('[data-work-step]');if(workStep){stepWork(Number(workStep.dataset.workStep));return;}
+  const work=target.closest('[data-work]');if(work){openWork(work.dataset.work);return;}
+  if(target.closest('[data-open-library]')){openPublications();return;}
+  const filter=target.closest('[data-filter]');if(filter){renderProjects(filter.dataset.filter);return;}
+  const project=target.closest('[data-project]');if(project){selectProject(Number(project.dataset.project));return;}
+  const teaching=target.closest('[data-teaching]');if(teaching){selectTeaching(teaching.dataset.teaching);return;}
+  const resource=target.closest('[data-resource]');if(resource){selectResource(resource.dataset.resource);return;}
+  const year=target.closest('[data-year]');if(year){selectYear(year.dataset.year);return;}
+  const careerStep=target.closest('[data-career-step]');if(careerStep){stepCareer(Number(careerStep.dataset.careerStep));return;}
+  const publication=target.closest('[data-publication-filter]');if(publication){state.publicationFilter=publication.dataset.publicationFilter;renderPublications();return;}
+  if(target.closest('[data-reset-publications]')){state.publicationFilter='all';state.publicationYear='all';state.search='';$('publication-search').value='';$('publication-year').value='all';renderPublications();return;}
+  const citation=target.closest('[data-citation]');if(citation){toggleCitation(citation.dataset.citation);return;}
+  const copy=target.closest('[data-copy]');if(copy){copyCitation(copy.dataset.copy);return;}
+  if(target.closest('[data-copy-email]')){copyText('jiangzy@buct.edu.cn','emailCopied','emailFallback');return;}
+  const image=target.closest('[data-image]');if(image){openImage({type:'image',src:image.dataset.image,workId:image.dataset.imageWork,areaKey:image.dataset.areaImage,teachingKey:image.dataset.teachingImage,captionKey:image.dataset.captionKey});return;}
+  if(target.closest('.dialog-close')){detailDialog.close();return;}
+  if(target.closest('.library-close')){libraryDialog.close();return;}
+  if(target.closest('[data-go-teaching]')){$('teaching').scrollIntoView({behavior:reducedMotion()?'auto':'smooth'});}
 });
-all('.map-node').forEach(node => node.addEventListener('keydown', event => {
-  if (event.key === 'Enter' || event.key === ' ') {event.preventDefault();selectArea(node.dataset.area);}
-}));
-all('[data-teaching]').forEach(button => button.addEventListener('keydown', event => {
-  const tabs = all('[data-teaching]');let i = tabs.indexOf(button);
-  if (event.key === 'ArrowRight') i = (i + 1) % tabs.length;
-  else if (event.key === 'ArrowLeft') i = (i + tabs.length - 1) % tabs.length;
-  else if (event.key === 'Home') i = 0;
-  else if (event.key === 'End') i = tabs.length - 1;
-  else return;
-  event.preventDefault();selectTeaching(tabs[i].dataset.teaching);tabs[i].focus();
-}));
-const menu = document.querySelector('.menu-toggle'), nav = $('navigation');
-menu.addEventListener('click', () => {const open = menu.getAttribute('aria-expanded') !== 'true';menu.setAttribute('aria-expanded', String(open));nav.classList.toggle('open', open);});
-nav.addEventListener('click', event => {if (event.target.closest('a')) {nav.classList.remove('open');menu.setAttribute('aria-expanded', 'false');}});
-const sections = all('main>section[id]'), navLinks = [...nav.querySelectorAll('a[href^="#"]')];
-function updateScroll() {
-  const span = document.documentElement.scrollHeight - window.innerHeight;
-  document.querySelector('.scroll-progress').style.width = (span > 0 ? window.scrollY / span * 100 : 0) + '%';
-  const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 6;
-  const active = atBottom ? sections.at(-1) : sections.filter(section => section.getBoundingClientRect().top <= 160).at(-1);
-  navLinks.forEach(link => {
-    const current = link.getAttribute('href') === '#' + active?.id;
-    link.classList.toggle('current', current);
-    if (current) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
-  });
+
+document.addEventListener('keydown',event=>{
+  const tab=event.target.closest('[role="tab"]');
+  if(tab){
+    const list=tab.closest('[role="tablist"]'),tabs=all('[role="tab"]',list);let i=tabs.indexOf(tab);
+    if(event.key==='ArrowRight')i=(i+1)%tabs.length;
+    else if(event.key==='ArrowLeft')i=(i+tabs.length-1)%tabs.length;
+    else if(event.key==='Home')i=0;
+    else if(event.key==='End')i=tabs.length-1;
+    else return;
+    event.preventDefault();tabs[i].click();
+    const replacement=document.getElementById(tabs[i].id);if(replacement)replacement.focus({preventScroll:true});
+    return;
+  }
+  const node=event.target.closest('.map-node');
+  if(node&&(event.key==='Enter'||event.key===' ')){event.preventDefault();selectArea(node.dataset.area);}
+});
+
+$('publication-search').addEventListener('input',event=>{state.search=event.target.value;renderPublications();});
+$('publication-year').addEventListener('change',event=>{state.publicationYear=event.target.value;renderPublications();});
+const years=[...new Set(publications.map(paper=>paper.year))].sort((a,b)=>b-a);
+$('publication-year').insertAdjacentHTML('beforeend',years.map(year=>`<option value="${year}">${year}</option>`).join(''));
+all('.chart-axis span').forEach((tick,index)=>{tick.style.setProperty('--tick',(index*25)+'%');if(index===4)tick.textContent='2030';});
+
+const menu=document.querySelector('.menu-toggle'),nav=$('navigation');
+function closeMenu(){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}
+menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);});
+nav.addEventListener('click',event=>{if(event.target.closest('a'))closeMenu();});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav.classList.contains('open')){closeMenu();menu.focus();}});
+document.addEventListener('click',event=>{if(nav.classList.contains('open')&&!event.target.closest('.nav-wrap'))closeMenu();});
+const sections=all('main>section[id]'),navLinks=all('a[href^="#"]',nav);
+function updateScroll(){
+  const span=document.documentElement.scrollHeight-window.innerHeight;
+  document.querySelector('.scroll-progress').style.width=(span>0?Math.max(0,Math.min(100,window.scrollY/span*100)):0)+'%';
+  const atBottom=span>0&&window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-6;
+  const active=atBottom?sections.at(-1):sections.filter(section=>section.getBoundingClientRect().top<=150).at(-1);
+  navLinks.forEach(link=>{const current=link.getAttribute('href')==='#'+active?.id;link.classList.toggle('current',current);if(current)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
 }
-let ticking = false;
-window.addEventListener('scroll', () => {if (!ticking) {requestAnimationFrame(() => {updateScroll();ticking = false;});ticking = true;}}, {passive: true});
-window.addEventListener('resize', updateScroll);
-let preferred = 'zh';
-try {preferred = localStorage.getItem('jiang-cv-language') || 'zh';} catch {}
-const queryLanguage = new URL(window.location.href).searchParams.get('lang');
-setLanguage(content[queryLanguage] ? queryLanguage : content[preferred] ? preferred : 'zh', false);
+let ticking=false;
+window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(()=>{updateScroll();ticking=false;});ticking=true;}},{passive:true});
+window.addEventListener('resize',updateScroll);
+
+let preferred='zh';
+try{preferred=localStorage.getItem('jiang-cv-language')||'zh';}catch{}
+const queryLanguage=new URL(window.location.href).searchParams.get('lang');
+setLanguage(content[queryLanguage]?queryLanguage:content[preferred]?preferred:'zh',false);
+if(window.location.hash==='#other-publications')openPublications();

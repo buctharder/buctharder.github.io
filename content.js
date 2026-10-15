@@ -16,7 +16,11 @@ window.CV_CONTENT = {
           "rtgcn",
           "sensors",
           "patent"
-        ]
+        ],
+        "image": "assets/rtgcn.png",
+        "imageLabel": "RT-GCN",
+        "featured": "rtgcn",
+        "question": "如何在多层关系中保留结构与依赖？"
       },
       "agents": {
         "number": "02",
@@ -31,7 +35,11 @@ window.CV_CONTENT = {
         "works": [
           "corea",
           "food"
-        ]
+        ],
+        "image": "assets/corea.png",
+        "imageLabel": "CoReaAgents",
+        "featured": "corea",
+        "question": "大模型如何规划任务并可靠调用工具？"
       },
       "embodied": {
         "number": "03",
@@ -45,7 +53,11 @@ window.CV_CONTENT = {
         ],
         "works": [
           "crossray"
-        ]
+        ],
+        "image": "assets/crossray.png",
+        "imageLabel": "CrossRay3D",
+        "featured": "crossray",
+        "question": "如何用更少的感知计算获得有效证据？"
       },
       "education": {
         "number": "04",
@@ -57,7 +69,11 @@ window.CV_CONTENT = {
           "认知修复",
           "教师反馈"
         ],
-        "works": []
+        "works": [],
+        "image": "assets/learning-framework.png",
+        "imageLabel": "AIED",
+        "featured": null,
+        "question": "如何判断AI辅助下的真实学习能力？"
       }
     },
     "works": [
@@ -181,7 +197,8 @@ window.CV_CONTENT = {
         "period": "2026.07—2029.06",
         "amount": 30,
         "type": "fund",
-        "done": false
+        "done": false,
+        "shortName": "学习真实性诊断"
       },
       {
         "name": "特定领域大数据工程模块及模型研制",
@@ -189,7 +206,8 @@ window.CV_CONTENT = {
         "period": "2023.01—2026.12",
         "amount": 201.5,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "领域大数据工程"
       },
       {
         "name": "面向化工领域专业知识的大模型知识增强与复杂任务工具调用算法研发",
@@ -197,7 +215,8 @@ window.CV_CONTENT = {
         "period": "2026.09—2027.02",
         "amount": 78.45,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "化工知识增强与工具调用"
       },
       {
         "name": "典型场景验证数据采集与处理",
@@ -205,7 +224,8 @@ window.CV_CONTENT = {
         "period": "2025.12—2027.12",
         "amount": 93.5,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "场景验证数据处理"
       },
       {
         "name": "海洋环境要素可视化及数据预处理技术服务",
@@ -213,7 +233,8 @@ window.CV_CONTENT = {
         "period": "2024.09—2026.09",
         "amount": 80,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "海洋环境数据处理"
       },
       {
         "name": "能源网络的关键节点识别与分析",
@@ -221,7 +242,8 @@ window.CV_CONTENT = {
         "period": "2024.08—2025.08",
         "amount": 30,
         "type": "lab",
-        "done": true
+        "done": true,
+        "shortName": "能源网络关键节点"
       },
       {
         "name": "多终端的资产综合信息可视化平台开发",
@@ -229,7 +251,8 @@ window.CV_CONTENT = {
         "period": "2022.03—2024.03",
         "amount": 180,
         "type": "commission",
-        "done": true
+        "done": true,
+        "shortName": "资产信息可视化"
       }
     ],
     "teachingViews": {
@@ -256,40 +279,41 @@ window.CV_CONTENT = {
       }
     },
     "milestones": {
-      "2005": {
-        "title": "计算机科学与技术学习起点",
-        "period": "2005.09—2009.06",
-        "body": "就读北京化工大学计算机科学与技术专业，获得学士学位。"
-      },
-      "2009": {
-        "title": "计算机应用技术硕士阶段",
-        "period": "2009.09—2012.06",
-        "body": "在北京化工大学学习计算机应用技术，获得硕士学位。"
-      },
       "2012": {
-        "title": "在北京化工大学任教",
+        "title": "加入北京化工大学，持续从事教学与科研",
         "period": "2012.07至今",
-        "body": "加入北京化工大学信息科学与技术学院，持续从事教学与科研工作，现为副教授、硕士生导师。长期主讲数据结构、面向对象程序设计等课程。"
+        "body": "在信息科学与技术学院任教，长期承担《数据结构》《面向对象程序设计》等课程教学，现为副教授、硕士生导师。",
+        "label": "careerStart"
       },
-      "2016": {
-        "title": "控制科学与工程博士阶段",
-        "period": "2016.09—2021.06",
-        "body": "在北京化工大学攻读控制科学与工程博士，同时持续承担教学与科研工作，2021年获得工学博士学位。"
+      "2015": {
+        "title": "推进课程资源建设与教学表达",
+        "period": "2015",
+        "body": "获第二届全国高校微课教学比赛北京市比赛三等奖，持续探索算法与程序设计课程的教学呈现。",
+        "label": "careerTeaching"
+      },
+      "2018": {
+        "title": "开展智能建模与软测量研究",
+        "period": "2018",
+        "body": "参与软测量集成建模研究，相关成果发表于Chemometrics and Intelligent Laboratory Systems。",
+        "label": "careerResearch"
       },
       "2021": {
-        "title": "获得工学博士学位",
+        "title": "教学实践与文本分析研究并进",
         "period": "2021",
-        "body": "获得工学博士学位；获北京高校青年教师教学基本功比赛工科类A组三等奖、北京化工大学优秀青年主讲教师。参与欧盟Erasmus+国际协作项目。"
+        "body": "获北京高校青年教师教学基本功比赛工科类A组三等奖、北京化工大学优秀青年主讲教师；发表改进TF-IDF文本分类与食品安全舆情预警研究成果。",
+        "label": "careerTeaching"
       },
       "2024": {
-        "title": "北京化工大学青年教学名师",
+        "title": "深化网络分析与教育人工智能研究",
         "period": "2024",
-        "body": "获北京化工大学青年教学名师奖。主持基于大语言模型的智能教学模式研究等教学改革项目，以科研方法研究课堂中的学习与评价问题。"
+        "body": "获北京化工大学青年教学名师奖；主持国家重点实验室自主科研基金项目，研究能源网络关键节点识别；推进基于大语言模型的教学改革。",
+        "label": "careerResearch"
       },
       "2026": {
-        "title": "科研与教学研究进展",
-        "period": "2026年最新进展",
-        "body": "北京市自然科学基金与《数据结构》智慧课程获批；HTP-Net论文获IEEE Sensors Journal录用，持续开展图学习、工业智能与教育人工智能研究。"
+        "title": "图学习、工业智能与学习诊断取得进展",
+        "period": "2026",
+        "body": "北京市自然科学基金与《数据结构》智慧课程获批；RT-GCN、CrossRay3D发表，HTP-Net获IEEE Sensors Journal录用，持续推进科研方法向教学问题的迁移。",
+        "label": "careerPresent"
       }
     },
     "ui": {
@@ -304,9 +328,9 @@ window.CV_CONTENT = {
       "menu": "导航",
       "affiliation": "北京化工大学 · 信息科学与技术学院",
       "name": "江志英<span>ZHIYING JIANG</span>",
-      "identity": "工学博士 <i></i> 副教授 <i></i> 硕士生导师",
+      "identity": "副教授 <i></i> 硕士生导师",
       "focus": "图学习 · 大模型<br>多模态感知与具身智能",
-      "intro": "研究多层网络表征、大模型知识增强与智能体推理、多模态感知与具身问答。主持北京市自然科学基金、国家重点实验室自主科研基金及委托课题10余项，以第一作者或通讯作者发表高质量期刊、会议论文10余篇。同时开展教育人工智能研究，将图建模与实验验证用于学习诊断和课堂教学。",
+      "intro": "研究图学习、大模型与智能体、多模态感知。主持北京市自然科学基金、国家重点实验室自主科研基金及委托课题10余项，以第一作者或通讯作者发表期刊、会议论文10余篇；同时开展教育人工智能研究，将科研方法用于学习诊断与课堂教学。",
       "researchAction": "研究方向",
       "worksAction": "代表成果",
       "teachingHonor": "北京化工大学青年教学名师",
@@ -319,7 +343,7 @@ window.CV_CONTENT = {
       "papersUnit": "余篇",
       "papersMetric": "第一作者或通讯作者发表论文",
       "researchTitle": "研究方向",
-      "researchLead": "结构表征 · 推理与决策<br>科研方法与教育研究",
+      "researchLead": "从结构表征到推理决策",
       "mapHint": "选择方向，查看研究问题与成果",
       "mapCore1": "建模 · 推断",
       "mapCore2": "实验验证",
@@ -332,18 +356,18 @@ window.CV_CONTENT = {
       "areaEmbodied": "多模态与具身智能",
       "areaEducation": "教育人工智能",
       "worksTitle": "代表学术成果",
-      "worksLead": "四篇期刊论文与一项授权专利<br>研究方法、实验与论文原图",
+      "worksLead": "四篇期刊论文 · 一项授权专利",
       "otherPapers": "其他学术论文",
       "viewDoi": "查看论文 DOI",
       "projectsTitle": "代表性科研项目",
-      "projectsLead": "所列7项均主持<br>经费按立项或合同金额统计",
+      "projectsLead": "7项代表项目 · 均为主持",
       "filterAll": "全部项目",
       "filterFund": "自然科学基金",
       "filterLab": "重点实验室",
       "filterCommission": "委托研究",
       "totalLabel": "合计",
-      "teachingTitle": "用科研方法研究教学问题",
-      "teachingLead": "长期教学积累<br>生成式AI环境下的学习与评价",
+      "teachingTitle": "以科研方法回应课堂问题",
+      "teachingLead": "课堂提出问题，研究寻找答案",
       "teachingIntro": "自2012年任教以来，长期主讲《数据结构》《面向对象程序设计》等课程，注重从问题分析走向算法推演与代码实现。生成式AI进入课堂后，学生能完成任务，是否意味着真正理解？围绕这一问题，将图网络与大模型的方法积累用于学习者建模，研究能力估计、认知困难定位与教学干预，并通过课堂实验和独立测验检验其有效性。",
       "methodData": "多源学习记录",
       "methodModel": "知识、行为与认知建模",
@@ -367,8 +391,8 @@ window.CV_CONTENT = {
       "cooperationTitle": "国际协作与教学交流",
       "cooperationBody": "参与欧盟Erasmus+ Global Innovation Teams项目，与6国7所高校开展国际协作和虚拟实习教学研究。项目结题评审获88分，被列为可推广的良好实践。",
       "summitBody": "担任数字教育与行业伙伴关系研究峰会执行主席，作《中外合作教学模式改革研究》报告。",
-      "journeyTitle": "教育与任教经历",
-      "journeyLead": "教育经历、任教历程与荣誉<br>选择年份，查看阶段记录",
+      "journeyTitle": "教学与科研工作履历",
+      "journeyLead": "2012年至今 · 北京化工大学",
       "honorsTitle": "主要荣誉与奖励",
       "honor1": "北京化工大学青年教学名师奖",
       "honor2": "北京市高等教育教学成果奖二等奖 <small>第8/10完成人</small>",
@@ -418,7 +442,61 @@ window.CV_CONTENT = {
       "publicationsResearch": "科研论文",
       "publicationsEducation": "教育研究",
       "publicationCount": "篇论文",
-      "schoolUrl": "https://cist.buct.edu.cn/_s11/2026/0603/c15683a220265/page.psp"
+      "schoolUrl": "https://cist.buct.edu.cn/_s11/2026/0603/c15683a220265/page.psp",
+      "teachingQuestion": "学生完成了任务，是否意味着真正理解？",
+      "teachingBrief": "立足长期程序设计教学，研究生成式AI环境下的能力诊断与教学干预。以图建模组织学习证据，通过课堂实验与独立测验检验方法。",
+      "workDetails": "方法与实验",
+      "previousWork": "上一项成果",
+      "nextWork": "下一项成果",
+      "galleryGroup": "选择代表性学术成果",
+      "galleryHint": "选择下方成果，查看研究图示",
+      "originalFigure": "研究图示",
+      "patentFigure": "多层网络表征学习 · 方法示意",
+      "patentLayer1": "网络结构",
+      "patentLayer2": "表征学习",
+      "patentLayer3": "鲁棒性分析",
+      "openPublications": "浏览其他学术论文",
+      "libraryDescription": "14篇已发表或已录用论文 · 按年份排列",
+      "librarySearch": "检索论文",
+      "librarySearchPlaceholder": "题名、作者、期刊或 DOI",
+      "libraryYear": "发表年份",
+      "allYears": "所有年份",
+      "resetSearch": "重置",
+      "noResults": "没有符合条件的论文，请调整检索条件。",
+      "libraryHint": "代表性论文见前述成果展台",
+      "projectChart": "科研项目周期图",
+      "projectChartHint": "点击项目，查看完整名称与经费",
+      "projectChartNote": "条带表示项目周期",
+      "projectPeriod": "项目周期",
+      "projectSource": "项目来源",
+      "projectFunding": "立项或合同经费",
+      "recentFunding": "2023年以来支配科研经费",
+      "allFunding": "所列7项立项或合同经费",
+      "selectedFunding": "当前筛选合计",
+      "projectDetails": "项目详情",
+      "stepChl": "课堂应用",
+      "stepFund": "方法研究",
+      "stepTrace": "反馈支持",
+      "teachingResources": "教学建设与交流",
+      "teachingPublicationsTab": "教育研究论文",
+      "teachingCoursesTab": "课程建设",
+      "teachingCooperationTab": "国际协作",
+      "viewCitation": "展开学术引用",
+      "viewFigure": "放大图示",
+      "paperAccepted": "已录用",
+      "careerGroup": "选择工作履历年份",
+      "careerPrevious": "前一个工作节点",
+      "careerNext": "后一个工作节点",
+      "careerStart": "任教起点",
+      "careerResearch": "科研工作",
+      "careerTeaching": "教学工作",
+      "careerPresent": "近期进展",
+      "honorsMore": "主要荣誉与奖励",
+      "copyEmail": "复制邮箱",
+      "emailCopied": "邮箱地址已复制",
+      "emailFallback": "请选中邮箱地址复制",
+      "educationListCount": "6篇",
+      "yearLabel": "年"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -444,7 +522,11 @@ window.CV_CONTENT = {
           "rtgcn",
           "sensors",
           "patent"
-        ]
+        ],
+        "image": "assets/rtgcn.png",
+        "imageLabel": "RT-GCN",
+        "featured": "rtgcn",
+        "question": "How can representations preserve multilayer structure and dependencies?"
       },
       "agents": {
         "number": "02",
@@ -459,7 +541,11 @@ window.CV_CONTENT = {
         "works": [
           "corea",
           "food"
-        ]
+        ],
+        "image": "assets/corea.png",
+        "imageLabel": "CoReaAgents",
+        "featured": "corea",
+        "question": "How can LLMs plan tasks and use tools reliably?"
       },
       "embodied": {
         "number": "03",
@@ -473,7 +559,11 @@ window.CV_CONTENT = {
         ],
         "works": [
           "crossray"
-        ]
+        ],
+        "image": "assets/crossray.png",
+        "imageLabel": "CrossRay3D",
+        "featured": "crossray",
+        "question": "How can efficient perception gather useful evidence?"
       },
       "education": {
         "number": "04",
@@ -485,7 +575,11 @@ window.CV_CONTENT = {
           "Cognitive repair",
           "Teacher feedback"
         ],
-        "works": []
+        "works": [],
+        "image": "assets/learning-framework.png",
+        "imageLabel": "AIED",
+        "featured": null,
+        "question": "How can we assess learning when students use AI?"
       }
     },
     "works": [
@@ -609,7 +703,8 @@ window.CV_CONTENT = {
         "period": "2026.07—2029.06",
         "amount": 30,
         "type": "fund",
-        "done": false
+        "done": false,
+        "shortName": "Learning diagnosis"
       },
       {
         "name": "Engineering Modules and Models for Domain-Specific Big Data",
@@ -617,7 +712,8 @@ window.CV_CONTENT = {
         "period": "2023.01—2026.12",
         "amount": 201.5,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "Domain data engineering"
       },
       {
         "name": "Knowledge Enhancement and Complex-Task Tool Use for Large Models in Chemical Engineering",
@@ -625,7 +721,8 @@ window.CV_CONTENT = {
         "period": "2026.09—2027.02",
         "amount": 78.45,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "Chemical-domain LLMs"
       },
       {
         "name": "Data Collection and Processing for Representative Validation Scenarios",
@@ -633,7 +730,8 @@ window.CV_CONTENT = {
         "period": "2025.12—2027.12",
         "amount": 93.5,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "Scenario data processing"
       },
       {
         "name": "Marine Environmental Data Visualisation and Preprocessing",
@@ -641,7 +739,8 @@ window.CV_CONTENT = {
         "period": "2024.09—2026.09",
         "amount": 80,
         "type": "commission",
-        "done": false
+        "done": false,
+        "shortName": "Marine environmental data"
       },
       {
         "name": "Identification and Analysis of Key Nodes in Energy Networks",
@@ -649,7 +748,8 @@ window.CV_CONTENT = {
         "period": "2024.08—2025.08",
         "amount": 30,
         "type": "lab",
-        "done": true
+        "done": true,
+        "shortName": "Energy network analysis"
       },
       {
         "name": "Multi-Terminal Platform for Integrated Asset Information Visualisation",
@@ -657,7 +757,8 @@ window.CV_CONTENT = {
         "period": "2022.03—2024.03",
         "amount": 180,
         "type": "commission",
-        "done": true
+        "done": true,
+        "shortName": "Asset information platform"
       }
     ],
     "teachingViews": {
@@ -684,40 +785,41 @@ window.CV_CONTENT = {
       }
     },
     "milestones": {
-      "2005": {
-        "title": "Undergraduate Study in Computer Science",
-        "period": "September 2005–June 2009",
-        "body": "Studied Computer Science and Technology at Beijing University of Chemical Technology and received a bachelor’s degree."
-      },
-      "2009": {
-        "title": "Master’s Study in Computer Applications",
-        "period": "September 2009–June 2012",
-        "body": "Studied Computer Application Technology at Beijing University of Chemical Technology and received a master’s degree."
-      },
       "2012": {
-        "title": "Joined Beijing University of Chemical Technology",
+        "title": "Joined BUCT in teaching and research",
         "period": "July 2012–present",
-        "body": "Joined the College of Information Science and Technology. Now an Associate Professor and master’s supervisor, with long-term teaching in Data Structures and Object-Oriented Programming."
+        "body": "Joined the College of Information Science and Technology. I teach Data Structures and Object-Oriented Programming and am now an Associate Professor and master’s supervisor.",
+        "label": "careerStart"
       },
-      "2016": {
-        "title": "Doctoral Study in Control Science and Engineering",
-        "period": "September 2016–June 2021",
-        "body": "Pursued doctoral research at Beijing University of Chemical Technology while continuing teaching and research duties. Received a Ph.D. in engineering in 2021."
+      "2015": {
+        "title": "Developing course resources and teaching practice",
+        "period": "2015",
+        "body": "Received a third prize in the Beijing division of the Second National University Micro-course Teaching Competition, alongside continuing work on teaching algorithms and programming.",
+        "label": "careerTeaching"
+      },
+      "2018": {
+        "title": "Intelligent modelling and soft sensors",
+        "period": "2018",
+        "body": "Contributed to ensemble modelling for soft sensors, with work published in Chemometrics and Intelligent Laboratory Systems.",
+        "label": "careerResearch"
       },
       "2021": {
-        "title": "Completed the Ph.D.",
+        "title": "Teaching practice and text analysis",
         "period": "2021",
-        "body": "Received a Ph.D., a third prize in the Beijing Young University Teachers’ Teaching Competition and the BUCT Outstanding Young Lecturer award. Contributed to an Erasmus+ international collaboration project."
+        "body": "Received a third prize in the Beijing Young University Teachers’ Teaching Competition and the BUCT Outstanding Young Lecturer award. Published work on improved TF-IDF classification and food-safety public-opinion warning.",
+        "label": "careerTeaching"
       },
       "2024": {
-        "title": "BUCT Young Distinguished Teacher",
+        "title": "Network analysis and AI in education",
         "period": "2024",
-        "body": "Received the BUCT Young Distinguished Teacher Award. Led educational reform projects on language-model-supported teaching, applying research methods to learning and assessment in the classroom."
+        "body": "Received the BUCT Young Distinguished Teacher Award. Led a State Key Laboratory project on critical nodes in energy networks and advanced teaching reform using large language models.",
+        "label": "careerResearch"
       },
       "2026": {
-        "title": "Research and Educational Research Updates",
-        "period": "Latest developments in 2026",
-        "body": "Awarded a Beijing Natural Science Foundation grant and approval for the Data Structures smart-course project. HTP-Net was accepted by IEEE Sensors Journal, alongside continuing research in graph learning, industrial intelligence and AI in education."
+        "title": "Progress in graph learning, industrial AI and learning diagnosis",
+        "period": "2026",
+        "body": "A Beijing Natural Science Foundation grant and the Data Structures smart-course project were approved. RT-GCN and CrossRay3D were published; HTP-Net was accepted by IEEE Sensors Journal.",
+        "label": "careerPresent"
       }
     },
     "ui": {
@@ -732,13 +834,13 @@ window.CV_CONTENT = {
       "navWorks": "Publications",
       "navProjects": "Projects",
       "navTeaching": "Teaching",
-      "navJourney": "Biography",
+      "navJourney": "Career",
       "navContact": "Contact",
       "affiliation": "College of Information Science and Technology<br>Beijing University of Chemical Technology",
       "name": "Zhiying Jiang<span lang=\"zh-CN\">江志英</span>",
-      "identity": "Ph.D. <i></i> Associate Professor <i></i> Master’s Supervisor",
+      "identity": "Associate Professor <i></i> Master’s Supervisor",
       "focus": "Graph Learning · Large Language Models<br>Multimodal Perception & Embodied Intelligence",
-      "intro": "My research spans multilayer network representation, knowledge-enhanced large language models, agent reasoning, multimodal perception and embodied question answering. I have led more than ten funded and commissioned projects and published over ten papers as first or corresponding author. I also study learning diagnosis and classroom teaching using graph modelling and experimental methods.",
+      "intro": "I study graph learning, large language models, agent reasoning and multimodal perception. I have led more than ten funded and commissioned projects and published over ten papers as first or corresponding author. My work in AI in education applies research methods to learning diagnosis and classroom teaching.",
       "researchAction": "Research areas",
       "worksAction": "Selected work",
       "portraitAlt": "Portrait of Zhiying Jiang",
@@ -752,7 +854,7 @@ window.CV_CONTENT = {
       "papersUnit": "+ papers",
       "papersMetric": "Published as first or corresponding author",
       "researchTitle": "Research Areas",
-      "researchLead": "Representation, reasoning and decision-making<br>Research methods for educational questions",
+      "researchLead": "From structural representation to reasoning and decisions",
       "mapHint": "Select an area to explore its questions and related work",
       "mapAria": "Interactive research areas",
       "mapCore1": "Model · Infer",
@@ -767,19 +869,19 @@ window.CV_CONTENT = {
       "areaEmbodied": "Multimodal & Embodied AI",
       "areaEducation": "AI in Education",
       "worksTitle": "Selected Academic Work",
-      "worksLead": "Four journal papers and one granted patent<br>Methods, experiments and original figures",
+      "worksLead": "Four journal papers · One granted patent",
       "otherPapers": "Other Publications",
       "viewDoi": "View DOI",
       "projectsTitle": "Selected Research Projects",
-      "projectsLead": "Principal investigator on all 7 projects<br>Approved or contracted funding",
+      "projectsLead": "7 selected projects · Principal investigator",
       "projectGroup": "Filter projects by funding source",
       "filterAll": "All projects",
       "filterFund": "Natural Science Foundation",
       "filterLab": "Key Laboratory",
       "filterCommission": "Commissioned research",
       "totalLabel": "Total",
-      "teachingTitle": "Research Methods for Teaching",
-      "teachingLead": "Teaching since 2012<br>Learning and assessment with generative AI",
+      "teachingTitle": "Research Methods for Classroom Questions",
+      "teachingLead": "Classroom questions, research-informed answers",
       "teachingIntro": "I teach Data Structures and Object-Oriented Programming, connecting problem analysis with algorithm development and implementation. Generative AI raises a question for assessment: does completing a task demonstrate understanding? My educational research draws on graph learning and language models to estimate learners’ capabilities, diagnose conceptual difficulties and inform instructional interventions, evaluated through classroom studies and independent tests.",
       "methodData": "Learning records",
       "methodModel": "Knowledge, behaviour and cognition",
@@ -806,8 +908,8 @@ window.CV_CONTENT = {
       "summitBody": "Executive Chair of the research summit on digital education and industry partnerships; presented research on collaborative teaching across countries.",
       "euCaption": "Erasmus+ final assessment · Good Practice evaluation",
       "summitCaption": "Summit programme · Executive Chair profile",
-      "journeyTitle": "Education and Career",
-      "journeyLead": "Education, appointments and awards<br>Select a year to view a milestone",
+      "journeyTitle": "Teaching & Research Career",
+      "journeyLead": "Beijing University of Chemical Technology · Since 2012",
       "yearGroup": "Choose a year",
       "honorsTitle": "Honours and Awards",
       "honor1": "Young Distinguished Teacher Award, Beijing University of Chemical Technology",
@@ -846,7 +948,61 @@ window.CV_CONTENT = {
       "publicationsResearch": "Research",
       "publicationsEducation": "Education",
       "publicationCount": " publications",
-      "schoolUrl": "https://en-cist.buct.edu.cn/2023/0306/c13314a176314/page.htm"
+      "schoolUrl": "https://en-cist.buct.edu.cn/2023/0306/c13314a176314/page.htm",
+      "teachingQuestion": "Does completing a task mean a student understands it?",
+      "teachingBrief": "Drawing on long-term programming teaching, I study ability diagnosis and instructional intervention with generative AI. Graph models organise learning evidence; classroom experiments and independent tests evaluate the methods.",
+      "workDetails": "Methods & experiments",
+      "previousWork": "Previous work",
+      "nextWork": "Next work",
+      "galleryGroup": "Choose selected academic work",
+      "galleryHint": "Choose a work below to explore its research figure",
+      "originalFigure": "Research figure",
+      "patentFigure": "Multilayer network representation learning · Method schematic",
+      "patentLayer1": "Network structure",
+      "patentLayer2": "Representation",
+      "patentLayer3": "Robustness analysis",
+      "openPublications": "Browse other publications",
+      "libraryDescription": "14 published or accepted papers · Newest first",
+      "librarySearch": "Search publications",
+      "librarySearchPlaceholder": "Title, author, venue or DOI",
+      "libraryYear": "Publication year",
+      "allYears": "All years",
+      "resetSearch": "Reset",
+      "noResults": "No matching publications. Try another search or filter.",
+      "libraryHint": "Selected papers are presented in the gallery above",
+      "projectChart": "Research project timeline",
+      "projectChartHint": "Select a project to see its full title and funding",
+      "projectChartNote": "Bars show project periods",
+      "projectPeriod": "Project period",
+      "projectSource": "Funding source",
+      "projectFunding": "Approved or contracted funding",
+      "recentFunding": "Research funding under management since 2023",
+      "allFunding": "Approved or contracted funding for these 7 projects",
+      "selectedFunding": "Filtered total",
+      "projectDetails": "Project details",
+      "stepChl": "Classroom practice",
+      "stepFund": "Method research",
+      "stepTrace": "Feedback support",
+      "teachingResources": "Teaching development and exchange",
+      "teachingPublicationsTab": "Education papers",
+      "teachingCoursesTab": "Courses",
+      "teachingCooperationTab": "Collaboration",
+      "viewCitation": "Expand academic citation",
+      "viewFigure": "Enlarge figure",
+      "paperAccepted": "Accepted",
+      "careerGroup": "Choose a career milestone",
+      "careerPrevious": "Previous career milestone",
+      "careerNext": "Next career milestone",
+      "careerStart": "Joined BUCT",
+      "careerResearch": "Research",
+      "careerTeaching": "Teaching",
+      "careerPresent": "Recent work",
+      "honorsMore": "Selected honours and awards",
+      "copyEmail": "Copy email",
+      "emailCopied": "Email address copied",
+      "emailFallback": "Select the email address to copy it",
+      "educationListCount": "6 papers",
+      "yearLabel": ""
     },
     "featuredWorkIds": [
       "rtgcn",
