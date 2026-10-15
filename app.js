@@ -1,12 +1,13 @@
 'use strict';
 const content = window.CV_CONTENT;
-const state = {lang: 'zh', area: 'network', filter: 'all', teaching: 'chl', year: '2026', modal: null};
+const publications = window.CV_PUBLICATIONS;
+const state = {lang: 'zh', area: 'network', filter: 'all', publicationFilter: 'all', teaching: 'chl', year: '2026', modal: null};
 const $ = id => document.getElementById(id);
 const all = selector => [...document.querySelectorAll(selector)];
 const data = () => content[state.lang];
 const t = key => data().ui[key];
 const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const markName = value => esc(value).replace(/JIANG Z(?: Y)?|江志英/g, name => '<strong>' + name + '</strong>');
+const markName = value => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang\b|江志英/g, name => '<strong>' + name + '</strong>');
 const workById = id => data().works.find(work => work.id === id);
 const citationLanguage = text => /[\u4e00-\u9fff]/.test(text) ? 'zh-CN' : 'en';
 
@@ -19,11 +20,34 @@ function selectArea(id) {
     el.setAttribute('aria-pressed', String(active));
     if (el.classList.contains('map-node')) el.setAttribute('aria-label', data().researchAreas[el.dataset.area].title);
   });
-  $('research-detail').innerHTML = `<span class="detail-no">RESEARCH ${area.number}</span><h3>${esc(area.title)}</h3><p>${esc(area.body)}</p><h4>${t('researchMethods')}</h4><div class="research-tags">${area.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div><h4>${t('relatedResearch')}</h4><div class="research-links">${area.works.length ? area.works.map(id => {const work = workById(id);return `<button data-work="${id}">${esc(work.name)}${work.statusClass === 'submitted' ? ' · ' + t('submitted') : ''}</button>`;}).join('') : `<button data-go-teaching>${t('teachingLink')}</button>`}</div>`;
+  const related = area.works.map(workById).filter(Boolean);
+  $('research-detail').innerHTML = `<span class="detail-no">RESEARCH ${area.number}</span><h3>${esc(area.title)}</h3><p>${esc(area.body)}</p><h4>${t('researchMethods')}</h4><div class="research-tags">${area.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div><h4>${t('relatedResearch')}</h4><div class="research-links">${related.length ? related.map(work => `<button data-work="${work.id}">${esc(work.name)}</button>`).join('') : `<button data-go-teaching>${t('teachingLink')}</button>`}</div>`;
 }
 
 function workCard(work) {
   return `<button class="work ${work.id === 'patent' ? 'patent-work' : ''}" data-work="${work.id}" aria-label="${esc(t('viewWork') + work.name)}"><div class="work-image">${work.image ? `<img src="${work.image}" alt="${esc(work.caption)}" loading="lazy">` : `<span class="patent-symbol">${t('patentLabel')}</span><span class="patent-code">CN120337984B</span>`}</div><div class="work-body"><div class="work-meta"><span>${esc(work.year)}</span><span class="status ${work.statusClass}">${esc(work.status)}</span></div><h3>${esc(work.name)} <span>· ${esc(work.subtitle)}</span></h3><p>${esc(work.intro)}</p></div><div class="work-footer"><span>${esc(work.venue)}</span><span>${esc(work.role)}</span></div></button>`;
+}
+
+function publicationItem(paper, compact = false) {
+  const heading = compact && state.lang === 'en' && paper.titleEn ? `<p class="publication-title-en">${esc(paper.titleEn)}</p>` : '';
+  const category = paper.category === 'education' ? t('publicationsEducation') : t('publicationsResearch');
+  return `<li data-publication-id="${esc(paper.id)}">${heading}<p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation)}</p><div class="publication-meta"><span class="publication-year">${paper.year}</span><span class="status ${paper.status === 'accepted' ? 'accepted' : ''}">${esc(t(paper.status))}</span>${compact ? '' : `<span class="publication-category">${esc(category)}</span>`}${paper.doi ? `<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>` : ''}</div></li>`;
+}
+
+function renderPublications(filter) {
+  state.publicationFilter = filter;
+  const visible = publications.filter(paper => filter === 'all' || paper.category === filter);
+  $('publications-list').innerHTML = visible.map(paper => publicationItem(paper)).join('');
+  $('publications-count').textContent = visible.length + t('publicationCount');
+  all('[data-publication-filter]').forEach(button => {
+    const active = button.dataset.publicationFilter === filter;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+}
+
+function renderEducationPublications() {
+  $('education-papers').innerHTML = `<ol class="education-publication-list">${publications.filter(paper => paper.category === 'education').map(paper => publicationItem(paper, true)).join('')}</ol>`;
 }
 
 function renderProjects(filter) {
@@ -95,12 +119,12 @@ function setLanguage(lang, remember = true) {
   all('[data-i18n]').forEach(el => {el.innerHTML = t(el.dataset.i18n);});
   all('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
   all('[data-i18n-alt]').forEach(el => el.setAttribute('alt', t(el.dataset.i18nAlt)));
+  all('[data-i18n-href]').forEach(el => el.setAttribute('href', t(el.dataset.i18nHref)));
   all('[data-lang]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === lang)));
   all('[data-caption-key]').forEach(el => {el.dataset.caption = t(el.dataset.captionKey);});
-  $('works-grid').innerHTML = data().works.slice(0, 5).map(workCard).join('');
-  $('recent-grid').innerHTML = data().works.slice(5, 7).map(workCard).join('');
-  $('food-citation').innerHTML = markName(workById('food').citation);
-  $('education-papers').innerHTML = data().educationPapers.map(paper => `<article><p>${paper.title ? `<strong class="education-title">${esc(paper.title)}</strong>` : ''}<span class="status ${paper.status === t('accepted') ? 'accepted' : ''}">${esc(paper.status)}</span></p><p lang="${citationLanguage(paper.citation)}">${markName(paper.citation)}</p></article>`).join('');
+  $('works-grid').innerHTML = data().featuredWorkIds.map(workById).filter(Boolean).map(workCard).join('');
+  renderPublications(state.publicationFilter);
+  renderEducationPublications();
   selectArea(state.area);renderProjects(state.filter);selectTeaching(state.teaching);selectYear(state.year);
   if (dialog.open && state.modal) {const modal = state.modal;modal.type === 'work' ? openWork(modal.id) : openImage(modal);}
   if (remember) {
@@ -115,6 +139,7 @@ document.addEventListener('click', event => {
   const area = event.target.closest('[data-area]');if (area) {selectArea(area.dataset.area);return;}
   const work = event.target.closest('[data-work]');if (work) {openWork(work.dataset.work);return;}
   const project = event.target.closest('[data-filter]');if (project) {renderProjects(project.dataset.filter);return;}
+  const publication = event.target.closest('[data-publication-filter]');if (publication) {renderPublications(publication.dataset.publicationFilter);return;}
   const teaching = event.target.closest('[data-teaching]');if (teaching) {selectTeaching(teaching.dataset.teaching);return;}
   const year = event.target.closest('[data-year]');if (year) {selectYear(year.dataset.year);return;}
   const copy = event.target.closest('[data-copy]');if (copy) {copyCitation(copy.dataset.copy);return;}
@@ -141,8 +166,14 @@ const sections = all('main>section[id]'), navLinks = [...nav.querySelectorAll('a
 function updateScroll() {
   const span = document.documentElement.scrollHeight - window.innerHeight;
   document.querySelector('.scroll-progress').style.width = (span > 0 ? window.scrollY / span * 100 : 0) + '%';
-  const active = sections.filter(section => section.getBoundingClientRect().top <= 160).at(-1);
-  navLinks.forEach(link => link.classList.toggle('current', link.getAttribute('href') === '#' + active?.id));
+  const atBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 6;
+  const active = atBottom ? sections.at(-1) : sections.filter(section => section.getBoundingClientRect().top <= 160).at(-1);
+  navLinks.forEach(link => {
+    const current = link.getAttribute('href') === '#' + active?.id;
+    link.classList.toggle('current', current);
+    if (current) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
 }
 let ticking = false;
 window.addEventListener('scroll', () => {if (!ticking) {requestAnimationFrame(() => {updateScroll();ticking = false;});ticking = true;}}, {passive: true});

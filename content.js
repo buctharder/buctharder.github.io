@@ -5,18 +5,17 @@ window.CV_CONTENT = {
       "network": {
         "number": "01",
         "title": "结构化表征与复杂网络",
-        "body": "研究多层网络中的异质关系与跨层依赖，关注网络表征、关键节点识别和鲁棒性分析。近期工作拓展至双曲空间时序表示，以及潮流约束下的电网拓扑生成与调控。",
+        "body": "研究多层网络中的异质关系与跨层依赖，关注网络表征、关键节点识别和鲁棒性分析，并将时序建模与双曲空间表征用于工业故障诊断。",
         "tags": [
           "多层网络表征",
-          "双曲原型学习",
-          "拓扑生成",
+          "双曲空间表征",
+          "时序建模",
           "网络鲁棒性"
         ],
         "works": [
           "rtgcn",
           "sensors",
-          "patent",
-          "pg"
+          "patent"
         ]
       },
       "agents": {
@@ -45,8 +44,7 @@ window.CV_CONTENT = {
           "证据约束主动感知"
         ],
         "works": [
-          "crossray",
-          "eqa"
+          "crossray"
         ]
       },
       "education": {
@@ -156,44 +154,6 @@ window.CV_CONTENT = {
         "evidence": "中国发明专利CN120337984B，2026年授权，江志英为第一发明人。",
         "citation": "江志英, 等. 一种基于表征学习增强多层网络鲁棒性的方法：中国，CN120337984B[P]. 2026.",
         "doi": null
-      },
-      {
-        "id": "pg",
-        "name": "PGTopoGen",
-        "subtitle": "生成式网络拓扑调控",
-        "venue": "投稿研究",
-        "year": "2026",
-        "status": "已投稿",
-        "statusClass": "submitted",
-        "role": "共同第一作者 · 列第一",
-        "image": "assets/pgtopogen.png",
-        "title": "PGTopoGen: Power-Flow-Supervised Hierarchical Generative Imitation Learning for Automated Power-Grid Topology Control",
-        "intro": "生成候选电网拓扑，结合合法性筛查与限额潮流验证完成调控。",
-        "problem": "电网拓扑调控的候选组合空间庞大，在线穷举与验证代价高，固定动作库也可能遗漏有效结构。",
-        "method": "离线潮流计算形成分层软监督，通过元件—变电站—电网层次表征与条件离散扩散生成候选，再经合法性筛查和限额潮流验证选择动作。",
-        "evidence": "在缩减IEEE-118电网的闭环仿真中完成72次测试回合，检验候选覆盖与调控性能。",
-        "citation": "JIANG Z, DAI Y, LONG Y, LI Z, LIU H, GU W. PGTopoGen: Power-Flow-Supervised Hierarchical Generative Imitation Learning for Automated Power-Grid Topology Control. 2026（已投稿）.",
-        "doi": null,
-        "caption": "PGTopoGen离线监督与分层生成框架 · 投稿稿原图"
-      },
-      {
-        "id": "eqa",
-        "name": "证据约束主动感知",
-        "subtitle": "视觉语言模型驱动的具身问答",
-        "venue": "投稿研究",
-        "year": "2026",
-        "status": "已投稿",
-        "statusClass": "submitted",
-        "role": "第一作者",
-        "image": "assets/eqa.png",
-        "title": "基于视觉语言模型的证据约束具身问答主动感知方法",
-        "intro": "评估答案所需的视觉证据，依据证据缺口确定补充观察目标。",
-        "problem": "智能体得到与问题相关的观测，并不意味着这些观测足以支持答案；需要判断还缺什么证据以及何时结束探索。",
-        "method": "从目标身份、答案支持和观察范围三个维度评估证据，依据明确缺口指导补充观察，关联保留候选答案及原始观测图像。",
-        "evidence": "以Qwen3-VL-8B为基座，在A-EQA完整184题和EXPRESS-Bench完整2044题上检验回答质量与探索效率。",
-        "citation": "江志英, 匡晴波, 汪海锐, 沈甜雨, 李志伟, 刘华平. 基于视觉语言模型的证据约束具身问答主动感知方法. 2026（已投稿）.",
-        "doi": null,
-        "caption": "证据约束具身问答主动感知框架 · 投稿稿原图"
       },
       {
         "id": "food",
@@ -329,41 +289,9 @@ window.CV_CONTENT = {
       "2026": {
         "title": "科研与教学研究进展",
         "period": "2026年最新进展",
-        "body": "北京市自然科学基金与《数据结构》智慧课程获批；HTP-Net论文获IEEE Sensors Journal录用。电网拓扑生成与证据约束具身问答两项工作已投稿。"
+        "body": "北京市自然科学基金与《数据结构》智慧课程获批；HTP-Net论文获IEEE Sensors Journal录用，持续开展图学习、工业智能与教育人工智能研究。"
       }
     },
-    "educationPapers": [
-      {
-        "status": "已发表",
-        "citation": "江志英, 冀港, 谷伟伟. 新工科背景下生成式AI赋能教学模式探索——以面向对象程序设计课程为例[J]. 教育理论与研究, 2025, 3(40): 128–130.",
-        "title": ""
-      },
-      {
-        "status": "已发表",
-        "citation": "江志英, 王嘉薪, 卢罡, DOYLE P, GILLESPIE B. 基于定制MOOC与中外联合课堂的混合教学模式探究[J]. 计算机教育, 2023(10): 112–116.",
-        "title": ""
-      },
-      {
-        "status": "已发表",
-        "citation": "GILLESPIE B, DOYLE P, JIANG Z, HUMBLE D. Sustainable international engagement using a partner co-hosted teaching model[J]. Irish Journal of Academic Practice, 2022, 10(1): Article 13.",
-        "title": ""
-      },
-      {
-        "status": "已发表",
-        "citation": "江志英, 石雯雯, 史晟辉, 彭四伟. 基于在线教育平台的混合教学模式研究——以《数据结构》课程改革为例[J]. 科教导刊-电子版（中旬）, 2020(12): 134–135.",
-        "title": ""
-      },
-      {
-        "status": "已录用",
-        "citation": "江志英, 刘晔宁, 卢罡, 贺彦林. 生成式AI环境下数据结构CHL教学实践[J]. 计算机教育（已录用）.",
-        "title": ""
-      },
-      {
-        "status": "已录用",
-        "citation": "江志英, 刘晔宁, 谷伟伟. 新工科视域下认知结构断裂的修复机理与实践分析——以《数据结构》课程为例[J]. 北京化工大学学报（社会科学版）（已录用）.",
-        "title": ""
-      }
-    ],
     "ui": {
       "skip": "跳至正文",
       "brand": "江志英 <small>ZHIYING JIANG</small>",
@@ -405,10 +333,7 @@ window.CV_CONTENT = {
       "areaEducation": "教育人工智能",
       "worksTitle": "代表学术成果",
       "worksLead": "四篇期刊论文与一项授权专利<br>研究方法、实验与论文原图",
-      "recentTitle": "近期研究",
-      "recentState": "2项已投稿工作",
       "otherPapers": "其他学术论文",
-      "foodSummary": "大语言模型与RAG · 食品安全新闻摘要",
       "viewDoi": "查看论文 DOI",
       "projectsTitle": "代表性科研项目",
       "projectsLead": "所列7项均主持<br>经费按立项或合同金额统计",
@@ -454,7 +379,7 @@ window.CV_CONTENT = {
       "contactTitle": "学术交流与合作",
       "schoolLink": "学院个人主页",
       "footerName": "江志英 · 科研与教学",
-      "updated": "更新于2026年10月2日",
+      "updated": "更新于2026年10月15日",
       "top": "返回顶部",
       "title": "江志英 · 科研与教学",
       "description": "江志英，北京化工大学副教授、硕士生导师。研究图学习、大模型与智能体、多模态感知与具身智能，并将科研方法用于教育人工智能研究。",
@@ -486,27 +411,39 @@ window.CV_CONTENT = {
       "copyFallback": "请选中引用文字复制",
       "published": "已发表",
       "accepted": "已录用",
-      "submitted": "已投稿",
-      "granted": "已授权"
-    }
+      "granted": "已授权",
+      "otherPapersLead": "期刊与会议论文 · 已发表及已录用",
+      "publicationFilters": "按研究领域筛选论文",
+      "publicationsAll": "全部",
+      "publicationsResearch": "科研论文",
+      "publicationsEducation": "教育研究",
+      "publicationCount": "篇论文",
+      "schoolUrl": "https://cist.buct.edu.cn/_s11/2026/0603/c15683a220265/page.psp"
+    },
+    "featuredWorkIds": [
+      "rtgcn",
+      "sensors",
+      "crossray",
+      "corea",
+      "patent"
+    ]
   },
   "en": {
     "researchAreas": {
       "network": {
         "number": "01",
         "title": "Structured Representation and Complex Networks",
-        "body": "I study heterogeneous relations and cross-layer dependencies in multilayer networks, with a focus on representation learning, key-node identification and robustness. Recent work extends to hyperbolic temporal representations and power-flow-constrained generation and control of grid topologies.",
+        "body": "I study heterogeneous relationships and cross-layer dependencies in multilayer networks, focusing on representation learning, key-node identification and robustness. Related work combines temporal modelling and hyperbolic representations for industrial fault diagnosis.",
         "tags": [
           "Multilayer networks",
-          "Hyperbolic prototypes",
-          "Topology generation",
+          "Hyperbolic representations",
+          "Temporal modelling",
           "Network robustness"
         ],
         "works": [
           "rtgcn",
           "sensors",
-          "patent",
-          "pg"
+          "patent"
         ]
       },
       "agents": {
@@ -535,8 +472,7 @@ window.CV_CONTENT = {
           "Evidence-constrained perception"
         ],
         "works": [
-          "crossray",
-          "eqa"
+          "crossray"
         ]
       },
       "education": {
@@ -646,44 +582,6 @@ window.CV_CONTENT = {
         "evidence": "Chinese invention patent CN120337984B, granted in 2026. Zhiying Jiang is the first inventor.",
         "citation": "JIANG Z, et al. 一种基于表征学习增强多层网络鲁棒性的方法: China, CN120337984B[P]. 2026.",
         "doi": null
-      },
-      {
-        "id": "pg",
-        "name": "PGTopoGen",
-        "subtitle": "Generative grid topology control",
-        "venue": "Submitted manuscript",
-        "year": "2026",
-        "status": "Submitted",
-        "statusClass": "submitted",
-        "role": "Co-first author · Listed first",
-        "image": "assets/pgtopogen.png",
-        "title": "PGTopoGen: Power-Flow-Supervised Hierarchical Generative Imitation Learning for Automated Power-Grid Topology Control",
-        "intro": "Generate candidate grid topologies and select control actions through legality screening and budgeted power-flow verification.",
-        "problem": "Grid topology control has a large combinatorial action space. Exhaustive online verification is costly, while fixed action libraries can miss effective configurations.",
-        "method": "Offline power-flow calculations provide hierarchical soft supervision. Element–substation–grid representations and conditional discrete diffusion generate candidates, followed by legality screening and budgeted online power-flow verification.",
-        "evidence": "Seventy-two test episodes in closed-loop simulation on a reduced IEEE-118 grid evaluate candidate coverage and control performance.",
-        "citation": "JIANG Z, DAI Y, LONG Y, LI Z, LIU H, GU W. PGTopoGen: Power-Flow-Supervised Hierarchical Generative Imitation Learning for Automated Power-Grid Topology Control. 2026. Submitted.",
-        "doi": null,
-        "caption": "PGTopoGen: offline supervision and hierarchical generation · Manuscript figure"
-      },
-      {
-        "id": "eqa",
-        "name": "Evidence-Constrained Perception",
-        "subtitle": "Embodied question answering with VLMs",
-        "venue": "Submitted manuscript",
-        "year": "2026",
-        "status": "Submitted",
-        "statusClass": "submitted",
-        "role": "First author",
-        "image": "assets/eqa.png",
-        "title": "Evidence-Constrained Active Perception for Embodied Question Answering Based on Vision-Language Models",
-        "intro": "Assess the visual evidence needed for an answer and turn evidence gaps into further observation goals.",
-        "problem": "Observations related to a question may still be insufficient to support an answer. The agent must identify missing evidence and decide when to stop exploring.",
-        "method": "Evidence is assessed through target identity, answer support and observation coverage. Specific gaps guide further observation, while candidate answers remain linked to the original observed images.",
-        "evidence": "Using Qwen3-VL-8B, answer quality and exploration efficiency are evaluated on all 184 A-EQA questions and all 2,044 EXPRESS-Bench questions.",
-        "citation": "江志英, 匡晴波, 汪海锐, 沈甜雨, 李志伟, 刘华平. 基于视觉语言模型的证据约束具身问答主动感知方法. 2026（已投稿）.",
-        "doi": null,
-        "caption": "Evidence-constrained active perception for embodied question answering · Manuscript figure"
       },
       {
         "id": "food",
@@ -819,41 +717,9 @@ window.CV_CONTENT = {
       "2026": {
         "title": "Research and Educational Research Updates",
         "period": "Latest developments in 2026",
-        "body": "Awarded a Beijing Natural Science Foundation grant and approval for the Data Structures smart-course project. HTP-Net was accepted by IEEE Sensors Journal; manuscripts on grid topology generation and evidence-constrained embodied question answering were submitted."
+        "body": "Awarded a Beijing Natural Science Foundation grant and approval for the Data Structures smart-course project. HTP-Net was accepted by IEEE Sensors Journal, alongside continuing research in graph learning, industrial intelligence and AI in education."
       }
     },
-    "educationPapers": [
-      {
-        "status": "Published",
-        "citation": "江志英, 冀港, 谷伟伟. 新工科背景下生成式AI赋能教学模式探索——以面向对象程序设计课程为例[J]. 教育理论与研究, 2025, 3(40): 128–130.",
-        "title": "Generative AI in Object-Oriented Programming Education"
-      },
-      {
-        "status": "Published",
-        "citation": "江志英, 王嘉薪, 卢罡, DOYLE P, GILLESPIE B. 基于定制MOOC与中外联合课堂的混合教学模式探究[J]. 计算机教育, 2023(10): 112–116.",
-        "title": "Blended Teaching with Customised MOOCs and Joint International Classes"
-      },
-      {
-        "status": "Published",
-        "citation": "GILLESPIE B, DOYLE P, JIANG Z, HUMBLE D. Sustainable international engagement using a partner co-hosted teaching model[J]. Irish Journal of Academic Practice, 2022, 10(1): Article 13.",
-        "title": "Sustainable International Engagement through Co-hosted Teaching"
-      },
-      {
-        "status": "Published",
-        "citation": "江志英, 石雯雯, 史晟辉, 彭四伟. 基于在线教育平台的混合教学模式研究——以《数据结构》课程改革为例[J]. 科教导刊-电子版（中旬）, 2020(12): 134–135.",
-        "title": "Blended Learning in Data Structures"
-      },
-      {
-        "status": "Accepted",
-        "citation": "江志英, 刘晔宁, 卢罡, 贺彦林. 生成式AI环境下数据结构CHL教学实践[J]. 计算机教育（已录用）.",
-        "title": "CHL Teaching Practice for Data Structures with Generative AI"
-      },
-      {
-        "status": "Accepted",
-        "citation": "江志英, 刘晔宁, 谷伟伟. 新工科视域下认知结构断裂的修复机理与实践分析——以《数据结构》课程为例[J]. 北京化工大学学报（社会科学版）（已录用）.",
-        "title": "Mechanisms and Practice of Cognitive-Structure Repair in Data Structures"
-      }
-    ],
     "ui": {
       "title": "Zhiying Jiang · Research & Teaching",
       "description": "Zhiying Jiang, Associate Professor at Beijing University of Chemical Technology. Research in graph learning, large language models, multimodal perception, embodied intelligence and AI in education.",
@@ -902,10 +768,7 @@ window.CV_CONTENT = {
       "areaEducation": "AI in Education",
       "worksTitle": "Selected Academic Work",
       "worksLead": "Four journal papers and one granted patent<br>Methods, experiments and original figures",
-      "recentTitle": "Recent Research",
-      "recentState": "2 submitted manuscripts",
       "otherPapers": "Other Publications",
-      "foodSummary": "LLMs and RAG for food safety news summarisation",
       "viewDoi": "View DOI",
       "projectsTitle": "Selected Research Projects",
       "projectsLead": "Principal investigator on all 7 projects<br>Approved or contracted funding",
@@ -956,7 +819,7 @@ window.CV_CONTENT = {
       "contactTitle": "Academic Exchange and Collaboration",
       "schoolLink": "University profile",
       "footerName": "Zhiying Jiang · Research & Teaching",
-      "updated": "Updated 2 October 2026",
+      "updated": "Updated 15 October 2026",
       "top": "Back to top",
       "close": "Close details",
       "researchMethods": "Topics and methods",
@@ -976,8 +839,142 @@ window.CV_CONTENT = {
       "copyFallback": "Select the citation text to copy it",
       "published": "Published",
       "accepted": "Accepted",
-      "submitted": "Submitted",
-      "granted": "Granted"
-    }
+      "granted": "Granted",
+      "otherPapersLead": "Journal and conference papers · Published and accepted",
+      "publicationFilters": "Filter publications by research area",
+      "publicationsAll": "All",
+      "publicationsResearch": "Research",
+      "publicationsEducation": "Education",
+      "publicationCount": " publications",
+      "schoolUrl": "https://en-cist.buct.edu.cn/2023/0306/c13314a176314/page.htm"
+    },
+    "featuredWorkIds": [
+      "rtgcn",
+      "sensors",
+      "crossray",
+      "corea",
+      "patent"
+    ]
   }
 };
+
+window.CV_PUBLICATIONS = [
+  {
+    "id": "chl2026",
+    "year": 2026,
+    "category": "education",
+    "status": "accepted",
+    "citation": "江志英, 刘晔宁, 卢罡, 贺彦林. 生成式AI环境下数据结构CHL教学实践[J]. 计算机教育（已录用）.",
+    "doi": "",
+    "titleEn": "CHL Teaching Practice for Data Structures with Generative AI"
+  },
+  {
+    "id": "repair2026",
+    "year": 2026,
+    "category": "education",
+    "status": "accepted",
+    "citation": "江志英, 刘晔宁, 谷伟伟. 新工科视域下认知结构断裂的修复机理与实践分析——以《数据结构》课程为例[J]. 北京化工大学学报（社会科学版）（已录用）.",
+    "doi": "",
+    "titleEn": "Mechanisms and Practice of Cognitive-Structure Repair in Data Structures"
+  },
+  {
+    "id": "food2025",
+    "year": 2025,
+    "category": "research",
+    "status": "published",
+    "citation": "JIANG Z, ZHANG Z, JI G, LI F. Food Safety News Summarization Paradigm Based On Large Language Models And RAG[C]//2025 IEEE 14th Data Driven Control and Learning Systems (DDCLS). Wuxi: IEEE, 2025: 1681–1686.",
+    "doi": "10.1109/DDCLS66240.2025.11065829"
+  },
+  {
+    "id": "reaco2025",
+    "year": 2025,
+    "category": "research",
+    "status": "published",
+    "citation": "江志英, 黄震宇, 宋晨炜, 张泽宇, 韩众和, 谷伟伟, 龚启航, 刘思叶, 赵妍. 基于思维代码的大语言模型多工具协调调用提示方法[J]. 北京化工大学学报（自然科学版）, 2025, 52(3): 105–113.",
+    "doi": "10.13543/j.bhxbzr.2025.03.011"
+  },
+  {
+    "id": "oop2025",
+    "year": 2025,
+    "category": "education",
+    "status": "published",
+    "citation": "江志英, 冀港, 谷伟伟. 新工科背景下生成式AI赋能教学模式探索——以面向对象程序设计课程为例[J]. 教育理论与研究, 2025, 3(40): 128–130.",
+    "doi": "10.61369/ETR.2025400050",
+    "titleEn": "Generative AI in Object-Oriented Programming Education"
+  },
+  {
+    "id": "mooc2023",
+    "year": 2023,
+    "category": "education",
+    "status": "published",
+    "citation": "江志英, 王嘉薪, 卢罡, DOYLE P, GILLESPIE B. 基于定制MOOC与中外联合课堂的混合教学模式探究[J]. 计算机教育, 2023(10): 112–116.",
+    "doi": "10.16512/j.cnki.jsjjy.2023.10.040",
+    "titleEn": "Blended Teaching with Customised MOOCs and Joint International Classes"
+  },
+  {
+    "id": "risk2023",
+    "year": 2023,
+    "category": "research",
+    "status": "published",
+    "citation": "HAN Y, LIU J, LI J, JIANG Z, MA B, CHU C, GENG Z. Novel risk assessment model of food quality and safety considering physical-chemical and pollutant indexes based on coefficient of variance integrating entropy weight[J]. Science of The Total Environment, 2023, 877: 162730.",
+    "doi": "10.1016/j.scitotenv.2023.162730"
+  },
+  {
+    "id": "cohosted2022",
+    "year": 2022,
+    "category": "education",
+    "status": "published",
+    "citation": "GILLESPIE B, DOYLE P, JIANG Z, HUMBLE D. Sustainable international engagement using a partner co-hosted teaching model[J]. Irish Journal of Academic Practice, 2022, 10(1): Article 13.",
+    "doi": "10.21427/as8x-eq43",
+    "titleEn": "Sustainable International Engagement through Co-hosted Teaching"
+  },
+  {
+    "id": "ahplstm2021",
+    "year": 2021,
+    "category": "research",
+    "status": "published",
+    "citation": "江志英, 李宇洋, 李佳桐, 贺彦林, 朱群雄. 基于层次分析的长短记忆网络（AHP-LSTM）的食品安全网络舆情预警模型[J]. 北京化工大学学报（自然科学版）, 2021, 48(6): 98–107.",
+    "doi": "10.13543/j.bhxbzr.2021.06.013"
+  },
+  {
+    "id": "tfidf2021",
+    "year": 2021,
+    "category": "research",
+    "status": "published",
+    "citation": "JIANG Z, GAO B, HE Y, HAN Y, DOYLE P, ZHU Q. Text Classification Using Novel Term Weighting Scheme-Based Improved TF-IDF for Internet Media Reports[J]. Mathematical Problems in Engineering, 2021, 2021: 6619088.",
+    "doi": "10.1155/2021/6619088"
+  },
+  {
+    "id": "blended2020",
+    "year": 2020,
+    "category": "education",
+    "status": "published",
+    "citation": "江志英, 石雯雯, 史晟辉, 彭四伟. 基于在线教育平台的混合教学模式研究——以《数据结构》课程改革为例[J]. 科教导刊-电子版（中旬）, 2020(12): 134–135.",
+    "doi": "",
+    "titleEn": "Blended Learning in Data Structures"
+  },
+  {
+    "id": "codit2020",
+    "year": 2020,
+    "category": "research",
+    "status": "published",
+    "citation": "JIANG Z Y, GAO B, TIAN X, HE Y L, ZHU Q X. An Improved Term Weighting Method for Content Analysis on Chinese Internet Media Contents[C]//2020 7th International Conference on Control, Decision and Information Technologies (CoDIT). Prague: IEEE, 2020: 48–52.",
+    "doi": "10.1109/CoDIT49905.2020.9263808"
+  },
+  {
+    "id": "storm2019",
+    "year": 2019,
+    "category": "research",
+    "status": "published",
+    "citation": "JIANG Z, HAO G, HE Y, CHEN K, WANG Y, ZHU Q. An Online-Offline Computing Mode based on Apache Storm for Text Classification[C]//2019 Chinese Automation Congress (CAC). Hangzhou: IEEE, 2019: 3385–3390.",
+    "doi": "10.1109/CAC48633.2019.8996352"
+  },
+  {
+    "id": "plsr2018",
+    "year": 2018,
+    "category": "research",
+    "status": "published",
+    "citation": "ZHANG X, ZHU Q, JIANG Z Y, HE Y, XU Y. A novel ensemble model using PLSR integrated with multiple activation functions based ELM: Applications to soft sensor development[J]. Chemometrics and Intelligent Laboratory Systems, 2018, 183: 147–157.",
+    "doi": "10.1016/j.chemolab.2018.10.016"
+  }
+];
