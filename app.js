@@ -3,7 +3,7 @@
 const content = window.CV_CONTENT;
 const publications = window.CV_PUBLICATIONS;
 const educationPublicationCount = publications.filter(paper => paper.category === 'education').length;
-const state = {lang:'zh', area:'network', work:'rtgcn', filter:'all', project:0, teaching:'chl', resource:'papers', year:'2012', publicationFilter:'all', publicationYear:'all', search:'', expanded:new Set(), modal:null};
+const state = {lang:'zh', area:'network', work:'rtgcn', filter:'all', project:0, teaching:'chl', teachingProjectGroup:'all', teachingProject:'erasmus-git', resource:'papers', year:'2012', publicationFilter:'all', publicationYear:'all', publicationStatus:'all', bioExpanded:false, search:'', expanded:new Set(), modal:null};
 const $ = id => document.getElementById(id);
 const all = (selector, root = document) => [...root.querySelectorAll(selector)];
 const data = () => content[state.lang];
@@ -13,6 +13,21 @@ const markName = value => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang
 const workById = id => data().works.find(work => work.id === id);
 const citationLanguage = value => /[\u4e00-\u9fff]/.test(value) ? 'zh-CN' : 'en';
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function revealTab(rail,button) {
+  if (rail && button && rail.scrollWidth>rail.clientWidth && typeof rail.scrollTo==='function') {
+    const left=button.offsetLeft-rail.offsetLeft-(rail.clientWidth-button.offsetWidth)/2;
+    rail.scrollTo({left:Math.max(0,left),behavior:reducedMotion()?'auto':'smooth'});
+  }
+}
+
+function syncBio() {
+  $('intro-text').classList.toggle('is-expanded',state.bioExpanded);
+  const button=document.querySelector('[data-toggle-bio]');
+  button.setAttribute('aria-expanded',String(state.bioExpanded));
+  button.dataset.i18n=state.bioExpanded?'readLess':'readMore';
+  button.textContent=t(button.dataset.i18n);
+}
 
 function imageViewport(src, caption, loading='lazy') {
   return `<span class="figure-media"><img src="${esc(src)}" alt="${esc(caption)}" loading="${loading}"></span>`;
@@ -69,23 +84,20 @@ function selectWork(id) {
   $('work-stage').setAttribute('aria-labelledby','work-tab-' + id);
   $('work-stage').innerHTML = `${figure}<div class="work-copy"><div class="work-meta"><span>${esc(work.year)}</span><span class="status ${esc(work.statusClass)}">${esc(work.status)}</span></div><h3>${esc(work.name)}</h3><p class="work-subtitle">${esc(work.subtitle)}</p><p class="work-intro">${esc(work.intro)}</p><p class="work-venue">${esc(work.venue)}</p><p class="work-role">${esc(work.role)}</p><button type="button" class="button" data-work="${id}"><span>${esc(t('workDetails'))}</span><span aria-hidden="true">↗</span></button></div>`;
   $('gallery-count').textContent = `${String(data().featuredWorkIds.indexOf(id)+1).padStart(2,'0')} / 05`;
+  revealTab($('works-grid'),$('work-tab-'+id));
 }
 
 function stepWork(step) {
   const ids = data().featuredWorkIds;
   selectWork(ids[(ids.indexOf(state.work) + step + ids.length) % ids.length]);
-  const rail = $('works-grid'), button = $('work-tab-' + state.work);
-  if (rail.scrollWidth > rail.clientWidth && typeof rail.scrollTo === 'function') {
-    rail.scrollTo({left:Math.max(0,button.offsetLeft-rail.offsetLeft-10),behavior:reducedMotion()?'auto':'smooth'});
-  }
 }
 
-function periodLayout(period) {
+function periodLayout(period, firstYear=2022, totalMonths=96) {
   const dates = [...period.matchAll(/(\d{4})\.(\d{2})/g)].map(match => ({year:Number(match[1]),month:Number(match[2])}));
   if (dates.length !== 2) return {start:0,duration:0};
-  const startMonth = (dates[0].year-2022)*12 + dates[0].month-1;
-  const endMonth = (dates[1].year-2022)*12 + dates[1].month;
-  return {start:startMonth/96*100,duration:(endMonth-startMonth)/96*100};
+  const startMonth = (dates[0].year-firstYear)*12 + dates[0].month-1;
+  const endMonth = (dates[1].year-firstYear)*12 + dates[1].month;
+  return {start:startMonth/totalMonths*100,duration:(endMonth-startMonth)/totalMonths*100};
 }
 
 function selectProject(index) {
@@ -127,6 +139,50 @@ function selectResource(key) {
   });
 }
 
+function resolveTeachingProject(item) {
+  if (!Number.isInteger(item.researchProjectIndex)) return item;
+  const project=data().projects[item.researchProjectIndex];
+  return {...item,title:project.name,source:project.source+' · '+item.discipline,period:project.period,totalFunding:project.amount,personalFunding:project.amount};
+}
+
+function selectTeachingProject(id) {
+  const project=data().teachingProjects.find(item=>item.id===id);
+  if (!project) return;
+  const item=resolveTeachingProject(project);
+  state.teachingProject=id;
+  all('[data-teaching-project-id]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.teachingProjectId===id)));
+  $('education-project-detail').innerHTML=`<span class="detail-no">${esc(t(item.group==='reform'?'educationProjectsReform':'educationProjectsResearch'))}</span><h4>${esc(item.title)}</h4><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(item.source)}</dd></div><div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(item.period)}</dd></div><div><dt>${esc(t('educationProjectRole'))}</dt><dd>${esc(item.role)}</dd></div></dl><div class="education-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-education-total>${item.totalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-education-personal>${item.personalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div></div>${Number.isInteger(item.researchProjectIndex)?`<button type="button" class="grant-link" data-teaching-framework>${esc(t('educationProjectFramework'))} ↗</button>`:''}`;
+}
+
+function renderTeachingProjects(group=state.teachingProjectGroup) {
+  if (!['all','reform','research'].includes(group)) return;
+  state.teachingProjectGroup=group;
+  const projects=data().teachingProjects.map(resolveTeachingProject);
+  all('[data-education-project-group]').forEach(button=>{
+    const active=button.dataset.educationProjectGroup===group;
+    button.setAttribute('aria-pressed',String(active));button.classList.toggle('active',active);
+  });
+  all('[data-education-project-count]').forEach(counter=>{counter.textContent=projects.filter(item=>counter.dataset.educationProjectCount==='all'||item.group===counter.dataset.educationProjectCount).length;});
+  const visible=projects.filter(item=>group==='all'||item.group===group);
+  $('education-project-list').innerHTML=visible.map(item=>{
+    const {start,duration}=periodLayout(item.period,2018,144);
+    const label=[item.title,item.period,item.role,t('educationProjectTotal')+' '+item.totalFunding,t('educationProjectPersonal')+' '+item.personalFunding,t('fundUnit')].join(' · ');
+    return `<button type="button" class="project-row education-project-row ${esc(item.group)}" data-teaching-project-id="${esc(item.id)}" aria-controls="education-project-detail" aria-pressed="${item.id===state.teachingProject}" aria-label="${esc(label)}" title="${esc(label)}"><span class="project-short">${esc(item.shortName)}</span><span class="project-track" aria-hidden="true"><span class="project-bar" style="--start:${start.toFixed(4)}%;--duration:${duration.toFixed(4)}%"><span class="project-bar-end"></span></span></span><span class="project-row-amount">${item.personalFunding.toFixed(2)}</span></button>`;
+  }).join('');
+  $('education-project-count').textContent=visible.length+t('projectCount');
+  $('education-project-total').textContent=visible.reduce((sum,item)=>sum+item.totalFunding,0).toFixed(2);
+  $('education-project-personal').textContent=visible.reduce((sum,item)=>sum+item.personalFunding,0).toFixed(2);
+  selectTeachingProject(visible.some(item=>item.id===state.teachingProject)?state.teachingProject:visible[0].id);
+}
+
+function renderCourseProjects() {
+  const projects=data().courseProjects;
+  $('course-project-list').innerHTML=projects.map(item=>`<article class="course-project-card" data-course-project-id="${esc(item.id)}"><div><h4>${esc(item.title)}</h4><div class="course-project-meta"><span>${esc(item.source)}</span><span>${esc(item.period)}</span><span class="course-role">${esc(item.role)}</span></div></div><div class="course-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-course-total>${item.totalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-course-personal>${item.personalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div></div></article>`).join('');
+  $('course-project-count').textContent=projects.length+t('projectCount');
+  $('course-project-total').textContent=projects.reduce((sum,item)=>sum+item.totalFunding,0).toFixed(2);
+  $('course-project-personal').textContent=projects.reduce((sum,item)=>sum+item.personalFunding,0).toFixed(2);
+}
+
 function publicationMeta(paper, compact=false) {
   const category = t(paper.category==='education'?'publicationsEducation':'publicationsResearch');
   return `<div class="publication-meta"><span>${esc(paper.yearLabel||paper.year)}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}${paper.workId&&!compact?`<button type="button" data-work="${esc(paper.workId)}">${esc(t('viewResearch'))} ↗</button>`:''}</div>`;
@@ -142,11 +198,14 @@ function renderPublications() {
   const terms = query.split(/\s+/).filter(Boolean);
   const visible = publications.map(resolvePublication).filter(paper=>{
     const text=[paper.name,paper.citation,paper.titleEn,paper.doi].filter(Boolean).join(' ').toLocaleLowerCase();
-    return (state.publicationFilter==='all'||paper.category===state.publicationFilter) && (state.publicationYear==='all'||String(paper.year)===state.publicationYear) && terms.every(term=>text.includes(term));
+    return (state.publicationFilter==='all'||paper.category===state.publicationFilter) && (state.publicationYear==='all'||String(paper.year)===state.publicationYear) && (state.publicationStatus==='all'||paper.status===state.publicationStatus) && terms.every(term=>text.includes(term));
   });
   $('publications-list').innerHTML=visible.map(publicationItem).join('');
   $('publications-count').textContent=visible.length+t('publicationCount');
   $('publication-empty').hidden=visible.length>0;
+  const resolved=publications.map(resolvePublication);
+  all('[data-library-published]').forEach(el=>el.textContent=resolved.filter(paper=>paper.status==='published').length);
+  all('[data-library-accepted]').forEach(el=>el.textContent=resolved.filter(paper=>paper.status==='accepted').length);
   all('[data-publication-filter]').forEach(button=>{const active=button.dataset.publicationFilter===state.publicationFilter;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
 }
 
@@ -169,6 +228,7 @@ function toggleCitation(id) {
 }
 
 function renderCareerYears() {
+  $('career-years').style.setProperty('--milestone-count',String(Object.keys(data().milestones).length));
   $('career-years').innerHTML=Object.keys(data().milestones).map(year=>`<button type="button" id="career-tab-${year}" role="tab" data-year="${year}" aria-selected="${year===state.year}" aria-controls="timeline-detail" tabindex="${year===state.year?0:-1}">${year}</button>`).join('');
   selectYear(state.year);
 }
@@ -181,9 +241,10 @@ function selectYear(year) {
   $('timeline-detail').setAttribute('aria-labelledby','career-tab-'+year);
   $('timeline-detail').innerHTML=`<div class="career-year">${year}<small>${esc(t(milestone.label))}</small></div><div><h3>${esc(milestone.title)}</h3><p>${esc(milestone.body)}</p><p class="year-span">${esc(milestone.period)}</p></div>`;
   const index=Object.keys(data().milestones).indexOf(year);
-  $('career-count').textContent=`${String(index+1).padStart(2,'0')} / 06`;
+  $('career-count').textContent=`${String(index+1).padStart(2,'0')} / ${String(Object.keys(data().milestones).length).padStart(2,'0')}`;
   document.querySelector('[data-career-step="-1"]').disabled=index===0;
   document.querySelector('[data-career-step="1"]').disabled=index===Object.keys(data().milestones).length-1;
+  revealTab($('career-years'),$('career-tab-'+year));
 }
 
 function stepCareer(step) {
@@ -265,7 +326,8 @@ function setLanguage(lang,remember=true) {
   all('[data-lang]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.lang===lang)));
   all('[data-publication-count]').forEach(el=>{el.textContent=publications.length;});
   all('[data-education-count]').forEach(el=>{el.textContent=educationPublicationCount;});
-  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
+  syncBio();
+  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderCourseProjects();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
   if(detailDialog.open&&state.modal){const modal=state.modal;modal.type==='work'?openWork(modal.id):openImage(modal);}
   if(remember){
     try{localStorage.setItem('jiang-cv-language',lang);}catch{}
@@ -277,6 +339,7 @@ function setLanguage(lang,remember=true) {
 document.addEventListener('click',event=>{
   const target=event.target;
   const lang=target.closest('[data-lang]');if(lang){setLanguage(lang.dataset.lang);return;}
+  if(target.closest('[data-toggle-bio]')){state.bioExpanded=!state.bioExpanded;syncBio();return;}
   const area=target.closest('[data-area]');if(area){selectArea(area.dataset.area);return;}
   const showcase=target.closest('[data-showcase]');if(showcase){selectWork(showcase.dataset.showcase);return;}
   const workStep=target.closest('[data-work-step]');if(workStep){stepWork(Number(workStep.dataset.workStep));return;}
@@ -285,11 +348,14 @@ document.addEventListener('click',event=>{
   const filter=target.closest('[data-filter]');if(filter){renderProjects(filter.dataset.filter);return;}
   const project=target.closest('[data-project]');if(project){selectProject(Number(project.dataset.project));return;}
   const teaching=target.closest('[data-teaching]');if(teaching){selectTeaching(teaching.dataset.teaching);return;}
-  const resource=target.closest('[data-resource]');if(resource){selectResource(resource.dataset.resource);return;}
+  const teachingProjects=target.closest('[data-education-project-group]');if(teachingProjects){renderTeachingProjects(teachingProjects.dataset.educationProjectGroup);return;}
+  const teachingProject=target.closest('[data-teaching-project-id]');if(teachingProject){selectTeachingProject(teachingProject.dataset.teachingProjectId);return;}
+  if(target.closest('[data-teaching-framework]')){selectTeaching('fund');$('teaching-panel').scrollIntoView({behavior:reducedMotion()?'auto':'smooth',block:'start'});$('tab-fund').focus({preventScroll:true});return;}
+  const resource=target.closest('[data-resource]');if(resource){selectResource(resource.dataset.resource);if(resource.dataset.resource==='papers')$('education-publications').open=true;return;}
   const year=target.closest('[data-year]');if(year){selectYear(year.dataset.year);return;}
   const careerStep=target.closest('[data-career-step]');if(careerStep){stepCareer(Number(careerStep.dataset.careerStep));return;}
   const publication=target.closest('[data-publication-filter]');if(publication){state.publicationFilter=publication.dataset.publicationFilter;renderPublications();return;}
-  if(target.closest('[data-reset-publications]')){state.publicationFilter='all';state.publicationYear='all';state.search='';$('publication-search').value='';$('publication-year').value='all';renderPublications();return;}
+  if(target.closest('[data-reset-publications]')){state.publicationFilter='all';state.publicationYear='all';state.publicationStatus='all';state.search='';$('publication-search').value='';$('publication-year').value='all';$('publication-status').value='all';renderPublications();return;}
   const citation=target.closest('[data-citation]');if(citation){toggleCitation(citation.dataset.citation);return;}
   const copy=target.closest('[data-copy]');if(copy){copyCitation(copy.dataset.copy);return;}
   if(target.closest('[data-copy-email]')){copyText('jiangzy@buct.edu.cn','emailCopied','emailFallback');return;}
@@ -318,9 +384,10 @@ document.addEventListener('keydown',event=>{
 
 $('publication-search').addEventListener('input',event=>{state.search=event.target.value;renderPublications();});
 $('publication-year').addEventListener('change',event=>{state.publicationYear=event.target.value;renderPublications();});
+$('publication-status').addEventListener('change',event=>{state.publicationStatus=event.target.value;renderPublications();});
 const years=[...new Set(publications.map(paper=>paper.year))].sort((a,b)=>b-a);
 $('publication-year').insertAdjacentHTML('beforeend',years.map(year=>`<option value="${year}">${year}</option>`).join(''));
-all('.chart-axis span').forEach((tick,index)=>{tick.style.setProperty('--tick',(index*25)+'%');if(index===4)tick.textContent='2030';});
+all('.chart-axis').forEach(axis=>{const ticks=all('span',axis);ticks.forEach((tick,index)=>tick.style.setProperty('--tick',(index/(ticks.length-1)*100)+'%'));});
 
 const menu=document.querySelector('.menu-toggle'),nav=$('navigation');
 function closeMenu(){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');}
