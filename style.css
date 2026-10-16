@@ -29,5 +29,54 @@ dialog{overscroll-behavior:contain}
 @media(max-width:940px){.project-chart{--label:165px;--column-gap:15px;--amount:55px}}
 @media(max-width:720px){.project-chart{--label:116px;--column-gap:8px;--amount:36px}}
 @media(max-width:390px){.project-chart{--label:103px;--column-gap:7px;--amount:33px}}
+/* A compact identity block keeps the portrait beside the name on phones. */
+@media(max-width:720px){
+  .hero{grid-template-columns:minmax(0,1fr) 108px;column-gap:18px;row-gap:0}
+  .hero .hero-copy,.hero .profile{display:contents}
+  .hero-copy>.eyebrow{grid-column:1/-1;grid-row:1;margin-bottom:23px}
+  .hero-copy>h1{grid-column:1;grid-row:2;align-self:end;margin:0 0 12px;font-size:clamp(2.5rem,12vw,3.2rem);min-width:0}
+  .hero-copy>h1 span{font-size:.65rem;letter-spacing:.16em;margin-top:8px}
+  .hero-copy>.identity{grid-column:1;grid-row:3;align-self:start;font-size:.8125rem;gap:8px;margin:0;line-height:1.8;min-width:0}
+  .hero .portrait-frame{grid-column:2;grid-row:2/4;align-self:start;width:108px;padding:5px;margin-top:3px;border-radius:3px 22px 3px 3px}
+  .hero .portrait-frame img{width:100%;height:136px;object-fit:cover;object-position:center 24%;border-radius:0 16px 0 0}
+  .hero .portrait-tag{display:none}
+  .hero .profile-note{grid-column:1/-1;grid-row:4;display:block;border-left:0;border-top:1px solid var(--line);padding:13px 0 0;margin:18px 0 0;font-size:.8125rem;line-height:1.75}
+  .hero .profile-note p{font-size:.75rem;line-height:1.75;margin-top:5px}
+  .hero-copy>.hero-focus{grid-column:1/-1;grid-row:5;margin:23px 0 13px}
+  .hero-copy>.hero-intro{grid-column:1/-1;grid-row:6;margin:0}
+  .hero-copy>.hero-actions{grid-column:1/-1;grid-row:7;margin:21px 0 0;flex-wrap:wrap}
+  .hero>.metrics{grid-column:1/-1;grid-row:8;margin-top:28px}
+  html[lang=en] .hero-copy>h1{font-size:clamp(1.8rem,6.7vw,2.25rem);line-height:1.2}
+  html[lang=en] .hero-copy>h1 span{font-size:.875rem;margin-top:9px}
+  html[lang=en] .hero-copy>.identity{font-size:.75rem;gap:3px 8px}
+  html[lang=en] .hero-copy>.identity i{display:none}
+}
+@media(max-width:350px){
+  .hero{grid-template-columns:minmax(0,1fr) 96px;column-gap:14px}
+  .hero .portrait-frame{width:96px}
+  .hero .portrait-frame img{height:124px}
+  .hero-copy>h1{font-size:2.4rem}
+  html[lang=en] .hero-copy>h1{font-size:1.65rem}
+}
+/* Image dimensions are owned by a viewport, never by intrinsic grid tracks. */
+.figure-media{display:block;position:relative;width:100%;aspect-ratio:3/2;min-width:0;min-height:0;overflow:hidden;isolation:isolate}
+.figure-media>img,.figure-media>svg{display:block;position:absolute;inset:0;width:100%;height:100%;min-width:0;min-height:0;max-width:100%;max-height:100%;object-fit:contain;margin:0}
+.figure-media>.patent-schematic{max-width:none}
+.research-figure{display:block;height:auto;min-width:0;min-height:0;padding:14px;overflow:hidden}
+.research-figure>.figure-media{aspect-ratio:3/2}
+.research-detail-heading{flex-wrap:wrap;gap:5px 15px}
+.research-detail-heading>span{min-width:0;overflow-wrap:anywhere}
+.work-figure{display:flex;flex-direction:column;align-items:stretch;justify-content:center;min-height:0;overflow:hidden}
+.work-figure>.figure-media{aspect-ratio:16/10;flex:none}
+.work-figure:hover img{transform:none}
+.work-figure-caption{flex:none}
+.teaching-image{display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden}
+.teaching-image>.figure-media{aspect-ratio:16/10;flex:none}
+.cooperation-images .image-button{overflow:hidden}
+.cooperation-images .figure-media{height:220px;aspect-ratio:auto}
+.detail-dialog figure>.figure-media{height:min(46vh,430px);aspect-ratio:auto}
+.image-dialog>.figure-media{height:65vh;aspect-ratio:auto}
+.publication-meta button{font-size:.7rem;color:var(--teal);padding:0;text-align:left;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:720px){.research-figure{padding:12px}.cooperation-images .figure-media{height:190px}.publication-meta button{font-size:.65rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 @media print{.header,.hero-actions,.gallery-controls,.work-selectors,.publication-entry,.project-controls,.teaching-tabs,.resource-tabs,.career-controls,.copy-email,.footer>a,.figure-enlarge{display:none!important}.wrap{width:100%}.section{padding-block:25px}.hero{padding-top:0}.research-section{margin-top:25px}.research-section,.contact-section{background:white;color:var(--ink)}.section-top.inverse h2{color:var(--ink)}.research-map{display:none}.research-layout{grid-template-columns:1fr}.research-detail>p,.research-detail-heading{color:var(--muted)}.research-links button{color:var(--teal)}.research-tags span{color:var(--teal)}.contact-affiliation{color:var(--muted)}.contact-inner .school-link{color:var(--ink)}.project-detail{break-inside:avoid}.work-stage{break-inside:avoid}.project-row{break-inside:avoid}dialog[open]{position:static;max-height:none;width:100%;box-shadow:none}.publication-citation{font-size:9pt}body{font-size:10pt}}

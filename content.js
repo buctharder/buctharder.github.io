@@ -300,7 +300,7 @@ window.CV_CONTENT = {
       "2021": {
         "title": "教学实践与文本分析研究并进",
         "period": "2021",
-        "body": "获北京高校青年教师教学基本功比赛工科类A组三等奖、北京化工大学优秀青年主讲教师；发表改进TF-IDF文本分类与食品安全舆情预警研究成果。",
+        "body": "获北京高校青年教师教学基本功比赛工科类A组三等奖、北京化工大学优秀青年主讲教师；持续开展文本分析与智能建模研究。",
         "label": "careerTeaching"
       },
       "2024": {
@@ -343,7 +343,7 @@ window.CV_CONTENT = {
       "papersUnit": "余篇",
       "papersMetric": "第一作者或通讯作者发表论文",
       "researchTitle": "研究方向",
-      "researchLead": "从结构表征到推理决策",
+      "researchLead": "结构表征、智能推理与多模态感知",
       "mapHint": "选择方向，查看研究问题与成果",
       "mapCore1": "建模 · 推断",
       "mapCore2": "实验验证",
@@ -355,9 +355,9 @@ window.CV_CONTENT = {
       "areaAgents": "大模型与智能体",
       "areaEmbodied": "多模态与具身智能",
       "areaEducation": "教育人工智能",
-      "worksTitle": "代表学术成果",
+      "worksTitle": "代表性学术成果",
       "worksLead": "四篇期刊论文 · 一项授权专利",
-      "otherPapers": "其他学术论文",
+      "otherPapers": "部分代表性论文",
       "viewDoi": "查看论文 DOI",
       "projectsTitle": "代表性科研项目",
       "projectsLead": "7项代表项目 · 均为主持",
@@ -366,8 +366,8 @@ window.CV_CONTENT = {
       "filterLab": "重点实验室",
       "filterCommission": "委托研究",
       "totalLabel": "合计",
-      "teachingTitle": "以科研方法回应课堂问题",
-      "teachingLead": "课堂提出问题，研究寻找答案",
+      "teachingTitle": "用科研方法解决教学问题",
+      "teachingLead": "程序设计教学 · 学习诊断与认知修复",
       "teachingIntro": "自2012年任教以来，长期主讲《数据结构》《面向对象程序设计》等课程，注重从问题分析走向算法推演与代码实现。生成式AI进入课堂后，学生能完成任务，是否意味着真正理解？围绕这一问题，将图网络与大模型的方法积累用于学习者建模，研究能力估计、认知困难定位与教学干预，并通过课堂实验和独立测验检验其有效性。",
       "methodData": "多源学习记录",
       "methodModel": "知识、行为与认知建模",
@@ -436,7 +436,6 @@ window.CV_CONTENT = {
       "published": "已发表",
       "accepted": "已录用",
       "granted": "已授权",
-      "otherPapersLead": "期刊与会议论文 · 已发表及已录用",
       "publicationFilters": "按研究领域筛选论文",
       "publicationsAll": "全部",
       "publicationsResearch": "科研论文",
@@ -444,7 +443,7 @@ window.CV_CONTENT = {
       "publicationCount": "篇论文",
       "schoolUrl": "https://cist.buct.edu.cn/_s11/2026/0603/c15683a220265/page.psp",
       "teachingQuestion": "学生完成了任务，是否意味着真正理解？",
-      "teachingBrief": "立足长期程序设计教学，研究生成式AI环境下的能力诊断与教学干预。以图建模组织学习证据，通过课堂实验与独立测验检验方法。",
+      "teachingBrief": "围绕生成式AI辅助学习中的真实能力诊断，将图建模与大模型方法用于学习者建模、认知修复和教学干预，结合课堂实践与独立测验开展研究。",
       "workDetails": "方法与实验",
       "previousWork": "上一项成果",
       "nextWork": "下一项成果",
@@ -455,15 +454,14 @@ window.CV_CONTENT = {
       "patentLayer1": "网络结构",
       "patentLayer2": "表征学习",
       "patentLayer3": "鲁棒性分析",
-      "openPublications": "浏览其他学术论文",
-      "libraryDescription": "14篇已发表或已录用论文 · 按年份排列",
+      "openPublications": "查看部分代表性论文",
+      "libraryDescription": "{publications}篇期刊与会议论文 · 已发表及已录用",
       "librarySearch": "检索论文",
       "librarySearchPlaceholder": "题名、作者、期刊或 DOI",
       "libraryYear": "发表年份",
       "allYears": "所有年份",
       "resetSearch": "重置",
       "noResults": "没有符合条件的论文，请调整检索条件。",
-      "libraryHint": "代表性论文见前述成果展台",
       "projectChart": "科研项目周期图",
       "projectChartHint": "点击项目，查看完整名称与经费",
       "projectChartNote": "条带表示项目周期",
@@ -495,8 +493,9 @@ window.CV_CONTENT = {
       "copyEmail": "复制邮箱",
       "emailCopied": "邮箱地址已复制",
       "emailFallback": "请选中邮箱地址复制",
-      "educationListCount": "6篇",
-      "yearLabel": "年"
+      "educationListCount": "{education}篇",
+      "yearLabel": "年",
+      "viewResearch": "研究介绍"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -806,7 +805,7 @@ window.CV_CONTENT = {
       "2021": {
         "title": "Teaching practice and text analysis",
         "period": "2021",
-        "body": "Received a third prize in the Beijing Young University Teachers’ Teaching Competition and the BUCT Outstanding Young Lecturer award. Published work on improved TF-IDF classification and food-safety public-opinion warning.",
+        "body": "Received a third prize in the Beijing Young University Teachers’ Teaching Competition and the BUCT Outstanding Young Lecturer award, alongside continuing research in text analysis and intelligent modelling.",
         "label": "careerTeaching"
       },
       "2024": {
@@ -854,7 +853,7 @@ window.CV_CONTENT = {
       "papersUnit": "+ papers",
       "papersMetric": "Published as first or corresponding author",
       "researchTitle": "Research Areas",
-      "researchLead": "From structural representation to reasoning and decisions",
+      "researchLead": "Structural representation, reasoning and multimodal perception",
       "mapHint": "Select an area to explore its questions and related work",
       "mapAria": "Interactive research areas",
       "mapCore1": "Model · Infer",
@@ -868,9 +867,9 @@ window.CV_CONTENT = {
       "areaAgents": "LLMs & Agents",
       "areaEmbodied": "Multimodal & Embodied AI",
       "areaEducation": "AI in Education",
-      "worksTitle": "Selected Academic Work",
+      "worksTitle": "Representative Academic Work",
       "worksLead": "Four journal papers · One granted patent",
-      "otherPapers": "Other Publications",
+      "otherPapers": "Representative Publications",
       "viewDoi": "View DOI",
       "projectsTitle": "Selected Research Projects",
       "projectsLead": "7 selected projects · Principal investigator",
@@ -880,8 +879,8 @@ window.CV_CONTENT = {
       "filterLab": "Key Laboratory",
       "filterCommission": "Commissioned research",
       "totalLabel": "Total",
-      "teachingTitle": "Research Methods for Classroom Questions",
-      "teachingLead": "Classroom questions, research-informed answers",
+      "teachingTitle": "Research Methods for Teaching and Learning",
+      "teachingLead": "Programming education · Learning diagnosis and cognitive repair",
       "teachingIntro": "I teach Data Structures and Object-Oriented Programming, connecting problem analysis with algorithm development and implementation. Generative AI raises a question for assessment: does completing a task demonstrate understanding? My educational research draws on graph learning and language models to estimate learners’ capabilities, diagnose conceptual difficulties and inform instructional interventions, evaluated through classroom studies and independent tests.",
       "methodData": "Learning records",
       "methodModel": "Knowledge, behaviour and cognition",
@@ -942,7 +941,6 @@ window.CV_CONTENT = {
       "published": "Published",
       "accepted": "Accepted",
       "granted": "Granted",
-      "otherPapersLead": "Journal and conference papers · Published and accepted",
       "publicationFilters": "Filter publications by research area",
       "publicationsAll": "All",
       "publicationsResearch": "Research",
@@ -950,7 +948,7 @@ window.CV_CONTENT = {
       "publicationCount": " publications",
       "schoolUrl": "https://en-cist.buct.edu.cn/2023/0306/c13314a176314/page.htm",
       "teachingQuestion": "Does completing a task mean a student understands it?",
-      "teachingBrief": "Drawing on long-term programming teaching, I study ability diagnosis and instructional intervention with generative AI. Graph models organise learning evidence; classroom experiments and independent tests evaluate the methods.",
+      "teachingBrief": "I study how to assess what students understand when they use generative AI. Graph modelling and language models support learner modelling, cognitive repair and instructional intervention, examined through classroom practice and independent tests.",
       "workDetails": "Methods & experiments",
       "previousWork": "Previous work",
       "nextWork": "Next work",
@@ -961,15 +959,14 @@ window.CV_CONTENT = {
       "patentLayer1": "Network structure",
       "patentLayer2": "Representation",
       "patentLayer3": "Robustness analysis",
-      "openPublications": "Browse other publications",
-      "libraryDescription": "14 published or accepted papers · Newest first",
+      "openPublications": "View representative publications",
+      "libraryDescription": "{publications} journal and conference papers · Published or accepted",
       "librarySearch": "Search publications",
       "librarySearchPlaceholder": "Title, author, venue or DOI",
       "libraryYear": "Publication year",
       "allYears": "All years",
       "resetSearch": "Reset",
       "noResults": "No matching publications. Try another search or filter.",
-      "libraryHint": "Selected papers are presented in the gallery above",
       "projectChart": "Research project timeline",
       "projectChartHint": "Select a project to see its full title and funding",
       "projectChartNote": "Bars show project periods",
@@ -1001,8 +998,9 @@ window.CV_CONTENT = {
       "copyEmail": "Copy email",
       "emailCopied": "Email address copied",
       "emailFallback": "Select the email address to copy it",
-      "educationListCount": "6 papers",
-      "yearLabel": ""
+      "educationListCount": "{education} papers",
+      "yearLabel": "",
+      "viewResearch": "Research details"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -1015,6 +1013,24 @@ window.CV_CONTENT = {
 };
 
 window.CV_PUBLICATIONS = [
+  {
+    "id": "rtgcn",
+    "workId": "rtgcn",
+    "year": 2027,
+    "category": "research"
+  },
+  {
+    "id": "sensors",
+    "workId": "sensors",
+    "year": 2026,
+    "category": "research"
+  },
+  {
+    "id": "crossray",
+    "workId": "crossray",
+    "year": 2026,
+    "category": "research"
+  },
   {
     "id": "chl2026",
     "year": 2026,
@@ -1034,6 +1050,12 @@ window.CV_PUBLICATIONS = [
     "titleEn": "Mechanisms and Practice of Cognitive-Structure Repair in Data Structures"
   },
   {
+    "id": "corea",
+    "workId": "corea",
+    "year": 2025,
+    "category": "research"
+  },
+  {
     "id": "food2025",
     "year": 2025,
     "category": "research",
@@ -1050,15 +1072,6 @@ window.CV_PUBLICATIONS = [
     "doi": "10.13543/j.bhxbzr.2025.03.011"
   },
   {
-    "id": "oop2025",
-    "year": 2025,
-    "category": "education",
-    "status": "published",
-    "citation": "江志英, 冀港, 谷伟伟. 新工科背景下生成式AI赋能教学模式探索——以面向对象程序设计课程为例[J]. 教育理论与研究, 2025, 3(40): 128–130.",
-    "doi": "10.61369/ETR.2025400050",
-    "titleEn": "Generative AI in Object-Oriented Programming Education"
-  },
-  {
     "id": "mooc2023",
     "year": 2023,
     "category": "education",
@@ -1068,14 +1081,6 @@ window.CV_PUBLICATIONS = [
     "titleEn": "Blended Teaching with Customised MOOCs and Joint International Classes"
   },
   {
-    "id": "risk2023",
-    "year": 2023,
-    "category": "research",
-    "status": "published",
-    "citation": "HAN Y, LIU J, LI J, JIANG Z, MA B, CHU C, GENG Z. Novel risk assessment model of food quality and safety considering physical-chemical and pollutant indexes based on coefficient of variance integrating entropy weight[J]. Science of The Total Environment, 2023, 877: 162730.",
-    "doi": "10.1016/j.scitotenv.2023.162730"
-  },
-  {
     "id": "cohosted2022",
     "year": 2022,
     "category": "education",
@@ -1083,47 +1088,6 @@ window.CV_PUBLICATIONS = [
     "citation": "GILLESPIE B, DOYLE P, JIANG Z, HUMBLE D. Sustainable international engagement using a partner co-hosted teaching model[J]. Irish Journal of Academic Practice, 2022, 10(1): Article 13.",
     "doi": "10.21427/as8x-eq43",
     "titleEn": "Sustainable International Engagement through Co-hosted Teaching"
-  },
-  {
-    "id": "ahplstm2021",
-    "year": 2021,
-    "category": "research",
-    "status": "published",
-    "citation": "江志英, 李宇洋, 李佳桐, 贺彦林, 朱群雄. 基于层次分析的长短记忆网络（AHP-LSTM）的食品安全网络舆情预警模型[J]. 北京化工大学学报（自然科学版）, 2021, 48(6): 98–107.",
-    "doi": "10.13543/j.bhxbzr.2021.06.013"
-  },
-  {
-    "id": "tfidf2021",
-    "year": 2021,
-    "category": "research",
-    "status": "published",
-    "citation": "JIANG Z, GAO B, HE Y, HAN Y, DOYLE P, ZHU Q. Text Classification Using Novel Term Weighting Scheme-Based Improved TF-IDF for Internet Media Reports[J]. Mathematical Problems in Engineering, 2021, 2021: 6619088.",
-    "doi": "10.1155/2021/6619088"
-  },
-  {
-    "id": "blended2020",
-    "year": 2020,
-    "category": "education",
-    "status": "published",
-    "citation": "江志英, 石雯雯, 史晟辉, 彭四伟. 基于在线教育平台的混合教学模式研究——以《数据结构》课程改革为例[J]. 科教导刊-电子版（中旬）, 2020(12): 134–135.",
-    "doi": "",
-    "titleEn": "Blended Learning in Data Structures"
-  },
-  {
-    "id": "codit2020",
-    "year": 2020,
-    "category": "research",
-    "status": "published",
-    "citation": "JIANG Z Y, GAO B, TIAN X, HE Y L, ZHU Q X. An Improved Term Weighting Method for Content Analysis on Chinese Internet Media Contents[C]//2020 7th International Conference on Control, Decision and Information Technologies (CoDIT). Prague: IEEE, 2020: 48–52.",
-    "doi": "10.1109/CoDIT49905.2020.9263808"
-  },
-  {
-    "id": "storm2019",
-    "year": 2019,
-    "category": "research",
-    "status": "published",
-    "citation": "JIANG Z, HAO G, HE Y, CHEN K, WANG Y, ZHU Q. An Online-Offline Computing Mode based on Apache Storm for Text Classification[C]//2019 Chinese Automation Congress (CAC). Hangzhou: IEEE, 2019: 3385–3390.",
-    "doi": "10.1109/CAC48633.2019.8996352"
   },
   {
     "id": "plsr2018",

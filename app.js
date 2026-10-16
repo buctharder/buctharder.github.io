@@ -2,16 +2,27 @@
 
 const content = window.CV_CONTENT;
 const publications = window.CV_PUBLICATIONS;
+const educationPublicationCount = publications.filter(paper => paper.category === 'education').length;
 const state = {lang:'zh', area:'network', work:'rtgcn', filter:'all', project:0, teaching:'chl', resource:'papers', year:'2012', publicationFilter:'all', publicationYear:'all', search:'', expanded:new Set(), modal:null};
 const $ = id => document.getElementById(id);
 const all = (selector, root = document) => [...root.querySelectorAll(selector)];
 const data = () => content[state.lang];
-const t = key => data().ui[key];
+const t = key => data().ui[key].replaceAll('{publications}', String(publications.length)).replaceAll('{education}', String(educationPublicationCount));
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const markName = value => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang\b|江志英/g, name => '<strong>' + name + '</strong>');
 const workById = id => data().works.find(work => work.id === id);
 const citationLanguage = value => /[\u4e00-\u9fff]/.test(value) ? 'zh-CN' : 'en';
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function imageViewport(src, caption, loading='lazy') {
+  return `<span class="figure-media"><img src="${esc(src)}" alt="${esc(caption)}" loading="${loading}"></span>`;
+}
+
+function resolvePublication(paper) {
+  if (!paper.workId) return paper;
+  const work = workById(paper.workId);
+  return {...paper, name:work.name, citation:work.citation, doi:work.doi, status:work.statusClass==='accepted'?'accepted':'published', yearLabel:work.year};
+}
 
 function selectArea(id) {
   if (!data().researchAreas[id]) return;
@@ -26,7 +37,7 @@ function selectArea(id) {
   all('[data-map-path]').forEach(path => path.classList.toggle('active', path.dataset.mapPath === id));
   const related = area.works.map(workById).filter(Boolean);
   const caption = area.featured ? workById(area.featured).caption : data().teachingViews.fund.caption;
-  $('research-detail').innerHTML = `<div class="research-detail-heading"><span>RESEARCH ${esc(area.number)} / ${esc(area.imageLabel)}</span><span>${esc(area.title)}</span></div><h3>${esc(area.question)}</h3><button type="button" class="research-figure image-button" data-image="${esc(area.image)}" data-area-image="${esc(id)}" aria-label="${esc(t('enlarge') + caption)}"><img src="${esc(area.image)}" alt="${esc(caption)}" loading="lazy"><span class="figure-enlarge" aria-hidden="true">↗</span></button><p>${esc(area.body)}</p><div class="research-tags">${area.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div><div class="research-links">${related.length ? related.map(work => `<button type="button" data-work="${esc(work.id)}">${esc(work.name)} ↗</button>`).join('') : `<button type="button" data-go-teaching>${esc(t('teachingLink'))} ↓</button>`}</div>`;
+  $('research-detail').innerHTML = `<div class="research-detail-heading"><span>RESEARCH ${esc(area.number)} / ${esc(area.imageLabel)}</span><span>${esc(area.title)}</span></div><h3>${esc(area.question)}</h3><button type="button" class="research-figure image-button" data-image="${esc(area.image)}" data-area-image="${esc(id)}" aria-label="${esc(t('enlarge') + caption)}">${imageViewport(area.image,caption)}<span class="figure-enlarge" aria-hidden="true">↗</span></button><p>${esc(area.body)}</p><div class="research-tags">${area.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div><div class="research-links">${related.length ? related.map(work => `<button type="button" data-work="${esc(work.id)}">${esc(work.name)} ↗</button>`).join('') : `<button type="button" data-go-teaching>${esc(t('teachingLink'))} ↓</button>`}</div>`;
 }
 
 function patentSchematic() {
@@ -53,8 +64,8 @@ function selectWork(id) {
   const work = workById(id);
   all('[data-showcase]').forEach(button => {const active = button.dataset.showcase === id;button.setAttribute('aria-selected',String(active));button.tabIndex = active ? 0 : -1;});
   const figure = work.image
-    ? `<button type="button" class="work-figure image-button" data-image="${esc(work.image)}" data-image-work="${id}" aria-label="${esc(t('enlarge') + work.caption)}"><img src="${esc(work.image)}" alt="${esc(work.caption)}" loading="lazy"><span class="figure-enlarge" aria-hidden="true">↗</span><span class="work-figure-caption">${esc(work.caption)}</span></button>`
-    : `<div class="work-figure">${patentSchematic()}<p class="work-figure-caption">${esc(t('patentFigure'))}</p></div>`;
+    ? `<button type="button" class="work-figure image-button" data-image="${esc(work.image)}" data-image-work="${id}" aria-label="${esc(t('enlarge') + work.caption)}">${imageViewport(work.image,work.caption)}<span class="figure-enlarge" aria-hidden="true">↗</span><span class="work-figure-caption">${esc(work.caption)}</span></button>`
+    : `<div class="work-figure"><span class="figure-media">${patentSchematic()}</span><p class="work-figure-caption">${esc(t('patentFigure'))}</p></div>`;
   $('work-stage').setAttribute('aria-labelledby','work-tab-' + id);
   $('work-stage').innerHTML = `${figure}<div class="work-copy"><div class="work-meta"><span>${esc(work.year)}</span><span class="status ${esc(work.statusClass)}">${esc(work.status)}</span></div><h3>${esc(work.name)}</h3><p class="work-subtitle">${esc(work.subtitle)}</p><p class="work-intro">${esc(work.intro)}</p><p class="work-venue">${esc(work.venue)}</p><p class="work-role">${esc(work.role)}</p><button type="button" class="button" data-work="${id}"><span>${esc(t('workDetails'))}</span><span aria-hidden="true">↗</span></button></div>`;
   $('gallery-count').textContent = `${String(data().featuredWorkIds.indexOf(id)+1).padStart(2,'0')} / 05`;
@@ -104,7 +115,7 @@ function selectTeaching(key) {
   const view = data().teachingViews[key];
   all('[data-teaching]').forEach(button=>{const active=button.dataset.teaching===key;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
   $('teaching-panel').setAttribute('aria-labelledby','tab-'+key);
-  $('teaching-panel').innerHTML = `<button type="button" class="image-button teaching-image" data-image="${esc(view.image)}" data-teaching-image="${key}" aria-label="${esc(t('enlarge')+view.title)}"><img src="${esc(view.image)}" alt="${esc(view.caption)}" loading="lazy"><span class="figure-enlarge" aria-hidden="true">↗</span></button><div class="teaching-copy"><p class="eyebrow">${esc(view.label)}</p><h3>${esc(view.title)}</h3><p>${esc(view.body)}</p><p class="teaching-caption">${esc(view.caption)}</p></div>`;
+  $('teaching-panel').innerHTML = `<button type="button" class="image-button teaching-image" data-image="${esc(view.image)}" data-teaching-image="${key}" aria-label="${esc(t('enlarge')+view.title)}">${imageViewport(view.image,view.caption)}<span class="figure-enlarge" aria-hidden="true">↗</span></button><div class="teaching-copy"><p class="eyebrow">${esc(view.label)}</p><h3>${esc(view.title)}</h3><p>${esc(view.body)}</p><p class="teaching-caption">${esc(view.caption)}</p></div>`;
 }
 
 function selectResource(key) {
@@ -118,7 +129,7 @@ function selectResource(key) {
 
 function publicationMeta(paper, compact=false) {
   const category = t(paper.category==='education'?'publicationsEducation':'publicationsResearch');
-  return `<div class="publication-meta"><span>${paper.year}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}</div>`;
+  return `<div class="publication-meta"><span>${esc(paper.yearLabel||paper.year)}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}${paper.workId&&!compact?`<button type="button" data-work="${esc(paper.workId)}">${esc(t('viewResearch'))} ↗</button>`:''}</div>`;
 }
 
 function publicationItem(paper) {
@@ -129,8 +140,8 @@ function publicationItem(paper) {
 function renderPublications() {
   const query = state.search.trim().toLocaleLowerCase();
   const terms = query.split(/\s+/).filter(Boolean);
-  const visible = publications.filter(paper=>{
-    const text=(paper.citation+' '+(paper.titleEn||'')+' '+paper.doi).toLocaleLowerCase();
+  const visible = publications.map(resolvePublication).filter(paper=>{
+    const text=[paper.name,paper.citation,paper.titleEn,paper.doi].filter(Boolean).join(' ').toLocaleLowerCase();
     return (state.publicationFilter==='all'||paper.category===state.publicationFilter) && (state.publicationYear==='all'||String(paper.year)===state.publicationYear) && terms.every(term=>text.includes(term));
   });
   $('publications-list').innerHTML=visible.map(publicationItem).join('');
@@ -195,7 +206,7 @@ function openWork(id) {
   const work=workById(id);
   if (!work) return;
   state.modal={type:'work',id};
-  showDetail(`<div class="dialog-meta"><span class="status ${esc(work.statusClass)}">${esc(work.status)}</span><span>${esc(work.role)}</span><span>${esc(work.venue)} · ${esc(work.year)}</span></div><h2 id="dialog-title">${esc(work.name)} · ${esc(work.subtitle)}</h2><p class="paper-title">${esc(work.title)}</p>${work.image?`<figure><img src="${esc(work.image)}" alt="${esc(work.caption)}"><figcaption>${esc(work.caption)}</figcaption></figure>`:''}<div class="detail-sections"><div><h3>${esc(t('problem'))}</h3><p>${esc(work.problem)}</p></div><div><h3>${esc(t('method'))}</h3><p>${esc(work.method)}</p></div><div><h3>${esc(t('evidence'))}</h3><p>${esc(work.evidence)}</p></div></div><div class="citation-area"><p class="citation" lang="${citationLanguage(work.citation)}">${markName(work.citation)}</p><div class="citation-actions"><button type="button" data-copy="${esc(work.id)}">${esc(t('copy'))}</button>${work.doi?`<a href="https://doi.org/${esc(work.doi)}" target="_blank" rel="noopener">${esc(t('viewDoi'))}</a>`:''}</div></div>`);
+  showDetail(`<div class="dialog-meta"><span class="status ${esc(work.statusClass)}">${esc(work.status)}</span><span>${esc(work.role)}</span><span>${esc(work.venue)} · ${esc(work.year)}</span></div><h2 id="dialog-title">${esc(work.name)} · ${esc(work.subtitle)}</h2><p class="paper-title">${esc(work.title)}</p>${work.image?`<figure>${imageViewport(work.image,work.caption,'eager')}<figcaption>${esc(work.caption)}</figcaption></figure>`:''}<div class="detail-sections"><div><h3>${esc(t('problem'))}</h3><p>${esc(work.problem)}</p></div><div><h3>${esc(t('method'))}</h3><p>${esc(work.method)}</p></div><div><h3>${esc(t('evidence'))}</h3><p>${esc(work.evidence)}</p></div></div><div class="citation-area"><p class="citation" lang="${citationLanguage(work.citation)}">${markName(work.citation)}</p><div class="citation-actions"><button type="button" data-copy="${esc(work.id)}">${esc(t('copy'))}</button>${work.doi?`<a href="https://doi.org/${esc(work.doi)}" target="_blank" rel="noopener">${esc(t('viewDoi'))}</a>`:''}</div></div>`);
 }
 
 function imageCaption(image) {
@@ -209,7 +220,7 @@ function imageCaption(image) {
 function openImage(image) {
   state.modal=image;
   const caption=imageCaption(image);
-  showDetail(`<div class="image-dialog"><h2 id="dialog-title">${esc(caption)}</h2><img src="${esc(image.src)}" alt="${esc(caption)}"></div>`);
+  showDetail(`<div class="image-dialog"><h2 id="dialog-title">${esc(caption)}</h2>${imageViewport(image.src,caption,'eager')}</div>`);
 }
 
 function openPublications() {
@@ -252,6 +263,8 @@ function setLanguage(lang,remember=true) {
   all('[data-i18n-href]').forEach(el=>el.setAttribute('href',t(el.dataset.i18nHref)));
   all('[data-i18n-placeholder]').forEach(el=>el.setAttribute('placeholder',t(el.dataset.i18nPlaceholder)));
   all('[data-lang]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.lang===lang)));
+  all('[data-publication-count]').forEach(el=>{el.textContent=publications.length;});
+  all('[data-education-count]').forEach(el=>{el.textContent=educationPublicationCount;});
   selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
   if(detailDialog.open&&state.modal){const modal=state.modal;modal.type==='work'?openWork(modal.id):openImage(modal);}
   if(remember){
