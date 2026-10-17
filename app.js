@@ -327,7 +327,7 @@ function setLanguage(lang,remember=true) {
   all('[data-publication-count]').forEach(el=>{el.textContent=publications.length;});
   all('[data-education-count]').forEach(el=>{el.textContent=educationPublicationCount;});
   syncBio();
-  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderCourseProjects();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
+  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderCourseProjects();renderHeroEducationFunding();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
   if(detailDialog.open&&state.modal){const modal=state.modal;modal.type==='work'?openWork(modal.id):openImage(modal);}
   if(remember){
     try{localStorage.setItem('jiang-cv-language',lang);}catch{}
@@ -351,7 +351,7 @@ document.addEventListener('click',event=>{
   const teachingProjects=target.closest('[data-education-project-group]');if(teachingProjects){renderTeachingProjects(teachingProjects.dataset.educationProjectGroup);return;}
   const teachingProject=target.closest('[data-teaching-project-id]');if(teachingProject){selectTeachingProject(teachingProject.dataset.teachingProjectId);return;}
   if(target.closest('[data-teaching-framework]')){selectTeaching('fund');$('teaching-panel').scrollIntoView({behavior:reducedMotion()?'auto':'smooth',block:'start'});$('tab-fund').focus({preventScroll:true});return;}
-  const resource=target.closest('[data-resource]');if(resource){selectResource(resource.dataset.resource);if(resource.dataset.resource==='papers')$('education-publications').open=true;return;}
+  const resource=target.closest('[data-resource]');if(resource){selectResource(resource.dataset.resource);return;}
   const year=target.closest('[data-year]');if(year){selectYear(year.dataset.year);return;}
   const careerStep=target.closest('[data-career-step]');if(careerStep){stepCareer(Number(careerStep.dataset.careerStep));return;}
   const publication=target.closest('[data-publication-filter]');if(publication){state.publicationFilter=publication.dataset.publicationFilter;renderPublications();return;}
@@ -412,3 +412,10 @@ try{preferred=localStorage.getItem('jiang-cv-language')||'zh';}catch{}
 const queryLanguage=new URL(window.location.href).searchParams.get('lang');
 setLanguage(content[queryLanguage]?queryLanguage:content[preferred]?preferred:'zh',false);
 if(window.location.hash==='#other-publications')openPublications();
+
+function renderHeroEducationFunding(){
+ const items=[...data().teachingProjects,...data().courseProjects];
+ const unique=[...new Map(items.map(item=>[item.id,item])).values()];
+ $('hero-education-total').textContent=unique.reduce((sum,item)=>sum+item.totalFunding,0).toFixed(2).replace(/\.00$/,'');
+ $('hero-education-personal').textContent=unique.reduce((sum,item)=>sum+item.personalFunding,0).toFixed(2);
+}

@@ -767,3 +767,10 @@ html[lang=en] .timeline-detail h3{font-size:1.1rem}
   .research-detail>p,.research-detail-heading{color:var(--muted)}.research-links button,.research-tags span{color:var(--teal)}.contact-affiliation{color:var(--muted)}.school-link{color:var(--ink)}
   .project-detail,.work-stage,.project-row{break-inside:avoid}.portrait-frame{box-shadow:none}dialog[open]{position:static;max-height:none;width:100%;box-shadow:none}
 }
+
+/* Identity credentials and education funding */
+.hero-credentials{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 20px;margin-top:11px}
+.hero-credentials strong{font-size:.77rem;line-height:1.85;font-weight:650;color:var(--wine)}
+.metrics .education-funding-caption{line-height:1.85}
+.education-funding-caption b{font-size:inherit;font-weight:700;color:var(--teal)}
+@media(max-width:600px){.hero-credentials{gap:3px 12px;margin-top:8px}.hero-credentials strong{font-size:.66rem;line-height:1.8}}
