@@ -769,7 +769,7 @@ html[lang=en] .timeline-detail h3{font-size:1.1rem}
 }
 
 /* Identity credentials and education funding */
-.hero-credentials{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 20px;margin-top:11px}
+.hero-credentials{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-top:11px}
 .hero-credentials strong{font-size:.77rem;line-height:1.85;font-weight:650;color:var(--wine)}
 .metrics .education-funding-caption{line-height:1.85}
 .education-funding-caption b{font-size:inherit;font-weight:700;color:var(--teal)}
