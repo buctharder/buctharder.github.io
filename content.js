@@ -315,6 +315,12 @@ window.CV_CONTENT = {
         "body": "获北京化工大学青年教学名师奖；主持校级重点教改，研究大语言模型支持的《数据结构》教学；主持国家重点实验室自主科研基金，开展能源网络关键节点识别与分析。",
         "label": "careerResearch"
       },
+      "2025": {
+        "title": "参与教材编写与修订",
+        "period": "2025",
+        "body": "担任《大学计算机实验指导（第5版）》副主编，并参编《大学计算机（第5版）》，两书均由清华大学出版社于2025年出版。",
+        "label": "careerTeaching"
+      },
       "2026": {
         "title": "图学习、工业智能与学习诊断取得进展",
         "period": "2026",
@@ -535,7 +541,13 @@ window.CV_CONTENT = {
       "courseResourcesTitle": "智慧课程与实践资源",
       "courseTextbookTitle": "教材建设",
       "projectNumber": "项目编号",
-      "courseProjectDetails": "课程建设明细"
+      "courseProjectDetails": "课程建设明细",
+      "textbooksTitle": "教材编写与出版",
+      "textbooksLead": "大学计算机系列教材 · 清华大学出版社",
+      "textbookPublisher": "清华大学出版社 · 2025年出版",
+      "textbookSource": "出版社图书详情",
+      "labBookCaption": "《大学计算机实验指导（第5版）》封面",
+      "computingBookCaption": "《大学计算机（第5版）》封面"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -554,7 +566,9 @@ window.CV_CONTENT = {
         "role": "参与（第5）",
         "totalFunding": 207,
         "personalFunding": 15,
-        "shortName": "GIT国际教改"
+        "shortName": "GIT国际教改",
+        "level": "international",
+        "levelLabel": "国际教改"
       },
       {
         "id": "moe-storm",
@@ -565,7 +579,9 @@ window.CV_CONTENT = {
         "role": "主持",
         "totalFunding": 3,
         "personalFunding": 3,
-        "shortName": "Storm并行实训"
+        "shortName": "Storm并行实训",
+        "level": "ministry",
+        "levelLabel": "教育部项目"
       },
       {
         "id": "beijing-mooc",
@@ -576,7 +592,9 @@ window.CV_CONTENT = {
         "role": "参与（第3）",
         "totalFunding": 4,
         "personalFunding": 1,
-        "shortName": "MOOC国际化培养"
+        "shortName": "MOOC国际化培养",
+        "level": "provincial",
+        "levelLabel": "省部级"
       },
       {
         "id": "bnsf-education",
@@ -586,7 +604,9 @@ window.CV_CONTENT = {
         "role": "主持",
         "totalFunding": 30,
         "personalFunding": 30,
-        "shortName": "学习真实性诊断"
+        "shortName": "学习真实性诊断",
+        "level": "provincial",
+        "levelLabel": "省部级"
       },
       {
         "id": "buct-key",
@@ -597,7 +617,9 @@ window.CV_CONTENT = {
         "role": "主持",
         "totalFunding": 2,
         "personalFunding": 2,
-        "shortName": "大模型教学模式"
+        "shortName": "大模型教学模式",
+        "level": "university",
+        "levelLabel": "校级重点"
       },
       {
         "id": "buct-reform",
@@ -608,7 +630,9 @@ window.CV_CONTENT = {
         "role": "主持",
         "totalFunding": 1,
         "personalFunding": 1,
-        "shortName": "E/V/T认知修复"
+        "shortName": "E/V/T认知修复",
+        "level": "university",
+        "levelLabel": "校级"
       },
       {
         "id": "beijing-digital-textbook",
@@ -620,7 +644,9 @@ window.CV_CONTENT = {
         "role": "主持",
         "totalFunding": 0,
         "personalFunding": 0,
-        "shortName": "数字教材任务设计"
+        "shortName": "数字教材任务设计",
+        "level": "provincial",
+        "levelLabel": "省部级"
       },
       {
         "id": "buct-international-key",
@@ -632,7 +658,9 @@ window.CV_CONTENT = {
         "role": "主持",
         "totalFunding": 2,
         "personalFunding": 2,
-        "shortName": "全英文数智化教学"
+        "shortName": "全英文数智化教学",
+        "level": "university",
+        "levelLabel": "校级重点"
       },
       {
         "id": "buct-course-development",
@@ -685,11 +713,35 @@ window.CV_CONTENT = {
             "source": "北京化工大学",
             "period": "2026.08—2027.07",
             "role": "主持（课程负责人）",
-            "totalFunding": null,
-            "personalFunding": null,
-            "fundingNote": "学校提供平台与技术支持；材料未列单独资助金额。"
+            "totalFunding": 0,
+            "personalFunding": 0,
+            "fundingNote": "学校提供平台与技术支持，无经费资助。"
           }
-        ]
+        ],
+        "level": "university",
+        "levelLabel": "校级"
+      }
+    ],
+    "textbooks": [
+      {
+        "id": "lab-guide",
+        "title": "大学计算机实验指导（第5版）",
+        "image": "assets/textbook-lab-5th.jpg",
+        "captionKey": "labBookCaption",
+        "isbn": "9787302702870",
+        "url": "https://www.tup.com.cn/booksCenter/book_10651001.html",
+        "description": "配套实验教材，涵盖计算机基础、办公软件应用与程序设计实践。",
+        "role": "副主编"
+      },
+      {
+        "id": "university-computing",
+        "title": "大学计算机（第5版）",
+        "image": "assets/textbook-computing-5th.jpg",
+        "captionKey": "computingBookCaption",
+        "isbn": "9787302702863",
+        "url": "https://www.tup.com.cn/booksCenter/book_10650801.html",
+        "description": "面向大学计算机通识教育，涵盖计算思维、计算机系统与数据应用。",
+        "role": "参编"
       }
     ]
   },
@@ -1008,6 +1060,12 @@ window.CV_CONTENT = {
         "body": "Received the BUCT Young Distinguished Teacher Award. Led a key BUCT teaching reform project on LLM-supported Data Structures teaching and a State Key Laboratory project on critical nodes in energy networks.",
         "label": "careerResearch"
       },
+      "2025": {
+        "title": "Textbook Authorship and Revision",
+        "period": "2025",
+        "body": "Served as associate editor of University Computing Laboratory Guide (5th edition) and as a contributing author of University Computing (5th edition), both published by Tsinghua University Press in 2025.",
+        "label": "careerTeaching"
+      },
       "2026": {
         "title": "Progress in graph learning, industrial AI and learning diagnosis",
         "period": "2026",
@@ -1228,7 +1286,13 @@ window.CV_CONTENT = {
       "courseResourcesTitle": "Smart Course and Practical Resources",
       "courseTextbookTitle": "Textbook Development",
       "projectNumber": "Project number",
-      "courseProjectDetails": "Individual Course Projects"
+      "courseProjectDetails": "Individual Course Projects",
+      "textbooksTitle": "Textbook Authorship and Publication",
+      "textbooksLead": "University Computing Series · Tsinghua University Press",
+      "textbookPublisher": "Tsinghua University Press · Published 2025",
+      "textbookSource": "Publisher details",
+      "labBookCaption": "Cover of University Computing Laboratory Guide (5th edition)",
+      "computingBookCaption": "Cover of University Computing (5th edition)"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -1247,7 +1311,9 @@ window.CV_CONTENT = {
         "role": "Participant (5th)",
         "totalFunding": 207,
         "personalFunding": 15,
-        "shortName": "GIT collaboration"
+        "shortName": "GIT collaboration",
+        "level": "international",
+        "levelLabel": "International"
       },
       {
         "id": "moe-storm",
@@ -1258,7 +1324,9 @@ window.CV_CONTENT = {
         "role": "Principal investigator",
         "totalFunding": 3,
         "personalFunding": 3,
-        "shortName": "Storm training"
+        "shortName": "Storm training",
+        "level": "ministry",
+        "levelLabel": "Ministry of Education"
       },
       {
         "id": "beijing-mooc",
@@ -1269,7 +1337,9 @@ window.CV_CONTENT = {
         "role": "Participant (3rd)",
         "totalFunding": 4,
         "personalFunding": 1,
-        "shortName": "Blended MOOCs"
+        "shortName": "Blended MOOCs",
+        "level": "provincial",
+        "levelLabel": "Provincial / Ministerial"
       },
       {
         "id": "bnsf-education",
@@ -1279,7 +1349,9 @@ window.CV_CONTENT = {
         "role": "Principal investigator",
         "totalFunding": 30,
         "personalFunding": 30,
-        "shortName": "Learning diagnosis"
+        "shortName": "Learning diagnosis",
+        "level": "provincial",
+        "levelLabel": "Provincial / Ministerial"
       },
       {
         "id": "buct-key",
@@ -1290,7 +1362,9 @@ window.CV_CONTENT = {
         "role": "Principal investigator",
         "totalFunding": 2,
         "personalFunding": 2,
-        "shortName": "LLM-based teaching"
+        "shortName": "LLM-based teaching",
+        "level": "university",
+        "levelLabel": "University · Key"
       },
       {
         "id": "buct-reform",
@@ -1301,7 +1375,9 @@ window.CV_CONTENT = {
         "role": "Principal investigator",
         "totalFunding": 1,
         "personalFunding": 1,
-        "shortName": "E/V/T cognitive repair"
+        "shortName": "E/V/T cognitive repair",
+        "level": "university",
+        "levelLabel": "University"
       },
       {
         "id": "beijing-digital-textbook",
@@ -1313,7 +1389,9 @@ window.CV_CONTENT = {
         "role": "Principal investigator",
         "totalFunding": 0,
         "personalFunding": 0,
-        "shortName": "Digital textbook tasks"
+        "shortName": "Digital textbook tasks",
+        "level": "provincial",
+        "levelLabel": "Provincial / Ministerial"
       },
       {
         "id": "buct-international-key",
@@ -1325,7 +1403,9 @@ window.CV_CONTENT = {
         "role": "Principal investigator",
         "totalFunding": 2,
         "personalFunding": 2,
-        "shortName": "English-medium teaching"
+        "shortName": "English-medium teaching",
+        "level": "university",
+        "levelLabel": "University · Key"
       },
       {
         "id": "buct-course-development",
@@ -1378,11 +1458,35 @@ window.CV_CONTENT = {
             "source": "Beijing University of Chemical Technology",
             "period": "2026.08–2027.07",
             "role": "Principal investigator (course lead)",
-            "totalFunding": null,
-            "personalFunding": null,
-            "fundingNote": "University platform and technical support; no separate funding amount is specified in the project documents."
+            "totalFunding": 0,
+            "personalFunding": 0,
+            "fundingNote": "University platform and technical support; no funding awarded."
           }
-        ]
+        ],
+        "level": "university",
+        "levelLabel": "University"
+      }
+    ],
+    "textbooks": [
+      {
+        "id": "lab-guide",
+        "title": "University Computing Laboratory Guide (5th edition)",
+        "image": "assets/textbook-lab-5th.jpg",
+        "captionKey": "labBookCaption",
+        "isbn": "9787302702870",
+        "url": "https://www.tup.com.cn/booksCenter/book_10651001.html",
+        "description": "A companion laboratory textbook covering computing fundamentals, office applications and programming practice.",
+        "role": "Associate editor"
+      },
+      {
+        "id": "university-computing",
+        "title": "University Computing (5th edition)",
+        "image": "assets/textbook-computing-5th.jpg",
+        "captionKey": "computingBookCaption",
+        "isbn": "9787302702863",
+        "url": "https://www.tup.com.cn/booksCenter/book_10650801.html",
+        "description": "An introductory computing textbook covering computational thinking, computer systems and data applications.",
+        "role": "Contributing author"
       }
     ]
   }

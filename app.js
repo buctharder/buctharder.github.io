@@ -155,7 +155,7 @@ function selectTeachingProject(id) {
   const item=resolveTeachingProject(project);
   state.teachingProject=id;
   all('[data-teaching-project-id]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.teachingProjectId===id)));
-  $('education-project-detail').innerHTML=`<span class="detail-no">${esc(t(item.group==='reform'?'educationProjectsReform':'educationProjectsResearch'))}</span><h4>${esc(item.title)}</h4><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(item.source)}</dd></div>${item.number?`<div><dt>${esc(t('projectNumber'))}</dt><dd>${esc(item.number)}</dd></div>`:''}<div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(item.period)}</dd></div><div><dt>${esc(t('educationProjectRole'))}</dt><dd>${esc(item.role)}</dd></div></dl><div class="education-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-education-total>${item.totalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-education-personal>${item.personalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div></div>${renderCourseProjectDetails(item.items)}${Number.isInteger(item.researchProjectIndex)?`<button type="button" class="grant-link" data-teaching-framework>${esc(t('educationProjectFramework'))} ↗</button>`:''}`;
+  $('education-project-detail').innerHTML=`<div class="education-detail-meta"><span class="detail-no">${esc(t(item.group==='reform'?'educationProjectsReform':'educationProjectsResearch'))}</span><span class="education-level ${esc(item.level)}">${esc(item.levelLabel)}</span></div><h4>${esc(item.title)}</h4><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(item.source)}</dd></div>${item.number?`<div><dt>${esc(t('projectNumber'))}</dt><dd>${esc(item.number)}</dd></div>`:''}<div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(item.period)}</dd></div><div><dt>${esc(t('educationProjectRole'))}</dt><dd>${esc(item.role)}</dd></div></dl><div class="education-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-education-total>${item.totalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-education-personal>${item.personalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div></div>${renderCourseProjectDetails(item.items)}${Number.isInteger(item.researchProjectIndex)?`<button type="button" class="grant-link" data-teaching-framework>${esc(t('educationProjectFramework'))} ↗</button>`:''}`;
 }
 
 function renderTeachingProjects(group=state.teachingProjectGroup) {
@@ -170,8 +170,8 @@ function renderTeachingProjects(group=state.teachingProjectGroup) {
   const visible=projects.filter(item=>group==='all'||item.group===group);
   $('education-project-list').innerHTML=visible.map(item=>{
     const {start,duration}=periodLayout(item.period,2018,144,item.durationMonths);
-    const label=[item.title,item.period,item.role,t('educationProjectTotal')+' '+item.totalFunding,t('educationProjectPersonal')+' '+item.personalFunding,t('fundUnit')].join(' · ');
-    return `<button type="button" class="project-row education-project-row ${esc(item.group)}" data-teaching-project-id="${esc(item.id)}" aria-controls="education-project-detail" aria-pressed="${item.id===state.teachingProject}" aria-label="${esc(label)}" title="${esc(label)}"><span class="project-short">${esc(item.shortName)}</span><span class="project-track" aria-hidden="true"><span class="project-bar" style="--start:${start.toFixed(4)}%;--duration:${duration.toFixed(4)}%"><span class="project-bar-end"></span></span></span><span class="project-row-amount">${item.personalFunding.toFixed(2)}</span></button>`;
+    const label=[item.title,item.levelLabel,item.period,item.role,t('educationProjectTotal')+' '+item.totalFunding,t('educationProjectPersonal')+' '+item.personalFunding,t('fundUnit')].join(' · ');
+    return `<button type="button" class="project-row education-project-row ${esc(item.group)}" data-teaching-project-id="${esc(item.id)}" aria-controls="education-project-detail" aria-pressed="${item.id===state.teachingProject}" aria-label="${esc(label)}" title="${esc(label)}"><span class="project-short"><span class="project-short-name">${esc(item.shortName)}</span><span class="education-level ${esc(item.level)}">${esc(item.levelLabel)}</span></span><span class="project-track" aria-hidden="true"><span class="project-bar" style="--start:${start.toFixed(4)}%;--duration:${duration.toFixed(4)}%"><span class="project-bar-end"></span></span></span><span class="project-row-amount">${item.personalFunding.toFixed(2)}</span></button>`;
   }).join('');
   $('education-project-count').textContent=visible.length+t('projectCount');
   $('education-project-total').textContent=visible.reduce((sum,item)=>sum+item.totalFunding,0).toFixed(2);
@@ -188,6 +188,10 @@ function renderCourseProjectDetails(items) {
     return `<article class="course-project-card" data-course-project-id="${esc(item.id)}"><div><h6>${esc(item.title)}</h6><div class="course-project-meta"><span>${esc(item.period)}</span><span class="course-role">${esc(item.role)}</span></div></div>${funding}</article>`;
   }).join('');
   return `<section class="education-project-breakdown"><h5>${esc(t('courseProjectDetails'))}</h5><div class="course-project-list">${cards}</div></section>`;
+}
+
+function renderTextbooks() {
+  $('textbook-list').innerHTML=data().textbooks.map(book=>`<article class="textbook-card" data-textbook="${esc(book.id)}"><button type="button" class="textbook-cover image-button" data-image="${esc(book.image)}" data-caption-key="${esc(book.captionKey)}" aria-label="${esc(t('enlarge')+t(book.captionKey))}"><img src="${esc(book.image)}" width="519" height="741" alt="${esc(t(book.captionKey))}" loading="lazy"><span class="figure-enlarge" aria-hidden="true">↗</span></button><div class="textbook-copy"><span class="textbook-role">${esc(book.role)}</span><h4>${esc(book.title)}</h4><p class="textbook-publisher">${esc(t('textbookPublisher'))}</p><p class="textbook-description">${esc(book.description)}</p><p class="textbook-isbn">ISBN ${esc(book.isbn)}</p><a class="textbook-source" href="${esc(book.url)}" target="_blank" rel="noopener">${esc(t('textbookSource'))} ↗</a></div></article>`).join('');
 }
 
 function publicationMeta(paper, compact=false) {
@@ -334,7 +338,7 @@ function setLanguage(lang,remember=true) {
   all('[data-publication-count]').forEach(el=>{el.textContent=publications.length;});
   all('[data-education-count]').forEach(el=>{el.textContent=educationPublicationCount;});
   syncBio();
-  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderHeroEducationFunding();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
+  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderHeroEducationFunding();renderTextbooks();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
   if(detailDialog.open&&state.modal){const modal=state.modal;modal.type==='work'?openWork(modal.id):openImage(modal);}
   if(remember){
     try{localStorage.setItem('jiang-cv-language',lang);}catch{}
