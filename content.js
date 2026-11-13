@@ -515,7 +515,7 @@ window.CV_CONTENT = {
       "yearLabel": "年",
       "viewResearch": "研究介绍",
       "educationProjectsTitle": "教学改革与教育研究项目",
-      "educationProjectsLead": "主持北京市高等教育学会面上课题、国际教育重点教改、教育部产学合作协同育人及校级教改项目，参与欧盟Erasmus+及北京市教委教学改革项目。课程建设3项合并列示。",
+      "educationProjectsLead": "主持北京市高等教育学会面上课题、国际教育重点教改、教育部产学合作协同育人及校级教改项目，参与欧盟Erasmus+及北京市教委教学改革项目。校级课程建设4项合并列示。",
       "educationProjectsGroup": "按项目类型筛选",
       "educationProjectsReform": "教学改革",
       "educationProjectFramework": "查看研究框架",
@@ -638,13 +638,13 @@ window.CV_CONTENT = {
       {
         "id": "buct-course-development",
         "group": "reform",
-        "title": "课程建设项目（3项合并）",
+        "title": "校级课程建设立项",
         "source": "北京化工大学",
-        "period": "2020.12—2022.01",
-        "role": "主持2项、参与1项（第3）",
+        "period": "2020.12—2027.06",
+        "role": "主持3项、参与1项（第3）",
         "totalFunding": 3,
         "personalFunding": 2.1,
-        "shortName": "课程建设（3项）",
+        "shortName": "校级课程建设",
         "items": [
           {
             "id": "mobile-first-class",
@@ -678,6 +678,17 @@ window.CV_CONTENT = {
             "totalFunding": 1,
             "personalFunding": 0.1,
             "shortName": "数据结构一流课"
+          },
+          {
+            "id": "ds-smart-course",
+            "group": "courses",
+            "title": "《数据结构》智慧课程建设",
+            "source": "北京化工大学",
+            "period": "2026.07—2027.06",
+            "role": "主持（课程负责人）",
+            "totalFunding": null,
+            "personalFunding": null,
+            "fundingNote": "学校提供平台与技术支持；材料未列单独资助金额。"
           }
         ]
       }
@@ -1198,7 +1209,7 @@ window.CV_CONTENT = {
       "yearLabel": "",
       "viewResearch": "Research details",
       "educationProjectsTitle": "Teaching Reform and Educational Research Projects",
-      "educationProjectsLead": "I lead a Beijing Higher Education Association general project, a key international education teaching reform project, and Ministry of Education and BUCT teaching reform projects, and have contributed to Erasmus+ and Beijing Municipal Education Commission projects. Three curriculum development projects are listed together as one entry.",
+      "educationProjectsLead": "I lead a Beijing Higher Education Association general project, a key international education teaching reform project, and Ministry of Education and BUCT teaching reform projects, and have contributed to Erasmus+ and Beijing Municipal Education Commission projects. Four university-level course development projects are listed together as one entry.",
       "educationProjectsGroup": "Filter projects by type",
       "educationProjectsReform": "Teaching reform",
       "educationProjectFramework": "View research framework",
@@ -1321,13 +1332,13 @@ window.CV_CONTENT = {
       {
         "id": "buct-course-development",
         "group": "reform",
-        "title": "Curriculum Development (3 Projects Combined)",
+        "title": "University-Level Course Development Projects",
         "source": "Beijing University of Chemical Technology",
-        "period": "2020.12–2022.01",
-        "role": "Principal investigator on 2 projects; participant (3rd) on 1",
+        "period": "2020.12–2027.06",
+        "role": "Principal investigator on 3 projects; participant (3rd) on 1",
         "totalFunding": 3,
         "personalFunding": 2.1,
-        "shortName": "Course development (3)",
+        "shortName": "BUCT course development",
         "items": [
           {
             "id": "mobile-first-class",
@@ -1361,6 +1372,17 @@ window.CV_CONTENT = {
             "totalFunding": 1,
             "personalFunding": 0.1,
             "shortName": "Data Structures course"
+          },
+          {
+            "id": "ds-smart-course",
+            "group": "courses",
+            "title": "Smart Course Development: Data Structures",
+            "source": "Beijing University of Chemical Technology",
+            "period": "2026.07–2027.06",
+            "role": "Principal investigator (course lead)",
+            "totalFunding": null,
+            "personalFunding": null,
+            "fundingNote": "University platform and technical support; no separate funding amount is specified in the project documents."
           }
         ]
       }

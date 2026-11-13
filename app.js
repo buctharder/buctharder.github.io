@@ -181,7 +181,13 @@ function renderTeachingProjects(group=state.teachingProjectGroup) {
 
 function renderCourseProjectDetails(items) {
   if (!items?.length) return '';
-  return `<section class="education-project-breakdown"><h5>${esc(t('courseProjectDetails'))}</h5><div class="course-project-list">${items.map(item=>`<article class="course-project-card" data-course-project-id="${esc(item.id)}"><div><h6>${esc(item.title)}</h6><div class="course-project-meta"><span>${esc(item.period)}</span><span class="course-role">${esc(item.role)}</span></div></div><div class="course-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-course-total>${item.totalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-course-personal>${item.personalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div></div></article>`).join('')}</div></section>`;
+  const cards=items.map(item=>{
+    const funding=item.fundingNote
+      ? `<p class="course-project-note">${esc(item.fundingNote)}</p>`
+      : `<div class="course-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-course-total>${item.totalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-course-personal>${item.personalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div></div>`;
+    return `<article class="course-project-card" data-course-project-id="${esc(item.id)}"><div><h6>${esc(item.title)}</h6><div class="course-project-meta"><span>${esc(item.period)}</span><span class="course-role">${esc(item.role)}</span></div></div>${funding}</article>`;
+  }).join('');
+  return `<section class="education-project-breakdown"><h5>${esc(t('courseProjectDetails'))}</h5><div class="course-project-list">${cards}</div></section>`;
 }
 
 function publicationMeta(paper, compact=false) {

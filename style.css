@@ -290,9 +290,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .course-projects-heading h3,.course-resources-grid h3{font-size:1.05rem;line-height:1.7;font-weight:550}
 .course-project-list{display:grid;gap:12px}
 .education-project-breakdown{margin-top:24px;border-top:1px solid var(--line);padding-top:20px}
-.education-project-breakdown h5{font-size:.8rem;font-weight:550;margin-bottom:14px}
+.education-project-breakdown h5{font-size:.8rem;font-weight:550;margin:0 0 14px}
 .course-project-card{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:center;min-width:0;padding:16px;border:1px solid var(--line);border-left:3px solid #b2966e;border-radius:0 7px 7px 0;background:white}
-.course-project-card h6{font-size:.82rem;font-weight:550;line-height:1.9;overflow-wrap:anywhere}
+.course-project-card h6{font-size:.82rem;font-weight:550;line-height:1.9;overflow-wrap:anywhere;margin:0}
+.course-project-note{font-size:.7rem;line-height:1.9;color:var(--muted)}
 .course-project-meta{display:flex;flex-wrap:wrap;gap:5px 15px;font-size:.7rem;color:var(--muted);line-height:1.85;margin-top:8px}
 .course-role{color:var(--teal)}
 .course-project-money{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;min-width:0}
