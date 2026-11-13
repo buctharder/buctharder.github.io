@@ -92,8 +92,12 @@ function stepWork(step) {
   selectWork(ids[(ids.indexOf(state.work) + step + ids.length) % ids.length]);
 }
 
-function periodLayout(period, firstYear=2022, totalMonths=96) {
+function periodLayout(period, firstYear=2022, totalMonths=96, durationMonths=0) {
   const dates = [...period.matchAll(/(\d{4})\.(\d{2})/g)].map(match => ({year:Number(match[1]),month:Number(match[2])}));
+  if (dates.length === 1 && durationMonths > 0) {
+    const startMonth = (dates[0].year-firstYear)*12 + dates[0].month-1;
+    return {start:startMonth/totalMonths*100,duration:durationMonths/totalMonths*100};
+  }
   if (dates.length !== 2) return {start:0,duration:0};
   const startMonth = (dates[0].year-firstYear)*12 + dates[0].month-1;
   const endMonth = (dates[1].year-firstYear)*12 + dates[1].month;
@@ -151,7 +155,7 @@ function selectTeachingProject(id) {
   const item=resolveTeachingProject(project);
   state.teachingProject=id;
   all('[data-teaching-project-id]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.teachingProjectId===id)));
-  $('education-project-detail').innerHTML=`<span class="detail-no">${esc(t(item.group==='reform'?'educationProjectsReform':'educationProjectsResearch'))}</span><h4>${esc(item.title)}</h4><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(item.source)}</dd></div><div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(item.period)}</dd></div><div><dt>${esc(t('educationProjectRole'))}</dt><dd>${esc(item.role)}</dd></div></dl><div class="education-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-education-total>${item.totalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-education-personal>${item.personalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div></div>${Number.isInteger(item.researchProjectIndex)?`<button type="button" class="grant-link" data-teaching-framework>${esc(t('educationProjectFramework'))} ↗</button>`:''}`;
+  $('education-project-detail').innerHTML=`<span class="detail-no">${esc(t(item.group==='reform'?'educationProjectsReform':'educationProjectsResearch'))}</span><h4>${esc(item.title)}</h4><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(item.source)}</dd></div>${item.number?`<div><dt>${esc(t('projectNumber'))}</dt><dd>${esc(item.number)}</dd></div>`:''}<div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(item.period)}</dd></div><div><dt>${esc(t('educationProjectRole'))}</dt><dd>${esc(item.role)}</dd></div></dl><div class="education-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-education-total>${item.totalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-education-personal>${item.personalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div></div>${Number.isInteger(item.researchProjectIndex)?`<button type="button" class="grant-link" data-teaching-framework>${esc(t('educationProjectFramework'))} ↗</button>`:''}`;
 }
 
 function renderTeachingProjects(group=state.teachingProjectGroup) {
@@ -165,7 +169,7 @@ function renderTeachingProjects(group=state.teachingProjectGroup) {
   all('[data-education-project-count]').forEach(counter=>{counter.textContent=projects.filter(item=>counter.dataset.educationProjectCount==='all'||item.group===counter.dataset.educationProjectCount).length;});
   const visible=projects.filter(item=>group==='all'||item.group===group);
   $('education-project-list').innerHTML=visible.map(item=>{
-    const {start,duration}=periodLayout(item.period,2018,144);
+    const {start,duration}=periodLayout(item.period,2018,144,item.durationMonths);
     const label=[item.title,item.period,item.role,t('educationProjectTotal')+' '+item.totalFunding,t('educationProjectPersonal')+' '+item.personalFunding,t('fundUnit')].join(' · ');
     return `<button type="button" class="project-row education-project-row ${esc(item.group)}" data-teaching-project-id="${esc(item.id)}" aria-controls="education-project-detail" aria-pressed="${item.id===state.teachingProject}" aria-label="${esc(label)}" title="${esc(label)}"><span class="project-short">${esc(item.shortName)}</span><span class="project-track" aria-hidden="true"><span class="project-bar" style="--start:${start.toFixed(4)}%;--duration:${duration.toFixed(4)}%"><span class="project-bar-end"></span></span></span><span class="project-row-amount">${item.personalFunding.toFixed(2)}</span></button>`;
   }).join('');

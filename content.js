@@ -101,9 +101,9 @@ window.CV_CONTENT = {
         "name": "HTP-Net",
         "subtitle": "工业故障诊断",
         "venue": "IEEE Sensors Journal",
-        "year": "2026 · 9月23日录用",
-        "status": "已录用",
-        "statusClass": "accepted",
+        "year": "2026 · 10月6日在线发表",
+        "status": "已发表",
+        "statusClass": "",
         "role": "通讯作者",
         "image": "assets/htp-net.png",
         "title": "Novel Hyperbolic Temporal Prototype Network for Industrial Fault Diagnosis",
@@ -111,9 +111,9 @@ window.CV_CONTENT = {
         "problem": "工业过程中的非线性动态、反馈控制和变量耦合，会使不同故障呈现相似的时序响应。",
         "method": "利用多尺度卷积、BiGRU和时序注意力提取特征，映射至Poincaré球，以样本与可学习类别原型的双曲测地距离分类。",
         "evidence": "在Tennessee Eastman过程的两组所选故障上进行五个随机种子的对比与消融实验，检验时序建模和双曲原型分类的贡献。",
-        "citation": "HE Y L, LI J Y, ZHU Q X, JIANG Z Y. Novel Hyperbolic Temporal Prototype Network for Industrial Fault Diagnosis[J]. IEEE Sensors Journal, 2026（已录用）.",
+        "citation": "HE Y L, LI J Y, ZHU Q X, JIANG Z Y. Novel Hyperbolic Temporal Prototype Network for Industrial Fault Diagnosis[J]. IEEE Sensors Journal, 2026, Early Access. DOI: 10.1109/JSEN.2026.3737913.",
         "doi": "10.1109/JSEN.2026.3737913",
-        "caption": "HTP-Net总体结构 · 录用校样原图"
+        "caption": "HTP-Net总体结构"
       },
       {
         "id": "crossray",
@@ -318,7 +318,7 @@ window.CV_CONTENT = {
       "2026": {
         "title": "图学习、工业智能与学习诊断取得进展",
         "period": "2026",
-        "body": "获评北京化工大学教学名师。主持北京市自然科学基金及校级教改项目，围绕大模型辅助学习的真实性诊断与认知修复开展研究；《数据结构》智慧课程获批。RT-GCN、CrossRay3D发表，HTP-Net获IEEE Sensors Journal录用。",
+        "body": "获北京化工大学教学名师奖。主持北京市自然科学基金及校级教改项目，围绕大模型辅助学习的真实性诊断与认知修复开展研究；《数据结构》智慧课程获批。RT-GCN、CrossRay3D发表，HTP-Net在IEEE Sensors Journal在线发表。获批北京市高等教育学会面上课题及国际教育学院重点教改项目。",
         "label": "careerPresent"
       }
     },
@@ -339,7 +339,7 @@ window.CV_CONTENT = {
       "intro": "围绕图学习、大模型与智能体、多模态感知开展研究，主持北京市自然科学基金、国家重点实验室自主科研基金及委托课题10余项，以第一作者或通讯作者发表论文10余篇。教育研究以多层异质图关联知识、行为与认知，关注学习真实性诊断、认知修复与课堂干预。",
       "researchAction": "研究方向",
       "worksAction": "代表成果",
-      "teachingHonor": "北京化工大学教学名师、青年教学名师",
+      "teachingHonor": "北京化工大学教学名师奖、青年教学名师",
       "service": "中国指挥与控制学会具身智能专委会常务委员",
       "yearsUnit": "年",
       "yearsMetric": "教学与科研工作 · 2012年起",
@@ -400,7 +400,7 @@ window.CV_CONTENT = {
       "journeyTitle": "教学与科研工作履历",
       "journeyLead": "2012年至今 · 北京化工大学",
       "honorsTitle": "主要荣誉与奖励",
-      "honor7": "北京化工大学教学名师",
+      "honor7": "北京化工大学教学名师奖",
       "honor1": "北京化工大学青年教学名师奖",
       "honor2": "北京市高等教育教学成果奖二等奖 <small>第8/10完成人</small>",
       "honor3": "北京高校青年教师教学基本功比赛工科类A组三等奖",
@@ -410,7 +410,7 @@ window.CV_CONTENT = {
       "contactTitle": "学术交流与合作",
       "schoolLink": "学院个人主页",
       "footerName": "江志英 · 科研与教学",
-      "updated": "更新于2026年11月11日",
+      "updated": "更新于2026年11月13日",
       "top": "返回顶部",
       "title": "江志英 · 科研与教学",
       "description": "江志英，北京化工大学副教授、硕士生导师。研究图学习、大模型与智能体、多模态感知与具身智能，并将科研方法用于教育人工智能研究。",
@@ -515,7 +515,7 @@ window.CV_CONTENT = {
       "yearLabel": "年",
       "viewResearch": "研究介绍",
       "educationProjectsTitle": "教学改革与教育研究项目",
-      "educationProjectsLead": "主持教育部产学合作协同育人、校级重点教改等项目，参与欧盟Erasmus+及北京市教委教学改革项目。",
+      "educationProjectsLead": "主持北京市高等教育学会面上课题、国际教育重点教改、教育部产学合作协同育人及校级教改项目，参与欧盟Erasmus+及北京市教委教学改革项目。",
       "educationProjectsGroup": "按项目类型筛选",
       "educationProjectsReform": "教学改革",
       "educationProjectFramework": "查看研究框架",
@@ -533,7 +533,8 @@ window.CV_CONTENT = {
       "courseProjectsTitle": "课程建设项目",
       "courseTeachingTitle": "课程教学",
       "courseResourcesTitle": "智慧课程与实践资源",
-      "courseTextbookTitle": "教材建设"
+      "courseTextbookTitle": "教材建设",
+      "projectNumber": "项目编号"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -607,6 +608,31 @@ window.CV_CONTENT = {
         "totalFunding": 1,
         "personalFunding": 1,
         "shortName": "E/V/T认知修复"
+      },
+      {
+        "id": "beijing-digital-textbook",
+        "group": "reform",
+        "title": "生成式人工智能背景下程序设计课程数字教材任务单元设计与评价研究",
+        "source": "北京市高等教育学会面上项目（无经费资助）",
+        "number": "MS2026266",
+        "period": "2026.11起 · 研究周期2年",
+        "durationMonths": 24,
+        "role": "主持",
+        "totalFunding": 0,
+        "personalFunding": 0,
+        "shortName": "数字教材任务设计"
+      },
+      {
+        "id": "buct-international-key",
+        "group": "reform",
+        "title": "全英文课程数智化教学模式研究与实践",
+        "source": "北京化工大学国际教育学院教育教学改革重点项目",
+        "number": "GJXY202606",
+        "period": "2026.07—2028.06",
+        "role": "主持",
+        "totalFunding": 2,
+        "personalFunding": 2,
+        "shortName": "全英文数智化教学"
       }
     ],
     "courseProjects": [
@@ -746,9 +772,9 @@ window.CV_CONTENT = {
         "name": "HTP-Net",
         "subtitle": "Industrial fault diagnosis",
         "venue": "IEEE Sensors Journal",
-        "year": "2026 · Accepted 23 September",
-        "status": "Accepted",
-        "statusClass": "accepted",
+        "year": "2026 · Published online 6 October",
+        "status": "Published",
+        "statusClass": "",
         "role": "Corresponding author",
         "image": "assets/htp-net.png",
         "title": "Novel Hyperbolic Temporal Prototype Network for Industrial Fault Diagnosis",
@@ -756,9 +782,9 @@ window.CV_CONTENT = {
         "problem": "Nonlinear dynamics, feedback control and coupled variables can produce similar temporal responses for different industrial faults.",
         "method": "Multiscale convolutions, BiGRU and temporal attention extract features, which are mapped to the Poincaré ball. Classification uses hyperbolic geodesic distances to learnable class prototypes.",
         "evidence": "Comparisons and ablations across five random seeds on two selected fault groups of the Tennessee Eastman process assess temporal modelling and hyperbolic prototype classification.",
-        "citation": "HE Y L, LI J Y, ZHU Q X, JIANG Z Y. Novel Hyperbolic Temporal Prototype Network for Industrial Fault Diagnosis[J]. IEEE Sensors Journal, 2026. Accepted. DOI: 10.1109/JSEN.2026.3737913.",
+        "citation": "HE Y L, LI J Y, ZHU Q X, JIANG Z Y. Novel Hyperbolic Temporal Prototype Network for Industrial Fault Diagnosis[J]. IEEE Sensors Journal, 2026, Early Access. DOI: 10.1109/JSEN.2026.3737913.",
         "doi": "10.1109/JSEN.2026.3737913",
-        "caption": "HTP-Net architecture · Figure from the accepted proof"
+        "caption": "HTP-Net architecture"
       },
       {
         "id": "crossray",
@@ -963,7 +989,7 @@ window.CV_CONTENT = {
       "2026": {
         "title": "Progress in graph learning, industrial AI and learning diagnosis",
         "period": "2026",
-        "body": "Named a Distinguished Teacher at BUCT. Began leading a Beijing Natural Science Foundation project on authentic learning diagnosis and a BUCT teaching reform project on cognitive repair in programming courses. The Data Structures smart-course project was approved. RT-GCN and CrossRay3D were published; HTP-Net was accepted by IEEE Sensors Journal.",
+        "body": "Received the BUCT Distinguished Teacher Award. Began leading a Beijing Natural Science Foundation project on authentic learning diagnosis and a BUCT teaching reform project on cognitive repair in programming courses. The Data Structures smart-course project was approved. RT-GCN and CrossRay3D were published; HTP-Net was published online in IEEE Sensors Journal. A Beijing Higher Education Association general project and a key teaching reform project at the BUCT School of International Education were approved.",
         "label": "careerPresent"
       }
     },
@@ -997,7 +1023,7 @@ window.CV_CONTENT = {
       "academicServiceLabel": "Professional service",
       "readMore": "Read more",
       "readLess": "Show less",
-      "teachingHonor": "BUCT Distinguished Teacher and Young Distinguished Teacher",
+      "teachingHonor": "BUCT Distinguished Teacher Award and Young Distinguished Teacher",
       "service": "Standing Committee Member<br>Embodied Intelligence Committee<br>Chinese Institute of Command and Control",
       "yearsUnit": "years",
       "yearsMetric": "Teaching and research at BUCT since 2012",
@@ -1065,7 +1091,7 @@ window.CV_CONTENT = {
       "journeyLead": "Beijing University of Chemical Technology · Since 2012",
       "yearGroup": "Choose a year",
       "honorsTitle": "Honours and Awards",
-      "honor7": "Distinguished Teacher, Beijing University of Chemical Technology",
+      "honor7": "Distinguished Teacher Award, Beijing University of Chemical Technology",
       "honor1": "Young Distinguished Teacher Award, Beijing University of Chemical Technology",
       "honor2": "Second Prize, Beijing Higher Education Teaching Achievement Award <small>Contributor 8 of 10</small>",
       "honor3": "Third Prize, Beijing Young University Teachers’ Teaching Competition, Engineering Group A",
@@ -1075,7 +1101,7 @@ window.CV_CONTENT = {
       "contactTitle": "Academic Exchange and Collaboration",
       "schoolLink": "University profile",
       "footerName": "Zhiying Jiang · Research & Teaching",
-      "updated": "Updated 11 November 2026",
+      "updated": "Updated 13 November 2026",
       "top": "Back to top",
       "close": "Close details",
       "closeLibrary": "Close publication list",
@@ -1160,7 +1186,7 @@ window.CV_CONTENT = {
       "yearLabel": "",
       "viewResearch": "Research details",
       "educationProjectsTitle": "Teaching Reform and Educational Research Projects",
-      "educationProjectsLead": "I have led Ministry of Education industry–university and BUCT teaching reform projects, and contributed to Erasmus+ and Beijing Municipal Education Commission projects.",
+      "educationProjectsLead": "I lead a Beijing Higher Education Association general project, a key international education teaching reform project, and Ministry of Education and BUCT teaching reform projects, and have contributed to Erasmus+ and Beijing Municipal Education Commission projects.",
       "educationProjectsGroup": "Filter projects by type",
       "educationProjectsReform": "Teaching reform",
       "educationProjectFramework": "View research framework",
@@ -1178,7 +1204,8 @@ window.CV_CONTENT = {
       "courseProjectsTitle": "Curriculum Development Projects",
       "courseTeachingTitle": "Course Teaching",
       "courseResourcesTitle": "Smart Course and Practical Resources",
-      "courseTextbookTitle": "Textbook Development"
+      "courseTextbookTitle": "Textbook Development",
+      "projectNumber": "Project number"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -1252,6 +1279,31 @@ window.CV_CONTENT = {
         "totalFunding": 1,
         "personalFunding": 1,
         "shortName": "E/V/T cognitive repair"
+      },
+      {
+        "id": "beijing-digital-textbook",
+        "group": "reform",
+        "title": "Design and Evaluation of Digital Textbook Task Units for Programming Courses in the Context of Generative AI",
+        "source": "Beijing Higher Education Association · General project (no funding awarded)",
+        "number": "MS2026266",
+        "period": "From 2026.11 · 2-year research period",
+        "durationMonths": 24,
+        "role": "Principal investigator",
+        "totalFunding": 0,
+        "personalFunding": 0,
+        "shortName": "Digital textbook tasks"
+      },
+      {
+        "id": "buct-international-key",
+        "group": "reform",
+        "title": "Research and Practice on Digitally Enhanced Teaching Models for English-Medium Courses",
+        "source": "BUCT School of International Education · Key teaching reform project",
+        "number": "GJXY202606",
+        "period": "2026.07–2028.06",
+        "role": "Principal investigator",
+        "totalFunding": 2,
+        "personalFunding": 2,
+        "shortName": "English-medium teaching"
       }
     ],
     "courseProjects": [
