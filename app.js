@@ -423,6 +423,7 @@ try{preferred=localStorage.getItem('jiang-cv-language')||'zh';}catch{}
 const queryLanguage=new URL(window.location.href).searchParams.get('lang');
 setLanguage(content[queryLanguage]?queryLanguage:content[preferred]?preferred:'zh',false);
 if(window.location.hash==='#other-publications')openPublications();
+if(window.location.hash==='#textbooks')selectResource('courses');
 
 function renderHeroEducationFunding(){
  const items=data().teachingProjects.map(resolveTeachingProject);

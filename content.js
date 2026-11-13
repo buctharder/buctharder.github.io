@@ -318,7 +318,7 @@ window.CV_CONTENT = {
       "2025": {
         "title": "参与教材编写与修订",
         "period": "2025",
-        "body": "担任《大学计算机实验指导（第5版）》副主编，并参编《大学计算机（第5版）》，两书均由清华大学出版社于2025年出版。",
+        "body": "担任《大学计算机实验指导（第5版）》副主编，清华大学出版社于2025年出版。",
         "label": "careerTeaching"
       },
       "2026": {
@@ -543,11 +543,10 @@ window.CV_CONTENT = {
       "projectNumber": "项目编号",
       "courseProjectDetails": "课程建设明细",
       "textbooksTitle": "教材编写与出版",
-      "textbooksLead": "大学计算机系列教材 · 清华大学出版社",
+      "textbooksLead": "清华大学出版社",
       "textbookPublisher": "清华大学出版社 · 2025年出版",
       "textbookSource": "出版社图书详情",
-      "labBookCaption": "《大学计算机实验指导（第5版）》封面",
-      "computingBookCaption": "《大学计算机（第5版）》封面"
+      "labBookCaption": "《大学计算机实验指导（第5版）》封面"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -730,18 +729,8 @@ window.CV_CONTENT = {
         "captionKey": "labBookCaption",
         "isbn": "9787302702870",
         "url": "https://www.tup.com.cn/booksCenter/book_10651001.html",
-        "description": "配套实验教材，涵盖计算机基础、办公软件应用与程序设计实践。",
+        "description": "“十二五”普通高等教育本科国家级规划教材、北京高等教育精品教材、北京市精品课程主讲教材",
         "role": "副主编"
-      },
-      {
-        "id": "university-computing",
-        "title": "大学计算机（第5版）",
-        "image": "assets/textbook-computing-5th.jpg",
-        "captionKey": "computingBookCaption",
-        "isbn": "9787302702863",
-        "url": "https://www.tup.com.cn/booksCenter/book_10650801.html",
-        "description": "面向大学计算机通识教育，涵盖计算思维、计算机系统与数据应用。",
-        "role": "参编"
       }
     ]
   },
@@ -1063,7 +1052,7 @@ window.CV_CONTENT = {
       "2025": {
         "title": "Textbook Authorship and Revision",
         "period": "2025",
-        "body": "Served as associate editor of University Computing Laboratory Guide (5th edition) and as a contributing author of University Computing (5th edition), both published by Tsinghua University Press in 2025.",
+        "body": "Served as associate editor of University Computing Laboratory Guide (5th edition), published by Tsinghua University Press in 2025.",
         "label": "careerTeaching"
       },
       "2026": {
@@ -1288,11 +1277,10 @@ window.CV_CONTENT = {
       "projectNumber": "Project number",
       "courseProjectDetails": "Individual Course Projects",
       "textbooksTitle": "Textbook Authorship and Publication",
-      "textbooksLead": "University Computing Series · Tsinghua University Press",
+      "textbooksLead": "Tsinghua University Press",
       "textbookPublisher": "Tsinghua University Press · Published 2025",
       "textbookSource": "Publisher details",
-      "labBookCaption": "Cover of University Computing Laboratory Guide (5th edition)",
-      "computingBookCaption": "Cover of University Computing (5th edition)"
+      "labBookCaption": "Cover of University Computing Laboratory Guide (5th edition)"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -1475,18 +1463,8 @@ window.CV_CONTENT = {
         "captionKey": "labBookCaption",
         "isbn": "9787302702870",
         "url": "https://www.tup.com.cn/booksCenter/book_10651001.html",
-        "description": "A companion laboratory textbook covering computing fundamentals, office applications and programming practice.",
+        "description": "Nationally planned undergraduate textbook under the 12th Five-Year Plan; Beijing Higher Education Quality Textbook; core textbook for a Beijing Quality Course.",
         "role": "Associate editor"
-      },
-      {
-        "id": "university-computing",
-        "title": "University Computing (5th edition)",
-        "image": "assets/textbook-computing-5th.jpg",
-        "captionKey": "computingBookCaption",
-        "isbn": "9787302702863",
-        "url": "https://www.tup.com.cn/booksCenter/book_10650801.html",
-        "description": "An introductory computing textbook covering computational thinking, computer systems and data applications.",
-        "role": "Contributing author"
       }
     ]
   }
