@@ -155,7 +155,7 @@ function selectTeachingProject(id) {
   const item=resolveTeachingProject(project);
   state.teachingProject=id;
   all('[data-teaching-project-id]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.teachingProjectId===id)));
-  $('education-project-detail').innerHTML=`<span class="detail-no">${esc(t(item.group==='reform'?'educationProjectsReform':'educationProjectsResearch'))}</span><h4>${esc(item.title)}</h4><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(item.source)}</dd></div>${item.number?`<div><dt>${esc(t('projectNumber'))}</dt><dd>${esc(item.number)}</dd></div>`:''}<div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(item.period)}</dd></div><div><dt>${esc(t('educationProjectRole'))}</dt><dd>${esc(item.role)}</dd></div></dl><div class="education-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-education-total>${item.totalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-education-personal>${item.personalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div></div>${Number.isInteger(item.researchProjectIndex)?`<button type="button" class="grant-link" data-teaching-framework>${esc(t('educationProjectFramework'))} ↗</button>`:''}`;
+  $('education-project-detail').innerHTML=`<span class="detail-no">${esc(t(item.group==='reform'?'educationProjectsReform':'educationProjectsResearch'))}</span><h4>${esc(item.title)}</h4><dl><div><dt>${esc(t('projectSource'))}</dt><dd>${esc(item.source)}</dd></div>${item.number?`<div><dt>${esc(t('projectNumber'))}</dt><dd>${esc(item.number)}</dd></div>`:''}<div><dt>${esc(t('projectPeriod'))}</dt><dd>${esc(item.period)}</dd></div><div><dt>${esc(t('educationProjectRole'))}</dt><dd>${esc(item.role)}</dd></div></dl><div class="education-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-education-total>${item.totalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-education-personal>${item.personalFunding.toFixed(2)}</strong><small>${esc(t('fundUnit'))}</small></div></div>${renderCourseProjectDetails(item.items)}${Number.isInteger(item.researchProjectIndex)?`<button type="button" class="grant-link" data-teaching-framework>${esc(t('educationProjectFramework'))} ↗</button>`:''}`;
 }
 
 function renderTeachingProjects(group=state.teachingProjectGroup) {
@@ -179,12 +179,9 @@ function renderTeachingProjects(group=state.teachingProjectGroup) {
   selectTeachingProject(visible.some(item=>item.id===state.teachingProject)?state.teachingProject:visible[0].id);
 }
 
-function renderCourseProjects() {
-  const projects=data().courseProjects;
-  $('course-project-list').innerHTML=projects.map(item=>`<article class="course-project-card" data-course-project-id="${esc(item.id)}"><div><h4>${esc(item.title)}</h4><div class="course-project-meta"><span>${esc(item.source)}</span><span>${esc(item.period)}</span><span class="course-role">${esc(item.role)}</span></div></div><div class="course-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-course-total>${item.totalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-course-personal>${item.personalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div></div></article>`).join('');
-  $('course-project-count').textContent=projects.length+t('projectCount');
-  $('course-project-total').textContent=projects.reduce((sum,item)=>sum+item.totalFunding,0).toFixed(2);
-  $('course-project-personal').textContent=projects.reduce((sum,item)=>sum+item.personalFunding,0).toFixed(2);
+function renderCourseProjectDetails(items) {
+  if (!items?.length) return '';
+  return `<section class="education-project-breakdown"><h5>${esc(t('courseProjectDetails'))}</h5><div class="course-project-list">${items.map(item=>`<article class="course-project-card" data-course-project-id="${esc(item.id)}"><div><h6>${esc(item.title)}</h6><div class="course-project-meta"><span>${esc(item.period)}</span><span class="course-role">${esc(item.role)}</span></div></div><div class="course-project-money"><div><span>${esc(t('educationProjectTotal'))}</span><strong data-course-total>${item.totalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div><div><span>${esc(t('educationProjectPersonal'))}</span><strong data-course-personal>${item.personalFunding.toFixed(2)}<small>${esc(t('fundUnit'))}</small></strong></div></div></article>`).join('')}</div></section>`;
 }
 
 function publicationMeta(paper, compact=false) {
@@ -331,7 +328,7 @@ function setLanguage(lang,remember=true) {
   all('[data-publication-count]').forEach(el=>{el.textContent=publications.length;});
   all('[data-education-count]').forEach(el=>{el.textContent=educationPublicationCount;});
   syncBio();
-  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderCourseProjects();renderHeroEducationFunding();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
+  selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderHeroEducationFunding();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
   if(detailDialog.open&&state.modal){const modal=state.modal;modal.type==='work'?openWork(modal.id):openImage(modal);}
   if(remember){
     try{localStorage.setItem('jiang-cv-language',lang);}catch{}
@@ -418,7 +415,7 @@ setLanguage(content[queryLanguage]?queryLanguage:content[preferred]?preferred:'z
 if(window.location.hash==='#other-publications')openPublications();
 
 function renderHeroEducationFunding(){
- const items=[...data().teachingProjects,...data().courseProjects];
+ const items=data().teachingProjects.map(resolveTeachingProject);
  const unique=[...new Map(items.map(item=>[item.id,item])).values()];
  $('hero-education-total').textContent=unique.reduce((sum,item)=>sum+item.totalFunding,0).toFixed(2).replace(/\.00$/,'');
  $('hero-education-personal').textContent=unique.reduce((sum,item)=>sum+item.personalFunding,0).toFixed(2);

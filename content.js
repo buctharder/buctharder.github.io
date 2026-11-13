@@ -515,7 +515,7 @@ window.CV_CONTENT = {
       "yearLabel": "年",
       "viewResearch": "研究介绍",
       "educationProjectsTitle": "教学改革与教育研究项目",
-      "educationProjectsLead": "主持北京市高等教育学会面上课题、国际教育重点教改、教育部产学合作协同育人及校级教改项目，参与欧盟Erasmus+及北京市教委教学改革项目。",
+      "educationProjectsLead": "主持北京市高等教育学会面上课题、国际教育重点教改、教育部产学合作协同育人及校级教改项目，参与欧盟Erasmus+及北京市教委教学改革项目。课程建设3项合并列示。",
       "educationProjectsGroup": "按项目类型筛选",
       "educationProjectsReform": "教学改革",
       "educationProjectFramework": "查看研究框架",
@@ -534,7 +534,8 @@ window.CV_CONTENT = {
       "courseTeachingTitle": "课程教学",
       "courseResourcesTitle": "智慧课程与实践资源",
       "courseTextbookTitle": "教材建设",
-      "projectNumber": "项目编号"
+      "projectNumber": "项目编号",
+      "courseProjectDetails": "课程建设明细"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -633,41 +634,52 @@ window.CV_CONTENT = {
         "totalFunding": 2,
         "personalFunding": 2,
         "shortName": "全英文数智化教学"
-      }
-    ],
-    "courseProjects": [
-      {
-        "id": "mobile-first-class",
-        "group": "courses",
-        "title": "《移动互联网技术》一流本科生课程建设",
-        "source": "北京化工大学",
-        "period": "2020.12—2021.12",
-        "role": "主持",
-        "totalFunding": 1,
-        "personalFunding": 1,
-        "shortName": "移动互联网一流课"
       },
       {
-        "id": "ds-values",
-        "group": "courses",
-        "title": "《数据结构》课程思政示范课建设",
+        "id": "buct-course-development",
+        "group": "reform",
+        "title": "课程建设项目（3项合并）",
         "source": "北京化工大学",
-        "period": "2021.01—2022.01",
-        "role": "主持",
-        "totalFunding": 1,
-        "personalFunding": 1,
-        "shortName": "数据结构课程思政"
-      },
-      {
-        "id": "ds-first-class",
-        "group": "courses",
-        "title": "《数据结构》一流本科生课程建设",
-        "source": "北京化工大学",
-        "period": "2020.12—2021.12",
-        "role": "参与（第3）",
-        "totalFunding": 1,
-        "personalFunding": 0.1,
-        "shortName": "数据结构一流课"
+        "period": "2020.12—2022.01",
+        "role": "主持2项、参与1项（第3）",
+        "totalFunding": 3,
+        "personalFunding": 2.1,
+        "shortName": "课程建设（3项）",
+        "items": [
+          {
+            "id": "mobile-first-class",
+            "group": "courses",
+            "title": "《移动互联网技术》一流本科生课程建设",
+            "source": "北京化工大学",
+            "period": "2020.12—2021.12",
+            "role": "主持",
+            "totalFunding": 1,
+            "personalFunding": 1,
+            "shortName": "移动互联网一流课"
+          },
+          {
+            "id": "ds-values",
+            "group": "courses",
+            "title": "《数据结构》课程思政示范课建设",
+            "source": "北京化工大学",
+            "period": "2021.01—2022.01",
+            "role": "主持",
+            "totalFunding": 1,
+            "personalFunding": 1,
+            "shortName": "数据结构课程思政"
+          },
+          {
+            "id": "ds-first-class",
+            "group": "courses",
+            "title": "《数据结构》一流本科生课程建设",
+            "source": "北京化工大学",
+            "period": "2020.12—2021.12",
+            "role": "参与（第3）",
+            "totalFunding": 1,
+            "personalFunding": 0.1,
+            "shortName": "数据结构一流课"
+          }
+        ]
       }
     ]
   },
@@ -1186,7 +1198,7 @@ window.CV_CONTENT = {
       "yearLabel": "",
       "viewResearch": "Research details",
       "educationProjectsTitle": "Teaching Reform and Educational Research Projects",
-      "educationProjectsLead": "I lead a Beijing Higher Education Association general project, a key international education teaching reform project, and Ministry of Education and BUCT teaching reform projects, and have contributed to Erasmus+ and Beijing Municipal Education Commission projects.",
+      "educationProjectsLead": "I lead a Beijing Higher Education Association general project, a key international education teaching reform project, and Ministry of Education and BUCT teaching reform projects, and have contributed to Erasmus+ and Beijing Municipal Education Commission projects. Three curriculum development projects are listed together as one entry.",
       "educationProjectsGroup": "Filter projects by type",
       "educationProjectsReform": "Teaching reform",
       "educationProjectFramework": "View research framework",
@@ -1205,7 +1217,8 @@ window.CV_CONTENT = {
       "courseTeachingTitle": "Course Teaching",
       "courseResourcesTitle": "Smart Course and Practical Resources",
       "courseTextbookTitle": "Textbook Development",
-      "projectNumber": "Project number"
+      "projectNumber": "Project number",
+      "courseProjectDetails": "Individual Course Projects"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -1304,41 +1317,52 @@ window.CV_CONTENT = {
         "totalFunding": 2,
         "personalFunding": 2,
         "shortName": "English-medium teaching"
-      }
-    ],
-    "courseProjects": [
-      {
-        "id": "mobile-first-class",
-        "group": "courses",
-        "title": "First-Class Undergraduate Course Development: Mobile Internet Technology",
-        "source": "Beijing University of Chemical Technology",
-        "period": "2020.12–2021.12",
-        "role": "Principal investigator",
-        "totalFunding": 1,
-        "personalFunding": 1,
-        "shortName": "Mobile Internet course"
       },
       {
-        "id": "ds-values",
-        "group": "courses",
-        "title": "Model Course for Curriculum-Based Values Education: Data Structures",
+        "id": "buct-course-development",
+        "group": "reform",
+        "title": "Curriculum Development (3 Projects Combined)",
         "source": "Beijing University of Chemical Technology",
-        "period": "2021.01–2022.01",
-        "role": "Principal investigator",
-        "totalFunding": 1,
-        "personalFunding": 1,
-        "shortName": "Values in Data Structures"
-      },
-      {
-        "id": "ds-first-class",
-        "group": "courses",
-        "title": "First-Class Undergraduate Course Development: Data Structures",
-        "source": "Beijing University of Chemical Technology",
-        "period": "2020.12–2021.12",
-        "role": "Participant (3rd)",
-        "totalFunding": 1,
-        "personalFunding": 0.1,
-        "shortName": "Data Structures course"
+        "period": "2020.12–2022.01",
+        "role": "Principal investigator on 2 projects; participant (3rd) on 1",
+        "totalFunding": 3,
+        "personalFunding": 2.1,
+        "shortName": "Course development (3)",
+        "items": [
+          {
+            "id": "mobile-first-class",
+            "group": "courses",
+            "title": "First-Class Undergraduate Course Development: Mobile Internet Technology",
+            "source": "Beijing University of Chemical Technology",
+            "period": "2020.12–2021.12",
+            "role": "Principal investigator",
+            "totalFunding": 1,
+            "personalFunding": 1,
+            "shortName": "Mobile Internet course"
+          },
+          {
+            "id": "ds-values",
+            "group": "courses",
+            "title": "Model Course for Curriculum-Based Values Education: Data Structures",
+            "source": "Beijing University of Chemical Technology",
+            "period": "2021.01–2022.01",
+            "role": "Principal investigator",
+            "totalFunding": 1,
+            "personalFunding": 1,
+            "shortName": "Values in Data Structures"
+          },
+          {
+            "id": "ds-first-class",
+            "group": "courses",
+            "title": "First-Class Undergraduate Course Development: Data Structures",
+            "source": "Beijing University of Chemical Technology",
+            "period": "2020.12–2021.12",
+            "role": "Participant (3rd)",
+            "totalFunding": 1,
+            "personalFunding": 0.1,
+            "shortName": "Data Structures course"
+          }
+        ]
       }
     ]
   }
