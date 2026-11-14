@@ -345,7 +345,7 @@ window.CV_CONTENT = {
       "intro": "围绕图学习、大模型与智能体、多模态感知开展研究，主持北京市自然科学基金、国家重点实验室自主科研基金及委托课题10余项，以第一作者或通讯作者发表论文10余篇。教育研究以多层异质图关联知识、行为与认知，关注学习真实性诊断、认知修复与课堂干预。",
       "researchAction": "研究方向",
       "worksAction": "代表成果",
-      "teachingHonor": "北京化工大学教学名师奖、青年教学名师",
+      "teachingHonor": "北京化工大学教学名师、青年教学名师",
       "service": "中国指挥与控制学会具身智能专委会常务委员",
       "yearsUnit": "年",
       "yearsMetric": "教学与科研工作 · 2012年起",
@@ -416,7 +416,7 @@ window.CV_CONTENT = {
       "contactTitle": "学术交流与合作",
       "schoolLink": "学院个人主页",
       "footerName": "江志英 · 科研与教学",
-      "updated": "更新于2026年11月13日",
+      "updated": "更新于2026年11月14日",
       "top": "返回顶部",
       "title": "江志英 · 科研与教学",
       "description": "江志英，北京化工大学副教授、硕士生导师。研究图学习、大模型与智能体、多模态感知与具身智能，并将科研方法用于教育人工智能研究。",
@@ -546,7 +546,8 @@ window.CV_CONTENT = {
       "textbooksLead": "清华大学出版社",
       "textbookPublisher": "清华大学出版社 · 2025年出版",
       "textbookSource": "出版社图书详情",
-      "labBookCaption": "《大学计算机实验指导（第5版）》封面"
+      "labBookCaption": "《大学计算机实验指导（第5版）》封面",
+      "correspondingAuthor": "通讯作者"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -1092,7 +1093,7 @@ window.CV_CONTENT = {
       "academicServiceLabel": "Professional service",
       "readMore": "Read more",
       "readLess": "Show less",
-      "teachingHonor": "BUCT Distinguished Teacher Award and Young Distinguished Teacher",
+      "teachingHonor": "BUCT Distinguished Teacher and Young Distinguished Teacher",
       "service": "Standing Committee Member<br>Embodied Intelligence Committee<br>Chinese Institute of Command and Control",
       "yearsUnit": "years",
       "yearsMetric": "Teaching and research at BUCT since 2012",
@@ -1170,7 +1171,7 @@ window.CV_CONTENT = {
       "contactTitle": "Academic Exchange and Collaboration",
       "schoolLink": "University profile",
       "footerName": "Zhiying Jiang · Research & Teaching",
-      "updated": "Updated 13 November 2026",
+      "updated": "Updated 14 November 2026",
       "top": "Back to top",
       "close": "Close details",
       "closeLibrary": "Close publication list",
@@ -1280,7 +1281,8 @@ window.CV_CONTENT = {
       "textbooksLead": "Tsinghua University Press",
       "textbookPublisher": "Tsinghua University Press · Published 2025",
       "textbookSource": "Publisher details",
-      "labBookCaption": "Cover of University Computing Laboratory Guide (5th edition)"
+      "labBookCaption": "Cover of University Computing Laboratory Guide (5th edition)",
+      "correspondingAuthor": "Corresponding author"
     },
     "featuredWorkIds": [
       "rtgcn",
@@ -1515,6 +1517,23 @@ window.CV_PUBLICATIONS = [
     "citation": "江志英, 刘晔宁, 谷伟伟. 新工科视域下认知结构断裂的修复机理与实践分析——以《数据结构》课程为例[J]. 北京化工大学学报（社会科学版）（已录用）.",
     "doi": "",
     "titleEn": "Mechanisms and Practice of Cognitive-Structure Repair in Data Structures"
+  },
+  {
+    "id": "rose2026",
+    "year": 2026,
+    "category": "research",
+    "status": "accepted",
+    "roleKey": "correspondingAuthor",
+    "citation": "ZHANG Y, WU S, SUN J, SHEN T, JIANG Z. Robust Scenario Engineering for Trustworthy Visual Perception in Long-Tail Scenarios[J]. The International Journal of Intelligent Control and Systems, 2026. Accepted.",
+    "doi": ""
+  },
+  {
+    "id": "public-signs2026",
+    "year": 2026,
+    "category": "research",
+    "status": "accepted",
+    "citation": "GU W W, OUYANG C, GU W Y, CHEN L, JIANG Z. Retrieval-Augmented and Constrained Generation for Translating Chinese Public Signs into English[C]//2026 6th International Conference on Computer and Communication Engineering (CCCE 2026). Milan, Italy, 2026. Accepted for publication and oral presentation.",
+    "doi": ""
   },
   {
     "id": "corea",
