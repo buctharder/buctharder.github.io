@@ -9,7 +9,7 @@ const all = (selector, root = document) => [...root.querySelectorAll(selector)];
 const data = () => content[state.lang];
 const t = key => data().ui[key].replaceAll('{publications}', String(publications.length)).replaceAll('{education}', String(educationPublicationCount));
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const markName = value => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang\b|江志英/g, name => '<strong>' + name + '</strong>');
+const markName = (value, corresponding=false) => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang\b|江志英/g, name => '<strong>' + name + (corresponding?`<sup class="corresponding-star" aria-label="${esc(t('correspondingAuthor'))}">*</sup>`:'') + '</strong>');
 const workById = id => data().works.find(work => work.id === id);
 const citationLanguage = value => /[\u4e00-\u9fff]/.test(value) ? 'zh-CN' : 'en';
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -196,12 +196,12 @@ function renderTextbooks() {
 
 function publicationMeta(paper, compact=false) {
   const category = t(paper.category==='education'?'publicationsEducation':'publicationsResearch');
-  return `<div class="publication-meta"><span>${esc(paper.yearLabel||paper.year)}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${paper.roleKey?`<span class="publication-role">${esc(t(paper.roleKey))}</span>`:''}${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}${paper.workId&&!compact?`<button type="button" data-work="${esc(paper.workId)}">${esc(t('viewResearch'))} ↗</button>`:''}</div>`;
+  return `<div class="publication-meta"><span>${esc(paper.yearLabel||paper.year)}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${paper.roleKey?`<strong class="publication-role"><span aria-hidden="true">*</span> ${esc(t(paper.roleKey))}</strong>`:''}${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}${paper.workId&&!compact?`<button type="button" data-work="${esc(paper.workId)}">${esc(t('viewResearch'))} ↗</button>`:''}</div>`;
 }
 
 function publicationItem(paper) {
   const heading = state.lang==='en' && paper.titleEn ? `<p class="publication-title-en">${esc(paper.titleEn)}</p>` : '';
-  return `<li data-publication-id="${esc(paper.id)}">${heading}<p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation)}</p>${publicationMeta(paper)}</li>`;
+  return `<li data-publication-id="${esc(paper.id)}">${heading}<p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation,paper.roleKey==='correspondingAuthor')}</p>${publicationMeta(paper)}</li>`;
 }
 
 function renderPublications() {

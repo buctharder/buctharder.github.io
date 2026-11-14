@@ -1483,13 +1483,15 @@ window.CV_PUBLICATIONS = [
     "id": "sensors",
     "workId": "sensors",
     "year": 2026,
-    "category": "research"
+    "category": "research",
+    "roleKey": "correspondingAuthor"
   },
   {
     "id": "crossray",
     "workId": "crossray",
     "year": 2026,
-    "category": "research"
+    "category": "research",
+    "roleKey": "correspondingAuthor"
   },
   {
     "id": "event-augmentation2026",
@@ -1533,13 +1535,15 @@ window.CV_PUBLICATIONS = [
     "category": "research",
     "status": "accepted",
     "citation": "GU W W, OUYANG C, GU W Y, CHEN L, JIANG Z. Retrieval-Augmented and Constrained Generation for Translating Chinese Public Signs into English[C]//2026 6th International Conference on Computer and Communication Engineering (CCCE 2026). Milan, Italy, 2026. Accepted for publication and oral presentation.",
-    "doi": ""
+    "doi": "",
+    "roleKey": "correspondingAuthor"
   },
   {
     "id": "corea",
     "workId": "corea",
     "year": 2025,
-    "category": "research"
+    "category": "research",
+    "roleKey": "correspondingAuthor"
   },
   {
     "id": "food2025",
