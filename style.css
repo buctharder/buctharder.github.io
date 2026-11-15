@@ -243,8 +243,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .summary-copy small{display:block;max-width:860px;font-size:.76rem;color:var(--muted);line-height:1.9;margin-top:6px}
 .summary-end{display:flex;align-items:center;gap:22px;flex:none;color:var(--teal);font-size:.75rem;white-space:nowrap}
 .summary-end b{font-size:1.25rem;font-weight:500;font-variant-numeric:tabular-nums}
-.summary-toggle{display:grid;place-items:center;width:33px;height:33px;border:1px solid #c2d1cc;border-radius:50%;font-size:1.25rem;font-weight:400;transition:transform .18s}
-.education-projects[open] .summary-toggle{transform:rotate(45deg)}
+.summary-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:33px;padding:5px 10px;border:1px solid #c2d1cc;border-radius:5px;font-size:.72rem;font-weight:400}
+.summary-collapse{display:none}
+.education-projects[open] .summary-expand{display:none}
+.education-projects[open] .summary-collapse{display:inline}
+.summary-chevron{flex:none;transition:transform .18s}
+.education-projects[open] .summary-chevron{transform:rotate(180deg)}
 .education-projects[open] .education-projects-heading{border-bottom:1px solid var(--line)}
 .education-project-body{padding:24px 26px 26px;background:#fbfcfa;border-radius:0 0 9px 9px}
 .education-project-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
@@ -409,9 +413,9 @@ html:has(dialog[open]){overflow:hidden}
 .library-header h2{font:550 1.9rem/1.6 var(--serif);margin:4px 0 8px}
 .library-header p:not(.eyebrow){font-size:.79rem;line-height:1.85;color:var(--muted)}
 .library-header-tools{display:flex;align-items:center;gap:13px;flex:none}
-.library-stats{display:flex;gap:14px;margin-top:20px}
+.library-stats{display:flex;flex-wrap:wrap;gap:14px;margin-top:20px}
 .library-stats>span{display:inline-flex;align-items:baseline;gap:8px;background:var(--surface);border-radius:5px;padding:5px 12px;font-size:.68rem;color:var(--muted)}
-.library-stats>span:last-child{background:#f6edf0;color:#7d465d}
+.library-stats>span:nth-child(2){background:#f6edf0;color:#7d465d}
 .library-stats b{font-size:1.03rem;font-weight:550;font-variant-numeric:tabular-nums;color:var(--navy)}
 .library-search-row{display:grid;grid-template-columns:minmax(0,1fr) 145px 145px;gap:17px;margin-top:21px}
 .library-search-row label{min-width:0}
@@ -635,7 +639,7 @@ html[lang=en] .timeline-detail h3{font-size:1.1rem}
   .summary-copy small{font-size:.71rem;line-height:1.85;margin-top:7px}
   .summary-end{gap:9px;flex-direction:column-reverse;align-items:center;font-size:.64rem}
   .summary-end b{font-size:1rem}
-  .summary-toggle{width:29px;height:29px;font-size:1.1rem}
+  .summary-toggle{min-height:31px;padding:4px 7px;font-size:.64rem;gap:5px}
   .education-project-body{padding:20px 17px}
   .education-project-controls{gap:6px;margin-bottom:20px}
   .education-project-controls>button{gap:7px;font-size:.68rem;padding:6px 8px}

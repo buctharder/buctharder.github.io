@@ -2,14 +2,17 @@
 
 const content = window.CV_CONTENT;
 const publications = window.CV_PUBLICATIONS;
+const patents = window.CV_PATENTS;
+const libraryEntries = [...publications, ...patents].sort((a,b)=>b.year-a.year);
 const educationPublicationCount = publications.filter(paper => paper.category === 'education').length;
 const state = {lang:'zh', area:'network', work:'rtgcn', filter:'all', project:0, teaching:'chl', teachingProjectGroup:'all', teachingProject:'erasmus-git', resource:'papers', year:'2012', publicationFilter:'all', publicationYear:'all', publicationStatus:'all', bioExpanded:false, search:'', expanded:new Set(), modal:null};
 const $ = id => document.getElementById(id);
 const all = (selector, root = document) => [...root.querySelectorAll(selector)];
 const data = () => content[state.lang];
-const t = key => data().ui[key].replaceAll('{publications}', String(publications.length)).replaceAll('{education}', String(educationPublicationCount));
+const t = key => data().ui[key].replaceAll('{publications}', String(publications.length)).replaceAll('{patents}', String(patents.length)).replaceAll('{education}', String(educationPublicationCount));
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const markName = (value, corresponding=false) => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang\b|江志英/g, name => '<strong>' + name + (corresponding?`<sup class="corresponding-star" aria-label="${esc(t('correspondingAuthor'))}">*</sup>`:'') + '</strong>');
+const markName = (value, corresponding=false, roleKey='correspondingAuthor') => esc(value).replace(/\bJIANG Z(?: Y)?\b|\bZhiying Jiang\b|江志英/g, name => '<strong>' + name + (corresponding?`<sup class="corresponding-star" aria-label="${esc(t(roleKey))}">*</sup>`:'') + '</strong>');
+const isCorresponding = paper => paper.roleKey==='correspondingAuthor';
 const workById = id => data().works.find(work => work.id === id);
 const citationLanguage = value => /[\u4e00-\u9fff]/.test(value) ? 'zh-CN' : 'en';
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -34,9 +37,9 @@ function imageViewport(src, caption, loading='lazy') {
 }
 
 function resolvePublication(paper) {
-  if (!paper.workId) return paper;
+  if (!paper.workId) return {...paper,citation:state.lang==='en'&&paper.citationEn?paper.citationEn:paper.citation};
   const work = workById(paper.workId);
-  return {...paper, name:work.name, citation:work.citation, doi:work.doi, status:work.statusClass==='accepted'?'accepted':'published', yearLabel:work.year};
+  return {...paper, name:work.name, citation:work.citation, doi:work.doi, status:paper.status||(work.statusClass==='accepted'?'accepted':'published'), yearLabel:work.year};
 }
 
 function selectArea(id) {
@@ -195,19 +198,19 @@ function renderTextbooks() {
 }
 
 function publicationMeta(paper, compact=false) {
-  const category = t(paper.category==='education'?'publicationsEducation':'publicationsResearch');
-  return `<div class="publication-meta"><span>${esc(paper.yearLabel||paper.year)}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${paper.roleKey?`<strong class="publication-role"><span aria-hidden="true">*</span> ${esc(t(paper.roleKey))}</strong>`:''}${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}${paper.workId&&!compact?`<button type="button" data-work="${esc(paper.workId)}">${esc(t('viewResearch'))} ↗</button>`:''}</div>`;
+  const category = t(paper.category==='patent'?'publicationsPatents':paper.category==='education'?'publicationsEducation':'publicationsResearch');
+  return `<div class="publication-meta"><span>${esc(paper.yearLabel||paper.year)}</span><span class="status ${paper.status==='accepted'?'accepted':''}">${esc(t(paper.status))}</span>${paper.roleKey?`<strong class="publication-role">${isCorresponding(paper)?'<span aria-hidden="true">*</span> ':''}${esc(t(paper.roleKey))}</strong>`:''}${compact?'':`<span>${esc(category)}</span>`}${paper.doi?`<a href="https://doi.org/${esc(paper.doi)}" target="_blank" rel="noopener">DOI: ${esc(paper.doi)}</a>`:''}${paper.workId&&!compact?`<button type="button" data-work="${esc(paper.workId)}">${esc(t('viewResearch'))} ↗</button>`:''}</div>`;
 }
 
 function publicationItem(paper) {
   const heading = state.lang==='en' && paper.titleEn ? `<p class="publication-title-en">${esc(paper.titleEn)}</p>` : '';
-  return `<li data-publication-id="${esc(paper.id)}">${heading}<p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation,paper.roleKey==='correspondingAuthor')}</p>${publicationMeta(paper)}</li>`;
+  return `<li data-publication-id="${esc(paper.id)}">${heading}<p class="publication-citation" lang="${citationLanguage(paper.citation)}">${markName(paper.citation,isCorresponding(paper),paper.roleKey)}</p>${publicationMeta(paper)}</li>`;
 }
 
 function renderPublications() {
   const query = state.search.trim().toLocaleLowerCase();
   const terms = query.split(/\s+/).filter(Boolean);
-  const visible = publications.map(resolvePublication).filter(paper=>{
+  const visible = libraryEntries.map(resolvePublication).filter(paper=>{
     const text=[paper.name,paper.citation,paper.titleEn,paper.doi].filter(Boolean).join(' ').toLocaleLowerCase();
     return (state.publicationFilter==='all'||paper.category===state.publicationFilter) && (state.publicationYear==='all'||String(paper.year)===state.publicationYear) && (state.publicationStatus==='all'||paper.status===state.publicationStatus) && terms.every(term=>text.includes(term));
   });
@@ -217,6 +220,7 @@ function renderPublications() {
   const resolved=publications.map(resolvePublication);
   all('[data-library-published]').forEach(el=>el.textContent=resolved.filter(paper=>paper.status==='published').length);
   all('[data-library-accepted]').forEach(el=>el.textContent=resolved.filter(paper=>paper.status==='accepted').length);
+  all('[data-library-patents]').forEach(el=>el.textContent=patents.length);
   all('[data-publication-filter]').forEach(button=>{const active=button.dataset.publicationFilter===state.publicationFilter;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
 }
 
@@ -336,6 +340,7 @@ function setLanguage(lang,remember=true) {
   all('[data-i18n-placeholder]').forEach(el=>el.setAttribute('placeholder',t(el.dataset.i18nPlaceholder)));
   all('[data-lang]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.lang===lang)));
   all('[data-publication-count]').forEach(el=>{el.textContent=publications.length;});
+  all('[data-result-count]').forEach(el=>{el.textContent=libraryEntries.length;});
   all('[data-education-count]').forEach(el=>{el.textContent=educationPublicationCount;});
   syncBio();
   selectArea(state.area);renderWorkSelectors();renderProjects(state.filter);selectTeaching(state.teaching);renderTeachingProjects();renderHeroEducationFunding();renderTextbooks();selectResource(state.resource);renderEducationPublications();renderCareerYears();renderPublications();
@@ -396,7 +401,7 @@ document.addEventListener('keydown',event=>{
 $('publication-search').addEventListener('input',event=>{state.search=event.target.value;renderPublications();});
 $('publication-year').addEventListener('change',event=>{state.publicationYear=event.target.value;renderPublications();});
 $('publication-status').addEventListener('change',event=>{state.publicationStatus=event.target.value;renderPublications();});
-const years=[...new Set(publications.map(paper=>paper.year))].sort((a,b)=>b-a);
+const years=[...new Set(libraryEntries.map(paper=>paper.year))].sort((a,b)=>b-a);
 $('publication-year').insertAdjacentHTML('beforeend',years.map(year=>`<option value="${year}">${year}</option>`).join(''));
 all('.chart-axis').forEach(axis=>{const ticks=all('span',axis);ticks.forEach((tick,index)=>tick.style.setProperty('--tick',(index/(ticks.length-1)*100)+'%'));});
 
